@@ -88,14 +88,21 @@ body {
 
 
 .icon {
-  color: black;
+  color: #181818;
 }
 .arrow {
-  color: green;
+  color: #118a00;
 
 }
 .iconn {
-  color: white;
+  color: #fff;
+}
+
+input[type=radio]{
+  display:none;
+}
+.star {
+  cursor: pointer;
 }
 @layer base {
   * {

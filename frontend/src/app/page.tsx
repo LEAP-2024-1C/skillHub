@@ -1,7 +1,8 @@
-import  Main  from "./home/page";
+import AdsDetail from "./ad-section/ad-detail";
+
 
 export default function Home() {
     return (
-        <div><Main/></div>
+        <div><AdsDetail/></div>
     )
 }

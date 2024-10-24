@@ -8,7 +8,7 @@ import { Twitter } from "lucide-react";
 
 export const Footer = () => {
     return (
-        <footer className="bg-black text-white h-1/6">
+        <footer className="bg-[#181818] text-[#fff] h-1/6">
             <div className="flex justify-evenly py-10">
                 <ul>
                     <p className="pb-2">For Clients</p>
@@ -36,7 +36,7 @@ export const Footer = () => {
                 </ul>
             </div>
             <div className="flex justify-between mx-40 pb-10">
-        <div className="text-[14px] text-white flex items-center">
+        <div className="text-[14px] text-[#fff] flex items-center">
           <Copyright className="cart" size={15} />
           <p className="text-[15px]">2024 SkillHub MN</p>
         </div>

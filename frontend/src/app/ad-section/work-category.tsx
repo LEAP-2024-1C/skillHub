@@ -77,9 +77,9 @@ export const category = [
         className="flex flex-col gap-5"
         >  <DropdownMenu>
         <DropdownMenuTrigger className="flex flex-col gap-5">
- <Button variant="outline" className="rounded-2xl ml-5 hover:bg-green-600 hover:text-white shadow-md hover::shadow-xl" >Салбар</Button>
+ <Button variant="outline" className="rounded-2xl ml-5 hover:bg-green-600 hover:text-white shadow-md hover::shadow-xl " >Салбар</Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56">
+        <DropdownMenuContent className="w-56 mr-[310px] -mt-10">
                     <DropdownMenuSeparator />
                     {categories?.map((cat) =>
                         <DropdownMenuCheckboxItem
@@ -96,7 +96,7 @@ export const category = [
         <DropdownMenuTrigger className="flex flex-col gap-5">
  <Button variant="outline" className="rounded-2xl ml-5 hover:bg-green-600 hover:text-white shadow-md hover::shadow-xl" >Байршил</Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56">
+        <DropdownMenuContent className="w-56 mr-[310px] -mt-10">
                     <DropdownMenuSeparator />
                     {category?.map((cat) =>
                         <DropdownMenuCheckboxItem
