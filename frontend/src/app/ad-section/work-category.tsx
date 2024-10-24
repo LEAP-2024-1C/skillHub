@@ -17,66 +17,98 @@ type Checked = DropdownMenuCheckboxItemProps["checked"]
 
 export const categories = [
     {
-        category: "Салбар",
-        type:"Мэдээллийн технологи",
+        category: "Мэдээллийн технологи",
     },
     {
-        category: "Ажлын байрны түвшин",
+        category: "Автомашин, засвар үйлчилгээ",
         
     }, {
-        category: "Цалин",
+        category: "Аялал жуулчлал",
         
     }, {
-        category:"Байршил",
+        category:"Банк санхүү, эдийн засаг, даатгал",
     }, {
-        category:"Нийтлэгдсэн хугацаа",
+        category:"Барилга, инженеринг",
+    },{
+        category:"Бизнес менежмент",
+    },{
+        category:"Боловсрол, нийгмийн ухаан",
+    },{
+        category:"Дизайн",
+    },{
+        category:"Маркетинг, PR",
+    },{
+        category:"Спорт, гоо сайхан",
+    },{
+        category:"Уул уурхай, үйлдвэрлэл",
     },
+
 ]
 
 export const category = [
     {
-        category: "Салбар",
-        type:"Мэдээллийн технологи",
+        category: "Баянзүрх",
     },
     {
-        category: "Ажлын байрны түвшин",
+        category: "Баянгол",
         
     }, {
-        category: "Цалин",
+        category: "Хан-Уул",
         
     }, {
-        category:"Байршил",
+        category:"Чингэлтэй",
     },
      {
-        category:"Нас",
+        category:"Налайх",
     },
     {
-        category:"Туршлага",
+        category:"Сүхбаатар",
     },
     {
-        category:"Нийтлэгдсэн хугацаа",
+        category:"Сонгинохайрхан",
     },
 ]
  export const JobCategory = () => {
     const [showStatusBar, setShowStatusBar] = React.useState<Checked>(false)
-    return (<div className="my-5">
+    return (<div className="flex  my-5">
         <motion.div animate={{
          x: [0, 10, 0, 10],
-        }}>  <DropdownMenu>
-        <DropdownMenuTrigger >
-            {categories?.map((cat) => <Button variant="outline" className="rounded-2xl ml-5 hover:bg-indigo-600 hover:text-white shadow-md hover::shadow-xl" >{ cat.category}</Button>)}
+        }}
+        className="flex flex-col gap-5"
+        >  <DropdownMenu>
+        <DropdownMenuTrigger className="flex flex-col gap-5">
+ <Button variant="outline" className="rounded-2xl ml-5 hover:bg-green-600 hover:text-white shadow-md hover::shadow-xl" >Салбар</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
-          <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem
-            checked={showStatusBar}
-            onCheckedChange={setShowStatusBar}
-          >
-   
-          </DropdownMenuCheckboxItem>
-                      
-        </DropdownMenuContent>
-        </DropdownMenu></motion.div>
+                    <DropdownMenuSeparator />
+                    {categories?.map((cat) =>
+                        <DropdownMenuCheckboxItem
+                            checked={showStatusBar}
+                            onCheckedChange={setShowStatusBar}
+                        >
+                            <span>{ cat.category}</span>
+                        </DropdownMenuCheckboxItem>
+                    )}
+            </DropdownMenuContent>
+            </DropdownMenu>
+        
+            <DropdownMenu>
+        <DropdownMenuTrigger className="flex flex-col gap-5">
+ <Button variant="outline" className="rounded-2xl ml-5 hover:bg-green-600 hover:text-white shadow-md hover::shadow-xl" >Байршил</Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56">
+                    <DropdownMenuSeparator />
+                    {category?.map((cat) =>
+                        <DropdownMenuCheckboxItem
+                            checked={showStatusBar}
+                            onCheckedChange={setShowStatusBar}
+                        >
+                            <span>{ cat.category}</span>
+                        </DropdownMenuCheckboxItem>
+                    )}
+            </DropdownMenuContent>
+        </DropdownMenu>
+        </motion.div>
        
     </div>)
 }
@@ -87,9 +119,10 @@ export const CoWorker = () => {
         <div className="my-5">
         <motion.div animate={{
          x: [0, 10, 0, 10],
-        }}>  <DropdownMenu>
-        <DropdownMenuTrigger >
-            {category?.map((cat) => <Button variant="outline" className="rounded-2xl ml-5 hover:bg-indigo-600 hover:text-white shadow-md hover::shadow-xl" >{ cat.category}</Button>)}
+            }}
+            className="flex flex-col gap-5">  <DropdownMenu>
+        <DropdownMenuTrigger className="flex flex-col gap-5">
+            {category?.map((cat) => <Button variant="outline" className="rounded-2xl ml-5 hover:bg-green-600 hover:text-white shadow-md hover::shadow-xl" >{ cat.category}</Button>)}
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuSeparator />
