@@ -6,7 +6,7 @@ export const Header = () => {
   return (
     <header className="flex justify-between px-10 h-16 items-center bg-[#181818] text-sm text-[#181818 ]">
       <div className="flex gap-4 items-center">
-        <Link href={"/home"}>
+        <Link href={"/"}>
           <img
             src="https://i.ibb.co/S6MwM9z/Logo-white-nobg.png"
             alt="logo"
@@ -66,12 +66,12 @@ export const Header = () => {
       <div className="flex gap-3">
         <Button className="bg-[#118a00] text-white rounded-2xl w-[120px] hover:bg-white hover:text-[#118a00] shadow-xl border-none">
           <Link href="/login">
-            <p className="font-semibold">Нэвтрэх</p>
+            <p className="">Нэвтрэх</p>
           </Link>
         </Button>
         <Button className="bg-white text-[#118a00] rounded-2xl w-[120px] hover:bg-[#118a00] hover:text-white shadow-xl border-none">
           <Link href="/login">
-            <p className="font-semibold">Бүртгүүлэх</p>
+            <p className="">Бүртгүүлэх</p>
           </Link>
         </Button>
       </div>
