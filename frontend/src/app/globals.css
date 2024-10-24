@@ -90,3 +90,18 @@ body {
 .icon {
   color: black;
 }
+.arrow {
+  color: green;
+
+}
+.iconn {
+  color: white;
+}
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
