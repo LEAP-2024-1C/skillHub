@@ -1,52 +1,46 @@
-import { Mail } from "lucide-react";
-import { Copyright } from "lucide-react";
-import { Facebook } from "lucide-react";
-import { Instagram } from "lucide-react";
-import { Linkedin } from "lucide-react";
-import { Phone } from "lucide-react";
-import { Twitter } from "lucide-react";
+import { MailIcon, PhoneCall } from "lucide-react";
+import Link from "next/link";
 
 export const Footer = () => {
-    return (
-        <footer className="bg-[#181818] text-[#fff] h-1/6">
-            <div className="flex justify-evenly py-10">
-                <ul>
-                    <p className="pb-2">For Clients</p>
-                    <li>How to hire</li>
-                    <li>Talent Marketplace</li>
-                    <li>Project Catalog</li>
-                    <li>Hire an agency</li>
-                    <li>Enterprise</li>
-                </ul>
-                <ul>
-                    <p className="pb-2">For Talent</p>
-                    <li>How to hire</li>
-                    <li>Talent Marketplace</li>
-                    <li>Project Catalog</li>
-                    <li>Hire an agency</li>
-                    <li>Enterprise</li>
-                </ul>
-                <ul>
-                    <p className="pb-2">Resources</p>
-                    <li>Help & Supports</li>
-                    <li>Success stories</li>
-                    <li>SkillHub reviews</li>
-                    <li>Blog </li>
-                    <li>Community</li>
-                </ul>
-            </div>
-            <div className="flex justify-between mx-40 pb-10">
-        <div className="text-[14px] text-[#fff] flex items-center">
-          <Copyright className="cart" size={15} />
-          <p className="text-[15px]">2024 SkillHub MN</p>
-        </div>
+  return (
+    <footer className="bg-[#181818] text-white text-sm px-32 py-20">
+      <div className="flex justify-between mb-8 items-center">
         <div className="flex gap-5">
-          <Facebook className="iconn" />
-          <Instagram className="iconn" />
-          <Linkedin className="iconn" />
-          <Twitter className="iconn" />
+          <Link href={"/about-us"} className="hover:text-[#118a00]">
+            Бидний тухай
+          </Link>
+          <Link href={"/term-of-service"} className="hover:text-[#118a00]">
+            Үйлчилгээний нөхцөл
+          </Link>
+          <Link href={"/contact"} className="hover:text-[#118a00]">
+            Холбоо барих
+          </Link>
+          <Link href={"/comment-us"} className="hover:text-[#118a00]">
+            Санал хүсэлт
+          </Link>
+        </div>
+        <div className="flex gap-5 items-center">
+          <div className="flex gap-2">
+            <PhoneCall size={14} />
+            <p className="hover:text-[#118a00]">99991111</p>
+          </div>
+          <div className="flex gap-2 items-center">
+            <MailIcon size={14} />
+            <p className="hover:text-[#118a00]">info@skillhub.mn</p>
+          </div>
         </div>
       </div>
-        </footer>
-    )
-}
+      <div className="flex justify-between pt-8 border-t-[1px] border-[#118a00] items-center">
+        <div className="flex items-center gap-5">
+          <img
+            src="https://i.ibb.co/S6MwM9z/Logo-white-nobg.png"
+            alt="logo"
+            className="h-6"
+          />
+          <p className="">© 2024 - 2024 SkillHub®</p>
+        </div>
+        <p className="italic mr-[400px] ">Ур чадварыг уургалъя эдр хаха...</p>
+      </div>
+    </footer>
+  );
+};
