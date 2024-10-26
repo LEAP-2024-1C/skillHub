@@ -50,9 +50,12 @@ const Login = () => {
         {" "}
         <div className="flex flex-col items-center justify-center gap-6 w-[334px]">
           <h3 className="text-2xl font-semibold flex flex-col items-center ">
-            Нэвтрэх <br />
-            <div> ажил горилогч</div>
+            Нэвтрэх
           </h3>
+          <div className="flex gap-4">
+            <h5 className="text-[#118a00] underline">Хувь хүн</h5>|
+            <h5 className="text-[#71717A]">Компани</h5>
+          </div>
           <div className="flex flex-col w-full gap-4">
             <Input
               placeholder="Имэйл хаяг"
@@ -91,7 +94,7 @@ const Login = () => {
               Нэвтрэх
             </Button>
             <Link href="/forgetpass/email" className="m-auto w-1/2">
-              <Button className="w-full m-auto bg-inherit border-none text-sm text-[#71717A] underline-offset-2">
+              <Button className="w-full m-auto bg-inherit border-none text-sm text-[#71717A] rounded-2xl shadow-none">
                 Нууц үг мартсан
               </Button>
             </Link>

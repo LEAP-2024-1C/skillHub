@@ -121,7 +121,7 @@ const Signup = () => {
         <h3 className="text-2xl font-semibold">Бүртгүүлэх</h3>
         <div className="flex gap-4">
           <h5 className="text-[#118a00] underline">Компани</h5>|
-          <h6 className="text-[#71717A]">Хувь хүн</h6>
+          <h5 className="text-[#71717A]">Хувь хүн</h5>
         </div>
         <div className="flex flex-col w-full gap-4">
           <Input

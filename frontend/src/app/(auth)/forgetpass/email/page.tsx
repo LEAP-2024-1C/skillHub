@@ -88,8 +88,8 @@ const Email = () => {
   }, [countDown]);
 
   return (
-    <div className="h-[calc(100vh-363px)] flex flex-col items-center  max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-sm ">
-      <div className="w-[320px] mt-24">
+    <div className="h-[calc(100vh-363px)] flex flex-col items-center  max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-sm justify-center">
+      <div className="w-[320px] ">
         {step === 1 && (
           <>
             {loading ? (
@@ -97,7 +97,7 @@ const Email = () => {
                 <MoonLoader color={"#000000"} loading={loading} size={100} />
               </div>
             ) : (
-              <>
+              <div className="s">
                 <h1 className="text-2xl font-semibold mb-8 text-center">
                   Нууц үг сэргээх
                 </h1>
@@ -112,7 +112,7 @@ const Email = () => {
                     Илгээх
                   </Button>
                 </div>
-              </>
+              </div>
             )}
           </>
         )}

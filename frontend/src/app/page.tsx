@@ -3,6 +3,7 @@ import { RiPushpinLine } from "react-icons/ri";
 import { RiShieldStarLine } from "react-icons/ri";
 import { IoBriefcaseOutline } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -29,9 +30,11 @@ export default function Home() {
             Хуучин дүрмийг март. Та хамгийн <br />
             сайн хүмүүстэй байж болно. Зөв одоо. Яг энд.
           </div>
-          <button className="btn  w-36 h-12 bg-[#118a00] text-white">
-            Эхлэх
-          </button>
+          <Link href={"/login"}>
+            <button className="btn  w-36 h-12 bg-[#118a00] text-white">
+              Эхлэх
+            </button>
+          </Link>
         </div>
         <img
           className="h-96"
@@ -124,9 +127,11 @@ export default function Home() {
           </div>
           {/* button  */}
           <div className="flex gap-4">
-            <button className="btn bg-[#118a00] text-white w-48 h-12">
-              Үнэгүй бүртгүүлнэ үү
-            </button>
+            <Link href={"/login"}>
+              <button className="btn bg-[#118a00] text-white w-48 h-12">
+                Үнэгүй бүртгүүлнэ үү
+              </button>
+            </Link>
             {/* <button className="btn bg-[#118a00] text-white w-36 h-12">
               Ажилд авахдаа халуун сур
             </button> */}
@@ -138,11 +143,11 @@ export default function Home() {
         <div className="font-black text-3xl text-[#118a00]">
           Шилдэг ур чадварын ангилалууд
         </div>
-        <div className="mt-1 text-slate-400">
-          Ажил хайж байна уу?{" "}
-          <a href="" className="underlined">
-            Ажил хайх
-          </a>
+        <div className="flex mt-1 text-slate-400 gap-2">
+          <div className=" ">Ажил хайж байна уу? </div>
+          <Link href={"/login"}>
+            <p className="underline hover:text-[#118a00]">Ажил хайх</p>
+          </Link>
         </div>
         {/* boxes */}
         <div className="grid grid-cols-4 gap-8 mt-10 ">
@@ -373,9 +378,11 @@ export default function Home() {
 
         {/* button slide gargadag  */}
         <div className="w-full flex justify-center">
-          <button className="btn bg-[#118a00] text-white w-48 mt-10 text-sm rounded-2xl">
-            Бусад ажил харах
-          </button>
+          <Link href={"/login"}>
+            <button className="btn bg-[#118a00] text-white w-48 mt-10 text-sm rounded-2xl">
+              Бусад ажил харах
+            </button>
+          </Link>
         </div>
       </div>
     </section>

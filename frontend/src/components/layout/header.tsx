@@ -15,13 +15,17 @@ export const Header = () => {
         </Link>
         <Link href={"/ad-section"}>
           <h1 className="flex items-center gap-2 text-white hover:text-[#118a00]">
-            <p className="font-normal">Ажил хайх</p>
-            <IoIosArrowDown size={12} className="icon" color="white" />
+            <p className="font-normal">Ажлууд</p>
+            <IoIosArrowDown
+              size={12}
+              className="icon hover:display-hidden "
+              color="white"
+            />
           </h1>
         </Link>
         <Link href={"/skill-list"}>
           <h1 className="flex items-center gap-2 text-white hover:text-[#118a00]">
-            <p className="font-normal">Ажилтан хайх</p>
+            <p className="font-normal">Ажилтнууд</p>
             <IoIosArrowDown size={12} className="icon" color="white" />
           </h1>
         </Link>
@@ -66,12 +70,12 @@ export const Header = () => {
       <div className="flex gap-3">
         <Button className="bg-[#118a00] text-white rounded-2xl w-[120px] hover:bg-white hover:text-[#118a00] shadow-xl border-none">
           <Link href="/login">
-            <p className="">Нэвтрэх</p>
+            <p className="">Ажил хайх</p>
           </Link>
         </Button>
         <Button className="bg-white text-[#118a00] rounded-2xl w-[120px] hover:bg-[#118a00] hover:text-white shadow-xl border-none">
           <Link href="/login">
-            <p className="">Бүртгүүлэх</p>
+            <p className="">Ажилтан хайх</p>
           </Link>
         </Button>
       </div>
