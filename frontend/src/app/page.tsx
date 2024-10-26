@@ -23,12 +23,13 @@ export default function Home() {
       <div className="flex mx-auto auto justify-between items-center border-b-[1px] border-[#118a00] py-32">
         <div className="w-1/2 flex flex-col justify-center items-center text-center gap-5">
           <div className="font-black text-3xl ">
-            ХЭРХЭН АЖИЛЛАХ ВЭ? <br />
-            АЖИЛЛАХ ЁСТОЙ
+            ХЭРХЭН АЖИЛЛАХ
+            <br />
+            ЁСТОЙ ВЭ?
           </div>
           <div className="my-3 text-slate-400">
             Хуучин дүрмийг март. Та хамгийн <br />
-            сайн хүмүүстэй байж болно. Зөв одоо. Яг энд.
+            сайн хүмүүстэй хамтран ажилла. Яг одоо. Яг энд.
           </div>
           <Link href={"/login"}>
             <button className="btn  w-36 h-12 bg-[#118a00] text-white">
@@ -67,19 +68,19 @@ export default function Home() {
         <div className="flex justify-around mt-10">
           <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
             <p className="text-3xl font-semibold">23</p>
-            <p className="text-[#118a00] italic">Категори</p>
+            <p className="text-[#118a00]">Категори</p>
           </div>
           <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
             <p className="text-3xl font-semibold">52</p>
-            <p className="text-[#118a00] italic">Ур чадвар</p>
+            <p className="text-[#118a00]">Ур чадвар</p>
           </div>
           <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
             <p className="text-3xl font-semibold">32</p>
-            <p className="text-[#118a00] italic">Нээлттэй ажлын зар</p>
+            <p className="text-[#118a00]">Нээлттэй ажлын зар</p>
           </div>
           <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
             <p className="text-3xl font-semibold">86</p>
-            <p className="text-[#118a00] italic">Ажил горилогч</p>
+            <p className="text-[#118a00]">Ажил горилогч</p>
           </div>
         </div>
         <div className="mt-10 text-right text-[#118a00] text-3xl ">
@@ -249,7 +250,7 @@ export default function Home() {
         </div>
         {/* recent job box start */}
         <div className="flex flex-wrap mt-10 text-sm justify-between">
-          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] p-5 justify-between gap-5 hover:border hover:border-[#118a00]">
+          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] px-10 py-5 justify-between gap-5 hover:border hover:border-[#118a00]">
             <div className="flex flex-col gap-3 w-full ">
               <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
               <div className="flex">
@@ -274,7 +275,7 @@ export default function Home() {
             </div>
             <IoBriefcaseOutline size={20} color="green" />
           </div>
-          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] p-5 justify-between gap-5 hover:border hover:border-[#118a00]">
+          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] px-10 py-5 justify-between gap-5 hover:border hover:border-[#118a00]">
             <div className="flex flex-col gap-3 w-full ">
               <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
               <div className="flex">
@@ -299,7 +300,7 @@ export default function Home() {
             </div>
             <IoBriefcaseOutline size={20} color="green" />
           </div>
-          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] p-5 justify-between gap-5 hover:border hover:border-[#118a00]">
+          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] px-10 py-5 justify-between gap-5 hover:border hover:border-[#118a00]">
             <div className="flex flex-col gap-3 w-full ">
               <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
               <div className="flex">
@@ -324,7 +325,7 @@ export default function Home() {
             </div>
             <IoBriefcaseOutline size={20} color="green" />
           </div>
-          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] p-5 justify-between gap-5 hover:border hover:border-[#118a00]">
+          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] px-10 py-5 justify-between gap-5 hover:border hover:border-[#118a00]">
             <div className="flex flex-col gap-3 w-full ">
               <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
               <div className="flex">
@@ -349,7 +350,7 @@ export default function Home() {
             </div>
             <IoBriefcaseOutline size={20} color="green" />
           </div>
-          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] p-5 justify-between gap-5 hover:border hover:border-[#118a00]">
+          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] px-10 py-5 justify-between gap-5 hover:border hover:border-[#118a00]">
             <div className="flex flex-col gap-3 w-full ">
               <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
               <div className="flex">
