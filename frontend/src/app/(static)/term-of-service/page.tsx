@@ -3,13 +3,13 @@ const termOfService = () => {
     <section className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] py-20 flex items-center gap-[58.5px] justify-center text-[#1818189f]">
       <div className="flex flex-col gap-5 w-[800px]">
         <h1 className="text-[#118a00] text-2xl mb-5">Үйлчилгээний нөхцөл</h1>
-        <p className="">
+        <p className="indent-10">
           Skillhub.mn нь танд дараах нөхцөлийн дагуу үйлчлэх бөгөөд
           Skillhub.mn-ээр үйлчлүүлэгчид энэхүү үйлчилгээний нөхцөлийг баримтлан
           үйлчлүүлнэ.
         </p>
         <h3 className="text-[#181818] font-semibold">Бүртгэлийн зарчим</h3>
-        <p>
+        <p className="indent-10">
           Хэрэглэгч нь Skillhub.mn-ийн үйлчилгээг хэрэглэхээр бүртгүүлэхдээ
           Skillhub.mn бүртгэлийн хуудсанд өөрийн тухай үнэн зөв мэдээллийг
           оруулж өгч тэдгээрийн өөрчлөлтийг цаг тухай бүрд нь хийж байх
@@ -35,7 +35,7 @@ const termOfService = () => {
         <h3 className="text-[#181818] font-semibold">
           Хэрэглэгчийн хариуцлага
         </h3>
-        <p>
+        <p className="indent-10">
           Хэрэглэгчийн өөрийн бичсэн бичлэг, зурвас, танилцуулга, үйлчилгээ
           ажлын байр зэрэг бүхий л хувийн болон олон нийтэд зориулсан мэдээ,
           текст, зураг, видео болон бусад зүйлс нь дан ганц тухайн хэрэглэгчийн
@@ -73,14 +73,14 @@ const termOfService = () => {
         <h3 className="text-[#181818] font-semibold">
           Үйлчилгээнд өөрчлөлт оруулах
         </h3>
-        <p>
+        <p className="indent-10">
           Skillhub.mn нь үзүүлж байгаа үйлчилгээгээ бүхлээр буюу хэсэгчлэн ямар
           нэг анхааруулгатай болон анхааруулгагүйгээр өөрчлөх эрхтэй!
         </p>
         <h3 className="text-[#181818] font-semibold">
           Skillhub.mn-ний өмчлөгчийн эрх
         </h3>
-        <p>
+        <p className="indent-10">
           Skillhub.mn веб сайтад нийтлэгдэж байгаа ажлын байрны зар нь
           Skillhub.mn-ийн өмч болно. Нийтлэгдсэн ажлын байрны зарыг
           зөвшөөрөлгүйгээр бусдад дамжуулах, хуулбарлан түгээхийг хориглоно.

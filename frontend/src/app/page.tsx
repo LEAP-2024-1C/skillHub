@@ -2,21 +2,25 @@ import { LuPenSquare } from "react-icons/lu";
 import { RiPushpinLine } from "react-icons/ri";
 import { RiShieldStarLine } from "react-icons/ri";
 import { IoBriefcaseOutline } from "react-icons/io5";
+import { IoIosArrowDown } from "react-icons/io";
 
 export default function Home() {
   return (
-    <section className="  max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] ">
-      <div className="flex gap-4 ">
-        <a href="">Хөгжүүлэгч ба IT</a>
-        <a href="">AI Servies</a>
-        <a href="">Дизайн ба Бүтээлч</a>
-        <a href="">Борлуулалт ба маркетинг</a>
-        <a href="">Админ ба хэрэглэгчийн дэмжлэг</a>
-        <a href="">Илүү</a>
+    <section className="  max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-[#181818] text-sm mt-10">
+      <div className="flex gap-5">
+        <a href="">Хөгжүүлэгч, IT</a>
+        <a href="">Санхүү</a>
+        <a href="">Дизайн</a>
+        <a href="">Борлуулалт, маркетинг</a>
+        <a href="">Гэр ахуй</a>
+        <div className="flex items-center gap-2">
+          <a href="">Бүгд</a>
+          <IoIosArrowDown size={12} className="icon" color="black" />
+        </div>
       </div>
       {/* homework ehlel */}
-      <div className="flex mx-auto mt auto justify-between mt-11 items-center">
-        <div className="">
+      <div className="flex mx-auto auto justify-between items-center border-b-[1px] border-[#118a00] py-32">
+        <div className="w-1/2 flex flex-col justify-center items-center text-center gap-5">
           <div className="font-black text-3xl ">
             ХЭРХЭН АЖИЛЛАХ ВЭ? <br />
             АЖИЛЛАХ ЁСТОЙ
@@ -31,12 +35,12 @@ export default function Home() {
         </div>
         <img
           className="h-96"
-          src="https://res.cloudinary.com/upwork-cloud-acquisition-prod/image/upload/c_scale,w_480,h_327,f_auto,q_auto,dpr_2.0/brontes/hero/searching-talent@1x.png"
-          alt=""
+          src="https://img.freepik.com/free-vector/happy-freelancer-with-computer-home-young-man-sitting-armchair-using-laptop-chatting-online-smiling-vector-illustration-distance-work-online-learning-freelance_74855-8401.jpg?t=st=1729919441~exp=1729923041~hmac=4ada854095b0a5fc83ceba585f40ba7f8a16a72c3990e9c3caa13d4360121ead&w=2000"
+          alt="photo"
         />
       </div>
       {/* home tugsgul */}
-      <div>
+      {/* <div>
         Итгэмжлэгдсэн
         <div className="flex gap-10">
           <img
@@ -52,133 +56,162 @@ export default function Home() {
             alt=""
           />
         </div>
+      </div> */}
+      <div className="border-b-[1px] border-[#118a00] py-32">
+        <h3 className="font-black text-3xl text-center">
+          Манай сайтад одоогоор ...
+        </h3>
+        <div className="flex justify-around mt-10">
+          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
+            <p className="text-3xl font-semibold">23</p>
+            <p className="text-[#118a00] italic">Категори</p>
+          </div>
+          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
+            <p className="text-3xl font-semibold">52</p>
+            <p className="text-[#118a00] italic">Ур чадвар</p>
+          </div>
+          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
+            <p className="text-3xl font-semibold">32</p>
+            <p className="text-[#118a00] italic">Ур чадвар</p>
+          </div>
+          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
+            <p className="text-3xl font-semibold">86</p>
+            <p className="text-[#118a00] italic">Ажил горилогч</p>
+          </div>
+        </div>
+        <div className="mt-10 text-right text-[#118a00] text-3xl ">
+          <p className="mr-20">... байна.</p>
+        </div>
       </div>
-      <div className="flex justify-between pt-10 mt-10">
+
+      <div className="flex justify-between  items-center border-b-[1px] border-[#118a00] py-32">
         <img
           src="https://www.upwork.com/static/ui-images/1.6.7/images/hiw-2.png"
           alt=""
         />
-        <div>
+        <div className="w-2/3 flex flex-col justify-center   gap-5">
           <div className="font-black text-black text-3xl">
-            Ажлын тоглоомоо дээшлүүлээрэй, энэ нь амархан
+            Цагийн ажлын зах зээлд тавтай морил. Энэ маш амархан.
           </div>
           <div className="flex gap-4 my-2">
             <LuPenSquare />
             <div>
-              <div>Нэгдэх зардал байхгүй</div>
+              <div>Бүртгүүлэхэд үнэгүй</div>
               <div className="text-slate-400">
-                Бүртгүүлэх, авъяас чадварын профайлыг үзэх, төслүүдийг судлах,
-                тэр ч байтугай зөвлөгөө захиалах.
+                Өөрийн ур чадваруудаа бүртгүүлэн хэрэглэгчийн профайл үүсгэнэ.
               </div>
             </div>
           </div>
           <div className="flex gap-4 my-2">
             <RiPushpinLine />
             <div>
-              <div>Ажлын байр зарлаж, шилдэг авьяастныг ажилд авна</div>
+              <div>Ажлын зар оруулан, хамгийн шилдгийг сонго</div>
               <div className="text-slate-400">
-                Авьяас чадварыг олох нь ажил биш байх ёстой. Ажлын байрыг
-                нийтэл, эс бөгөөс бид болно чамайг хай!
+                Ур чадварыг олох нь хэцүү биш байх ёстой. Ажлын зар оруулахад ур
+                чадварууд таныг олно.
               </div>
             </div>
           </div>
           <div className="flex gap-4 my-2">
             <RiShieldStarLine />
             <div>
-              <div>Шилдэг хүмүүстэй хамтран ажиллана уу</div>
-              <div>
-                Upwork нь таны ажлыг дээшлүүлж, давуу талыг ашиглах боломжтой
-                болгодог гүйлгээний хувь хэмжээ бага.
+              <div>Ур чадвараа харуул</div>
+              <div className="text-slate-400">
+                Ур чадвараа зөвхөн нэг компанид бус зах зээлд харуулан өөрийн
+                үнэ цэнийг бүтээ!
               </div>
             </div>
           </div>
           {/* button  */}
-          <div className="flex gap-4 mt-4">
-            <button className="btn bg-[#118a00] text-white w-36 h-12">
+          <div className="flex gap-4">
+            <button className="btn bg-[#118a00] text-white w-48 h-12">
               Үнэгүй бүртгүүлнэ үү
             </button>
-            <button className="btn bg-[#118a00] text-white w-36 h-12">
+            {/* <button className="btn bg-[#118a00] text-white w-36 h-12">
               Ажилд авахдаа халуун сур
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
       {/* browse ehlel */}
-      <div>
-        <div className="font-black text-xl bg-[#f9f9f9]  mt-16">
-          Авьяас чадварыг ангиллаар нь хар
+      <div className="py-32 border-b-[1px] border-[#118a00]">
+        <div className="font-black text-3xl text-[#118a00]">
+          Шилдэг ур чадварын ангилалууд
         </div>
-        <div>
-          ажил хайж байна уу? <a href="">Ажил хайх</a>
+        <div className="mt-1 text-slate-400">
+          Ажил хайж байна уу?{" "}
+          <a href="" className="underlined">
+            Ажил хайх
+          </a>
         </div>
         {/* boxes */}
-        <div className="grid grid-cols-4 gap-8 mt-11 ">
-          <div className="bg-[#f9f9f9]  rounded-2xl flex flex-col p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00] ">
-            <div className="font-black text-black text-xl bg-[#f9f9f9]  text-center">
-              Хөгжил ба IT
+        <div className="grid grid-cols-4 gap-8 mt-10 ">
+          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00] ">
+            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
+              Хөгжүүлэгч, IT
             </div>
             <div className="flex gap-4">
               <div>4.85/5</div>
               <div>1953 ур чадвар</div>
             </div>
           </div>
-          <div className="bg-[#f9f9f9]  rounded-2xl flex flex-col p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-xl bg-[#f9f9f9]  text-center">
-              AI services
+          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
+            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
+              Санхүү
             </div>
             <div className="flex gap-4">
               <div>4.85/5</div>
               <div>294 ур чадвар</div>
             </div>
           </div>
-          <div className="bg-[#f9f9f9]  rounded-2xl flex flex-col p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-xl bg-[#f9f9f9]  text-center">
-              Design & Creative
+          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
+            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
+              Дизайн
             </div>
             <div className="flex gap-4">
               <div>4.85/5</div>
               <div>984 ур чадвар</div>
             </div>
           </div>
-          <div className="bg-[#f9f9f9]  rounded-2xl flex flex-col p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-xl bg-[#f9f9f9]  text-center">
-              Sales & Markting
+          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
+            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
+              Борлуулалт маркетинг
             </div>
             <div className="flex gap-4">
               <div>4.85/5</div>
               <div>392 ур чадвар</div>
             </div>
           </div>
-          <div className="bg-[#f9f9f9]  rounded-2xl flex flex-col p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-xl bg-[#f9f9f9]  text-center">
-              Бичих & Орчуулах
+          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
+            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
+              Гэр ахуй
             </div>
             <div className="flex gap-4">
               <div>4.85/5</div>
               <div>505 ур чадвар</div>
             </div>
           </div>
-          <div className="bg-[#f9f9f9]  rounded-2xl flex flex-col p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-xl bg-[#f9f9f9]  text-center">
-              Админ хэрэглэгч
+          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
+            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
+              Ментор
             </div>
             <div className="flex gap-4">
               <div>4.85/5</div>
               <div>801 чадвар</div>
             </div>
           </div>
-          <div className="bg-[#f9f9f9]  rounded-2xl flex flex-col p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-xl bg-[#f9f9f9]  text-center">
-              Санхүү, нягтлан бодох бүртгэл
+          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
+            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
+              Сургалт
             </div>
             <div className="flex gap-4">
               <div>4.85/5</div>
               <div>101 чадвар</div>
             </div>
           </div>
-          <div className="bg-[#f9f9f9]  rounded-2xl flex flex-col p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-xl bg-[#f9f9f9]  text-center">
-              Инженер, Архитектур
+          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
+            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
+              Барилга
             </div>
             <div className="flex gap-4">
               <div>4.85/5</div>
@@ -187,166 +220,163 @@ export default function Home() {
           </div>
         </div>
         {/* recently post start */}
-        <div className="flex mt-11">Чөлөөт ажилтан болох</div>
-        <div className="font-black text-3xl mt-10">
-          Саяхан нийтэлсэн ажлын байрнууд
+      </div>
+      <div className="py-32 border-b-[1px] border-[#118a00]">
+        <div className="font-black text-3xl text-[#118a00] text-right">
+          Сүүлд нэмэгдсэн ажлын зарууд
         </div>
-        <div className="flex gap-4 mt-4 ">
-          <button className="border-2 border-black rounded-2xl px-3 py-1">
-            Хөгжүүлэгч ба IT
+        <div className="flex gap-4 mt-1 flex-row-reverse text-sm">
+          <button className=" border-[#118a00] rounded-2xl px-2 py-1 text-sm text-slate-400">
+            Хөгжүүлэгч, IT
           </button>
-          <button className="border-2 border-black rounded-2xl px-3 py-1">
-            AI Servies
+          <button className=" border-[#118a00] rounded-2xl px-2 py-1 text-sm text-slate-400">
+            Санхүү
           </button>
-          <button className="border-2 border-black rounded-2xl px-3 py-1">
-            Дизайн ба Бүтээлч
+          <button className=" border-[#118a00] rounded-2xl px-2 py-1 text-sm text-slate-400">
+            Дизайн
           </button>
-          <button className="border-2 border-black rounded-2xl px-3 py-1">
-            Борлуулалт ба маркетинг
+          <button className=" border-[#118a00] rounded-2xl px-2 py-1 text-sm text-slate-400">
+            Борлуулалт маркетинг
           </button>
-          <button className="border-2 border-black rounded-2xl px-3 py-1">
+          <button className=" border-[#118a00] rounded-2xl px-2 py-1 text-sm text-slate-400">
             Админ ба хэрэглэгчийн дэмжлэг
           </button>
         </div>
         {/* recent job box start */}
-        <div className="grid grid-cols-2 mt-5 ">
-          <div className="flex  border-2  w-[600px] my-8 rounded-xl bg-[#f9f9f9] p-4 justify-between">
-            <div>
-              <div className="font-black text-2xl">Photographer</div>
-              <div className="flex my-3">
-                Hourly Range Intermediate Est. 2000$
+        <div className="flex flex-wrap mt-10 text-sm justify-between">
+          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] p-5 justify-between gap-5 hover:border hover:border-[#118a00]">
+            <div className="flex flex-col gap-3 w-full ">
+              <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
+              <div className="flex">
+                Компанийн орлогын тайлан боловсруулж, шинжилгээ хийлгэнэ.
               </div>
+
               <div className="flex gap-4">
-                <button className="border-2 rounded-2xl px-3 py-1">
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
                   Product Photographer
-                </button>
-                <button className="border-2 rounded-2xl px-3 py-1">
+                </p>
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
                   Video Editing
-                </button>
-                <button className="border-2  rounded-2xl px-3 py-1">
+                </p>
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs  rounded-2xl px-3 py-1">
                   Videography
-                </button>
+                </p>
+              </div>
+              <div className="flex gap-5 ml-auto">
+                <p>Үнэлгээ: 100000</p>
+                <p>/цаг тутам/</p>
               </div>
             </div>
-            <IoBriefcaseOutline size={30} color="green" />
+            <IoBriefcaseOutline size={20} color="green" />
           </div>
-          <div className="flex  border-2  w-[600px] my-8 rounded-xl bg-[#f9f9f9] p-4 justify-between  ">
-            <div>
-              <div className="font-black text-2xl">Videographer</div>
-              <div className="flex my-3">
-                Hourly Range Intermediate Est. 1000$
+          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] p-5 justify-between gap-5 hover:border hover:border-[#118a00]">
+            <div className="flex flex-col gap-3 w-full ">
+              <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
+              <div className="flex">
+                Компанийн орлогын тайлан боловсруулж, шинжилгээ хийлгэнэ.
               </div>
+
               <div className="flex gap-4">
-                <button className="border-2 rounded-2xl px-3 py-1">
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
                   Product Photographer
-                </button>
-                <button className="border-2 rounded-2xl px-3 py-1">
+                </p>
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
                   Video Editing
-                </button>
-                <button className="border-2  rounded-2xl px-3 py-1">
+                </p>
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs  rounded-2xl px-3 py-1">
                   Videography
-                </button>
+                </p>
+              </div>
+              <div className="flex gap-5 ml-auto">
+                <p>Үнэлгээ: 100000</p>
+                <p>/цаг тутам/</p>
               </div>
             </div>
-            <IoBriefcaseOutline size={30} color="green" />
+            <IoBriefcaseOutline size={20} color="green" />
           </div>
-          <div className="flex  border-2  w-[600px] my-8 rounded-xl bg-[#f9f9f9] p-4 justify-between">
-            <div>
-              <div className="font-black text-2xl">
-                Videographer, Video Editor, Photographer
+          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] p-5 justify-between gap-5 hover:border hover:border-[#118a00]">
+            <div className="flex flex-col gap-3 w-full ">
+              <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
+              <div className="flex">
+                Компанийн орлогын тайлан боловсруулж, шинжилгээ хийлгэнэ.
               </div>
-              <div className="flex my-3">
-                Hourly Range Intermediate Est. 680$
-              </div>
+
               <div className="flex gap-4">
-                <button className="border-2 rounded-2xl px-3 py-1">
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
                   Product Photographer
-                </button>
-                <button className="border-2 rounded-2xl px-3 py-1">
+                </p>
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
                   Video Editing
-                </button>
-                <button className="border-2  rounded-2xl px-3 py-1">
+                </p>
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs  rounded-2xl px-3 py-1">
                   Videography
-                </button>
+                </p>
+              </div>
+              <div className="flex gap-5 ml-auto">
+                <p>Үнэлгээ: 100000</p>
+                <p>/цаг тутам/</p>
               </div>
             </div>
-            <IoBriefcaseOutline size={30} color="green" />
+            <IoBriefcaseOutline size={20} color="green" />
           </div>
-          <div className="flex  border-2  w-[600px] my-8 rounded-xl bg-[#f9f9f9] p-4 justify-between">
-            <div>
-              <div className="font-black text-2xl">
-                Videographer, Video Editor, Photographer
+          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] p-5 justify-between gap-5 hover:border hover:border-[#118a00]">
+            <div className="flex flex-col gap-3 w-full ">
+              <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
+              <div className="flex">
+                Компанийн орлогын тайлан боловсруулж, шинжилгээ хийлгэнэ.
               </div>
-              <div className="flex my-3">
-                Hourly Range Intermediate Est. 9000$
-              </div>
+
               <div className="flex gap-4">
-                <button className="border-2 rounded-2xl px-3 py-1">
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
                   Product Photographer
-                </button>
-                <button className="border-2 rounded-2xl px-3 py-1">
+                </p>
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
                   Video Editing
-                </button>
-                <button className="border-2  rounded-2xl px-3 py-1">
+                </p>
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs  rounded-2xl px-3 py-1">
                   Videography
-                </button>
+                </p>
+              </div>
+              <div className="flex gap-5 ml-auto">
+                <p>Үнэлгээ: 100000</p>
+                <p>/цаг тутам/</p>
               </div>
             </div>
-            <IoBriefcaseOutline size={30} color="green" />
+            <IoBriefcaseOutline size={20} color="green" />
           </div>
-          <div className="flex  border-2  w-[600px] my-8 rounded-xl bg-[#f9f9f9] p-4 justify-between">
-            <div>
-              <div className="font-black text-2xl">
-                Videographer, Video Editor, Photographer
+          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] p-5 justify-between gap-5 hover:border hover:border-[#118a00]">
+            <div className="flex flex-col gap-3 w-full ">
+              <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
+              <div className="flex">
+                Компанийн орлогын тайлан боловсруулж, шинжилгээ хийлгэнэ.
               </div>
-              <div className="flex my-3">
-                Hourly Range Intermediate Est. 1102$
-              </div>
+
               <div className="flex gap-4">
-                <button className="border-2 rounded-2xl px-3 py-1">
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
                   Product Photographer
-                </button>
-                <button className="border-2 rounded-2xl px-3 py-1">
+                </p>
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
                   Video Editing
-                </button>
-                <button className="border-2  rounded-2xl px-3 py-1">
+                </p>
+                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs  rounded-2xl px-3 py-1">
                   Videography
-                </button>
+                </p>
+              </div>
+              <div className="flex gap-5 ml-auto">
+                <p>Үнэлгээ: 100000</p>
+                <p>/цаг тутам/</p>
               </div>
             </div>
-            <IoBriefcaseOutline size={30} color="green" />
-          </div>
-          <div className="flex  border-2  w-[600px] my-8 rounded-xl bg-[#f9f9f9] p-4 justify-between">
-            <div>
-              <div className="font-black text-2xl">
-                Videographer, Video Editor, Photographer
-              </div>
-              <div className="flex my-3">
-                Hourly Range Intermediate Est. 9898$
-              </div>
-              <div className="flex gap-4">
-                <button className="border-2 rounded-2xl px-3 py-1">
-                  Product Photographer
-                </button>
-                <button className="border-2 rounded-2xl px-3 py-1">
-                  Video Editing
-                </button>
-                <button className="border-2  rounded-2xl px-3 py-1">
-                  Videography
-                </button>
-              </div>
-            </div>
-            <IoBriefcaseOutline
-              size={30}
-              color="green"
-              //   className="border rounded-full bg-green-500"
-            />
+            <IoBriefcaseOutline size={20} color="green" />
           </div>
         </div>
+
         {/* button slide gargadag  */}
-        <button className="btn bg-[#118a00] text-white w-36 h-12 ml-[40%]">
-          Бусад ажил харах
-        </button>
+        <div className="w-full flex justify-center">
+          <button className="btn bg-[#118a00] text-white w-48 mt-10 text-sm rounded-2xl">
+            Бусад ажил харах
+          </button>
+        </div>
       </div>
     </section>
   );

@@ -19,7 +19,7 @@ export const Header = () => {
             <IoIosArrowDown size={12} className="icon" color="white" />
           </h1>
         </Link>
-        <Link href={"/hirecoworker"}>
+        <Link href={"/skill-list"}>
           <h1 className="flex items-center gap-2 text-white hover:text-[#118a00]">
             <p className="font-normal">Ажилтан хайх</p>
             <IoIosArrowDown size={12} className="icon" color="white" />
