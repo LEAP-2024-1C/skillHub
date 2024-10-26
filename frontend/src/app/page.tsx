@@ -75,7 +75,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
             <p className="text-3xl font-semibold">32</p>
-            <p className="text-[#118a00] italic">Ур чадвар</p>
+            <p className="text-[#118a00] italic">Нээлттэй ажлын зар</p>
           </div>
           <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
             <p className="text-3xl font-semibold">86</p>
@@ -83,7 +83,7 @@ export default function Home() {
           </div>
         </div>
         <div className="mt-10 text-right text-[#118a00] text-3xl ">
-          <p className="mr-20">... байна.</p>
+          <p className="mr-60">... байна.</p>
         </div>
       </div>
 
