@@ -8,7 +8,7 @@ import Link from "next/link";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
+
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -17,86 +17,30 @@ import {
 import { Input } from "@/components/ui/input"
 
 
-const AdsDetail = () => {
+const AdDetail = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [subRating, setSubRating] = useState(0);
   const [subHover, setSubHover] = useState(0);
   return (
     <div className="flex flex-col gap-10 pt-10 pb-28 pl-10 ">
-      <div className="w-full">
-        <div className="max-lg:w-[700px] md:w-2/4 rounded-2xl bg-[#f9f9f9] m-auto py-5 px-10">
-          <div className="flex gap-5">
-          <img
-              src="https://images.unsplash.com/photo-1521566652839-697aa473761a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D"
-              alt=""
-              className="w-[40px] h-[40px] rounded-full"
-            />
-            
-            <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="w-full rounded-2xl bg-[#fff]"><input type="text" placeholder="Ажлын зар оруулах" className="bg-[#fff] rounded-2xl w-full px-5" /></Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Зар оруулах</DialogTitle>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="flex flex-col items-center gap-4">
-            <p className="w-full"><strong>Үйл ажиллагааны чиглэл</strong></p>
-            <Input
-              id="name"
-              defaultValue=""
-              className="col-span-3"
-            />
-          </div>
-          <div className="flex flex-col items-center gap-4">
-          <p className="w-full"><strong>Компанийн РД</strong></p>
-            <Input
-              id="register"
-              defaultValue=""
-              className="col-span-3"
-            />
-                  </div>
-                  <div className="flex flex-col items-center gap-4">
-          <p className="w-full"><strong>Компанийн нэр</strong></p>
-            <Input
-              id="name"
-              defaultValue=""
-              className="col-span-3"
-            />
-                  </div>
-                  <div className="flex flex-col items-center gap-4">
-          <p className="w-full"><strong>Зарын гарчиг</strong></p>
-            <Input
-              id="name"
-              defaultValue=""
-              className="col-span-3"
-            />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit" className="bg-[#118a00]">Нийтлэх</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-            </div>
-        </div>
-      </div>
       <div className="flex justify-evenly">
       <div className="flex flex-col gap-10">
-        <h1 className="text-[20px]">
+        <h1 className="">
           <strong>Ажил хайх</strong>
         </h1>
         <motion.div
           whileHover={{
             scale: 0.9,
           }}
-          className="w-[350px] h-[170px] max-w-md rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 items-start text-start py-2 pl-8 shadow-xl "
+          className="w-[350px] h-[170px] max-w-md rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-1 items-start text-start py-2 pl-8 shadow-xl "
         >
-          <h1>
-            <strong>Green LLC</strong>
-          </h1>
+          <div className="flex gap-3 items-center">  <img
+              src="https://images.unsplash.com/photo-1729273792109-b6665f9151a8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
+              alt=""
+              className="w-[40px] h-[40px] rounded-full"
+            />
+                            <h1><strong>Green LLC</strong></h1></div>
           <h1 className="text-[16px]">
             <strong> Тооцооны нягтлан бодогч</strong>
           </h1>
@@ -128,11 +72,14 @@ const AdsDetail = () => {
           whileHover={{
             scale: 0.9,
           }}
-          className="w-[350px] h-[170px] rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2  items-start text-start py-2 px-8 shadow-xl text-sm "
+          className="w-[350px] h-[170px] max-w-md rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-1 items-start text-start py-2 pl-8 shadow-xl "
         >
-          <h1>
-            <strong>Green LLC</strong>
-          </h1>
+          <div className="flex gap-3 items-center">  <img
+              src="https://images.unsplash.com/photo-1729273792109-b6665f9151a8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
+              alt=""
+              className="w-[40px] h-[40px] rounded-full"
+            />
+                            <h1><strong>Green LLC</strong></h1></div>
           <h1 className="text-[16px]">
             <strong> Тооцооны нягтлан бодогч</strong>
           </h1>
@@ -162,8 +109,9 @@ const AdsDetail = () => {
         </motion.div>
       </div>
       <div className="flex flex-col max-w-md gap-5 py-10 px-10 bg-[#f9f9f9] rounded-2xl">
-        <div className="flex items-center ">
-          <img
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+            <img
             src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt=""
             className="w-[85px] h-[85px] rounded-full"
@@ -198,7 +146,9 @@ const AdsDetail = () => {
                 );
               })}
             </div>
-          </div>
+            </div>
+            </div>
+            <p className="text-[#118a00]"><strong>Идэвхтэй</strong></p>
         </div>
         <div className="max-w-md max-lg:w-[700px] flex justify-between flex-wrap">
           <h1 className="text-[16px]">
@@ -226,16 +176,12 @@ const AdsDetail = () => {
             </li>
           </ul>
           <ul>
-            <strong>Цалин</strong>
-            <li>2,100,000₮ - 3,000,000₮</li>
+            <strong>Цалин эхлэх үнэлгээ</strong>
+            <li>2,100,000₮</li>
           </ul>
           <ul>
             <strong>Байршил</strong>
             <li>Улаанбаатар</li>
-          </ul>
-          <ul>
-            <strong>Нэмэлт мэдээлэл</strong>
-            <li>Гэр ойрхон бол давуу тал болно.</li>
           </ul>
           <Link href={"/ad-section"} className="text-[#118a00]">
             <strong>Ажил олгогчийн дэлгэрэнгүй мэдээлэл</strong>
@@ -243,11 +189,17 @@ const AdsDetail = () => {
         </div>
       </div>
       <div>
-        <h1 className="text-[20px]">
+        <h1 className="">
           <strong>Freelancers</strong>
         </h1>
-        <div className="w-[260px] h-[160px] rounded-3xl hover:border hover:border-[#118a00]  flex flex-col items-start text-start py-5 pl-5 shadow-xl text-sm gap-4">
-          <div className="flex items-center ">
+          <motion.div
+             whileHover={{
+              scale: 0.9,
+            }}
+            className="w-[260px] h-[160px] rounded-3xl hover:border hover:border-[#118a00]  flex flex-col items-start text-start py-5 pl-5 shadow-xl text-sm gap-4 mt-10">
+            <div
+               
+              className="flex items-center ">
             <img
               src="https://images.unsplash.com/photo-1521566652839-697aa473761a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D"
               alt=""
@@ -285,9 +237,11 @@ const AdsDetail = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-3">
-            {" "}
-            <h1 className="flex gap-2">
+            <div
+              className="flex flex-col gap-3"
+             >
+              
+                <h1 className="flex gap-2">
               <strong>Мэргэжил:</strong>{" "}
               <p className="text-[#181818]">
                 <strong>Machine Learning</strong>
@@ -300,14 +254,18 @@ const AdsDetail = () => {
             >
               <p className=" w-[120px] h-[30px] bg-[#118a00] rounded-2xl m-auto text-white py-1">
                 <strong>Дэлгэрэнгүй</strong>
-              </p>
-            </motion.button>
+                  </p>
+                </motion.button>
+         
+            {" "}
+         
+          
           </div>
-        </div>
+        </motion.div>
         </div>
         </div>
     </div>
   );
 };
 
-export default AdsDetail;
+export default AdDetail;

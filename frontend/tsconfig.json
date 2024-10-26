@@ -27,6 +27,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/not.tsx"
-  ],
+, "src/app/ad-detail"  ],
   "exclude": ["node_modules"]
 }
