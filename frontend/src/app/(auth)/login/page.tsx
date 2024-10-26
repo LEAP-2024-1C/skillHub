@@ -45,11 +45,14 @@ const Login = () => {
   };
 
   return (
-    <section className="h-screen flex items-center">
-      <div className="h-screen w-1/2 flex items-center justify-center duration-200 translate-x-2/4">
+    <section className=" flex items-center max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-sm ">
+      <div className="flex items-center justify-center m-auto">
         {" "}
         <div className="flex flex-col items-center justify-center gap-6 w-[334px]">
-          <h3 className="text-2xl font-semibold">Нэвтрэх</h3>
+          <h3 className="text-2xl font-semibold flex flex-col items-center ">
+            Нэвтрэх <br />
+            <div> ажил горилогч</div>
+          </h3>
           <div className="flex flex-col w-full gap-4">
             <Input
               placeholder="Имэйл хаяг"
@@ -82,7 +85,7 @@ const Login = () => {
               )}
             </div>
             <Button
-              className="w-full rounded-[18px] px-4 py-2 bg-[#2563EB] text-white"
+              className="w-full rounded-[18px] px-4 py-2 bg-[#118a00] text-white"
               onClick={login}
             >
               Нэвтрэх
@@ -93,18 +96,12 @@ const Login = () => {
               </Button>
             </Link>
             <Link href="/signup">
-              <Button className="w-full rounded-[18px] px-4 py-2 text-[#2563EB] bg-white border-[1px] border-[#2563EB]">
+              <Button className="w-full rounded-[18px] px-4 py-2 text-[#118a00] bg-white border-[1px] border-[#118a00] ">
                 Бүртгүүлэх
               </Button>
             </Link>
           </div>
         </div>
-      </div>
-      <div className="h-screen w-1/2 bg-[#181818] flex justify-center items-center">
-        <button className="text-white">C</button>
-      </div>
-      <div className="h-screen w-1/2 bg-[#white] flex justify-center items-center">
-        <button className="text-black">C</button>
       </div>
     </section>
   );

@@ -116,9 +116,13 @@ const Signup = () => {
   }, [userData]);
 
   return (
-    <section className="h-[806px] flex items-center justify-center">
+    <section className=" flex items-center justify-center  max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff]">
       <div className="flex flex-col items-center justify-center gap-6 w-[334px]">
         <h3 className="text-2xl font-semibold">Бүртгүүлэх</h3>
+        <div className="flex gap-4">
+          <h5 className="text-[#118a00] underline">Компани</h5>|
+          <h6 className="text-[#71717A]">Хувь хүн</h6>
+        </div>
         <div className="flex flex-col w-full gap-4">
           <Input
             placeholder="Нэр"
@@ -216,21 +220,36 @@ const Signup = () => {
               • Тэмдэгт орсон байх
             </p>
           </div>
+          {/* checkbox ehlel */}
+
+          <div>
+            <div className="form-control">
+              <label className="cursor-pointer label flex gap-5">
+                <input type="checkbox" className="checkbox checkbox-sm" />
+                <span className="label-text text-xs text-[#71717A] ">
+                  Та үйлчилгээний нөхцлийг хүлээн зөвшөөрч байна уу.
+                  <span className="underline text-[#118a00]">
+                    Үйлчилгээний нөхцөл
+                  </span>
+                </span>
+              </label>
+            </div>
+          </div>
           {isChecked ? (
             <Button
-              className="w-full rounded-[18px] px-4 py-2 bg-[#2563EB] text-white"
+              className="w-full rounded-[18px] px-4 py-2 bg-[#118A00] text-white"
               onClick={signUp}
             >
               Үүсгэх
             </Button>
           ) : (
-            <Button className="w-full rounded-[18px] px-4 py-2 bg-[#2563EB] text-white">
+            <Button className="w-full rounded-[18px] px-4 py-2 bg-[#118A00] text-white">
               Үүсгэх
             </Button>
           )}
 
           <Link href="/login">
-            <Button className="w-full rounded-[18px] px-4 py-2 text-[#2563EB] bg-white border-[1px] border-[#2563EB]">
+            <Button className="w-full rounded-[18px] px-4 py-2 text-[#118A00] bg-white border-[1px] border-[#118a00]">
               Нэвтрэх
             </Button>
           </Link>
