@@ -7,7 +7,7 @@ const SignUpSkills = () => {
   return (
     <div className="w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] mt-20 mb-10 text-sm justify-center items-center ">
       <h2 className="text-[#118a00] text-2xl">Дэлгэрэнгүй бүртгэл</h2>
-      <div className="flex justify-between mt-20">
+      <div className="flex justify-between mt-10">
         <div className="flex flex-col gap-10 items-center w-[23%] p-10">
           <Avatar className="w-36 h-36 bg-[#f9f9f9]">
             <AvatarImage src="https://cdn-icons-png.flaticon.com/512/5556/5556499.png" />
@@ -84,6 +84,11 @@ const SignUpSkills = () => {
               <option>Баянзүрх</option>
               <option>Хан-Уул</option>
             </select>
+          </div>
+          <div className="w-full flex justify-center">
+            <button className="btn w-36 mt-10 mx-auto bg-[#118a00] text-white rounded-2xl">
+              Хадгалах
+            </button>
           </div>
         </div>
         <div className="flex flex-col gap-2 w-[28%] p-10 text-sm">
