@@ -82,7 +82,7 @@ export const location = [
 ];
 export const JobCategory = () => {
   return (
-    <div className="flex">
+    <div className="flex w-[200px]">
       <motion.div
         animate={{
           x: [0, 10, 0, 10],
@@ -90,7 +90,7 @@ export const JobCategory = () => {
         className="flex flex-col gap-5"
       >
         {" "}
-        <div className=" flex flex-col gap-3 w-[360px]">
+        <div className=" flex flex-col gap-3 w-[200px]">
           <div className="flex flex-col gap-1">
             <h1 className="font-bold">Категори</h1>
             <Input className="h-[28px] my-2" />

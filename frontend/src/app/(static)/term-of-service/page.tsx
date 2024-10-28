@@ -1,6 +1,6 @@
 const termOfService = () => {
   return (
-    <section className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] py-20 flex items-center gap-[58.5px] justify-center text-[#1818189f]">
+    <section className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] py-20 flex items-center gap-[58.5px] justify-center text-[#1818189f] text-justify">
       <div className="flex flex-col gap-5 w-[800px]">
         <h1 className="text-[#118a00] text-2xl mb-5">Үйлчилгээний нөхцөл</h1>
         <p className="indent-10">
