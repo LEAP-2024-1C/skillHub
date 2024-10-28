@@ -10,9 +10,17 @@ interface IFreelancer {
   image: string;
   company: string;
   position: string;
+  skills: [
+    {
+      skill: Schema.Types.ObjectId;
+      experience: number;
+      rating: [number];
+      salaryType: string;
+      startingSalary: number;
+    }
+  ];
   type: string;
   description: string;
-  membership: string;
 }
 
 const freelancerSchema = new Schema<IFreelancer>(
@@ -49,10 +57,41 @@ const freelancerSchema = new Schema<IFreelancer>(
     position: {
       type: String,
     },
+    skills: [
+      {
+        skill: {
+          type: Schema.Types.ObjectId,
+          ref: "Skill",
+          required: true,
+        },
+        experience: {
+          type: Number,
+          required: true,
+        },
+        rating: [
+          {
+            type: Number,
+          },
+        ],
+        salaryType: {
+          type: String,
+          enum: ["Hourly", "Times"],
+          default: "Hourly",
+        },
+        startingSalary: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
     type: {
       type: String,
       enum: ["Active", "Passive"],
       default: "Active",
+    },
+    description: {
+      type: String,
+      default: "comment",
     },
   },
   {
