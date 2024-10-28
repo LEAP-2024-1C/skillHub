@@ -14,7 +14,12 @@ interface IFreelancer {
     {
       skill: Schema.Types.ObjectId;
       experience: number;
-      rating: [number];
+      ratings: [
+        {
+          rating: number;
+          comment: string;
+        }
+      ];
       salaryType: string;
       startingSalary: number;
     }
@@ -68,9 +73,14 @@ const freelancerSchema = new Schema<IFreelancer>(
           type: Number,
           required: true,
         },
-        rating: [
+        ratings: [
           {
-            type: Number,
+            rating: {
+              type: Number,
+            },
+            comment: {
+              type: String,
+            },
           },
         ],
         salaryType: {
