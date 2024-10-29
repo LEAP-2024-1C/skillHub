@@ -9,7 +9,7 @@ export const loginFreelancer = async (req: Request, res: Response) => {
     if (!freelancer) {
         res.status(404).json({ message: "User not found" })
     } else {
-        const checkPass = bcrypt.compareSync(password, freelancer.password.toString());
+        const checkPass = bcrypt.compareSync(password, freelancer.password);
         if (!checkPass) {
             res.status(402).json({ message: "Your password or email is incorrect." });
         } else {
@@ -31,12 +31,12 @@ export const signupFreelancer = async (req: Request, res: Response) => {
         if (!firstname || !lastname || !email || !password) {
             return res.status(400).json({ message: "signup failed" });
         }
-        const hashedPassword = bcrypt.hashSync(password, 10);
+        // const hashedPassword = bcrypt.hashSync(password, 10);
         const createdFreelancer = await Freelancer.create({
             firstname,
             lastname,
             email,
-            password: hashedPassword,
+            password,
             number: "",
         });
         res.status(201).json({ message: "Signup Freelancer", freelancer: createdFreelancer });
@@ -47,3 +47,12 @@ export const signupFreelancer = async (req: Request, res: Response) => {
   
 };
 
+export const currentFreelancer = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.user;
+        const freelancer = await Freelancer.findById(id);
+        res.status(200).json({ freelancer: freelancer, message: "success" });
+    } catch (error) {
+        res.status(404).json({ message: "User not found", error: error });
+    }
+}

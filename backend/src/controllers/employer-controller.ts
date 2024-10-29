@@ -35,11 +35,11 @@ export const loginEmployer = async (req: Request, res: Response) => {
     } else {
       const isCheck = bcrypt.compareSync(
         password,
-        employer.password.toString()
+        employer.password
       );
       if (!isCheck) {
         res
-          .status(400)
+          .status(404)
           .json({ message: "Хэрэглэгчийн и-мэйл эсвэл нууц үг буруу байна." });
       } else {
         const token = generateToken({ id: employer._id });
@@ -52,8 +52,9 @@ export const loginEmployer = async (req: Request, res: Response) => {
       }
     }
   } catch (error) {
-    res.status(400).json({ message: "Хэрэглэгч нэвтрэхэд алдаа гарлаа" });
+    res.status(404).json({ message: "Бүртгэлтэй хэрэглэгч олдсонгүй." });
   }
+   
 };
 
 export const currentEmployer = async (req: Request, res: Response) => {
