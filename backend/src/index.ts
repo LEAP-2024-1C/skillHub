@@ -4,6 +4,8 @@ import cors from "cors";
 
 dotenv.config();
 
+import employerRoute from "./routes/employer-route";
+
 import { connectDB } from "./config/db";
 
 const PORT = process.env.PORT || "";
@@ -12,6 +14,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/api/v1/employer", employerRoute);
 
 app.get("/", async (req: Request, res: Response) => {
   res.send("Welcome SkillHub API Server");

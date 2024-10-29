@@ -2,11 +2,11 @@ import { model, Schema } from "mongoose";
 
 interface IEmployer {
   _id: Schema.Types.ObjectId;
-  fullNameOrCompany: string;
+  fullnameOrCompany: string;
   type: string;
   email: string;
   password: String;
-  number: number;
+  number: string;
   image: string;
   description: string;
   company: string;
@@ -15,7 +15,7 @@ interface IEmployer {
 
 const employerSchema = new Schema<IEmployer>(
   {
-    fullNameOrCompany: {
+    fullnameOrCompany: {
       type: String,
       required: true,
     },
@@ -35,8 +35,8 @@ const employerSchema = new Schema<IEmployer>(
       required: [true, "Хэрэглэгчийн нууц үгийг заавал оруулна уу."],
     },
     number: {
-      type: Number,
-      required: true,
+      type: String,
+      default: "0",
     },
     image: {
       type: String,
