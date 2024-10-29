@@ -5,7 +5,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 const SignUpSkills = () => {
   return (
-    <div className="w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] mt-20 mb-10 text-sm justify-center items-center ">
+    <div className="w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] mt-20 mb-20 text-sm justify-center items-center ">
       <h2 className="text-[#118a00] text-2xl">Дэлгэрэнгүй бүртгэл</h2>
       <div className="flex justify-between mt-10">
         <div className="flex flex-col gap-10 items-center w-[23%] p-10">
