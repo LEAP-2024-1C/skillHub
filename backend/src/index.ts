@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-
+import categoryRoute from "./route/category.route"
 dotenv.config();
 
 import { connectDB } from "./config/db";
@@ -12,7 +12,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
+app.use("/api/v1", categoryRoute);
 app.get("/", async (req: Request, res: Response) => {
   res.send("Welcome SkillHub API Server");
 });
