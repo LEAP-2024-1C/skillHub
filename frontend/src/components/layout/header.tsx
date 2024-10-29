@@ -1,8 +1,20 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/AuthProvider";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { IoIosArrowDown } from "react-icons/io";
 
 export const Header = () => {
+  const { setRole } = useAuth();
+  const router = useRouter();
+
+  const handleLogin = (role: string) => {
+    setRole(role);
+    router.push("/login");
+  };
+
   return (
     <header className="flex justify-between px-10 h-16 items-center bg-[#181818] text-sm text-[#181818 ]">
       <div className="flex gap-4 items-center">
@@ -68,15 +80,17 @@ export const Header = () => {
       </div>
       {/*  */}
       <div className="flex gap-3">
-        <Button className="bg-[#118a00] text-white rounded-2xl w-[120px] hover:bg-white hover:text-[#118a00] shadow-xl border-none">
-          <Link href="/login">
-            <p className="">Ажил хайх</p>
-          </Link>
+        <Button
+          onClick={() => handleLogin("freelancer")}
+          className="bg-[#118a00] text-white rounded-2xl w-[120px] hover:bg-white hover:text-[#118a00] shadow-xl border-none"
+        >
+          Ажил хайх
         </Button>
-        <Button className="bg-white text-[#118a00] rounded-2xl w-[120px] hover:bg-[#118a00] hover:text-white shadow-xl border-none">
-          <Link href="/login">
-            <p className="">Ажилтан хайх</p>
-          </Link>
+        <Button
+          onClick={() => handleLogin("employer")}
+          className="bg-white text-[#118a00] rounded-2xl w-[120px] hover:bg-[#118a00] hover:text-white shadow-xl border-none"
+        >
+          Ажилтан хайх
         </Button>
       </div>
     </header>
