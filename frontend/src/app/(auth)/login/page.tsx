@@ -8,8 +8,10 @@ import { apiUrl } from "@/app/utils/util";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { useAuth } from "@/context/AuthProvider";
 
 const Login = () => {
+  const { role } = useAuth();
   const router = useRouter();
   const [iseEyeOpen, setIsEyeOpen] = useState<boolean>(false);
 
@@ -53,8 +55,21 @@ const Login = () => {
             Нэвтрэх
           </h3>
           <div className="flex gap-4">
-            <h5 className="text-[#118a00] underline">Хувь хүн</h5>|
-            <h5 className="text-[#71717A]">Компани</h5>
+            <h5
+              className={` ${
+                role === "freelancer" ? "text-[#118a00]" : "text-[#71717A]"
+              } underline`}
+            >
+              Хувь хүн
+            </h5>
+            |
+            <h5
+              className={` ${
+                role === "employer" ? "text-[#118a00]" : "text-[#71717A]"
+              } underline`}
+            >
+              Компани
+            </h5>
           </div>
           <div className="flex flex-col w-full gap-4">
             <Input
