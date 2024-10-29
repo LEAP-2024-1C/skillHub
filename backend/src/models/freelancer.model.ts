@@ -5,7 +5,7 @@ interface IFreelancer {
   firstname: string;
   lastname: string;
   email: string;
-  password: String;
+  password: string;
   number: number;
   image: string;
   company: string;

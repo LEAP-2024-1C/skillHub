@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { login, signup } from "../controllers/freelancer-auth-controller";
+import { loginFreelancer, signupFreelancer } from "../controllers/freelancer-controller";
 
 
 const router = Router();
 
-router.route("/login").post(login);
-router.route("/signup").post(signup);
+router.route("/login").post(loginFreelancer);
+router.route("/signup").post(signupFreelancer);
 export default router;
 

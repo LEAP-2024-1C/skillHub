@@ -3,13 +3,13 @@ import bcrypt from "bcrypt";
 import { generateToken } from "../utils/jwt";
 import Freelancer from "../models/freelancer.model";
 
-export const login = async (req: Request, res: Response) => {
+export const loginFreelancer = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const freelancer = await Freelancer.findOne({ email: email });
     if (!freelancer) {
         res.status(404).json({ message: "User not found" })
     } else {
-        const checkPass = bcrypt.compareSync(password, freelancer.email);
+        const checkPass = bcrypt.compareSync(password, freelancer.password.toString());
         if (!checkPass) {
             res.status(402).json({ message: "Your password or email is incorrect." });
         } else {
@@ -24,24 +24,26 @@ export const login = async (req: Request, res: Response) => {
     }
 };
 
-export const signup = async (req: Request, res: Response) => {
+export const signupFreelancer = async (req: Request, res: Response) => {
 
     try {
         const { firstname, lastname, email, password } = req.body;
         if (!firstname || !lastname || !email || !password) {
             return res.status(400).json({ message: "signup failed" });
         }
-        const createdAcc = await Freelancer.create({
+        const hashedPassword = bcrypt.hashSync(password, 10);
+        const createdFreelancer = await Freelancer.create({
             firstname,
             lastname,
             email,
-            password,
-            cellphone: "",
+            password: hashedPassword,
+            number: "",
         });
-        res.status(201).json({ message: "Signup", freelancer: createdAcc });
+        res.status(201).json({ message: "Signup Freelancer", freelancer: createdFreelancer });
     } catch (error) {
         res.status(404).json({ message: "Something went wrong", error: error });
         console.log("Failed", error);
     }
   
 };
+
