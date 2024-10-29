@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "../components/layout/header";
 import { Footer } from "../components/layout/footer";
 import { Geologica } from "next/font/google";
+import { AuthProvider } from "@/context/AuthProvider";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -35,9 +36,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={geologica.className}>
       <body className={`antialiased`}>
-        <Header />
-        {children}
-        <Footer />
+        <AuthProvider>
+          <Header />
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
