@@ -1,11 +1,12 @@
 import { model, Schema } from "mongoose";
+import bcrypt from "bcrypt";
 
 interface IEmployer {
   _id: Schema.Types.ObjectId;
   fullnameOrCompany: string;
   type: string;
   email: string;
-  password: String;
+  password: string;
   number: string;
   image: string;
   description: string;
@@ -59,6 +60,16 @@ const employerSchema = new Schema<IEmployer>(
     timestamps: true,
   }
 );
+
+employerSchema.pre("save", function (next) {
+  if(!this.isModified("password")) {
+    next();
+  } else {
+    const hashedPass = bcrypt.hashSync(this.password, 8);
+    this.password = hashedPass;
+    next();
+  }
+})
 
 const Employer = model<IEmployer>("Employer", employerSchema);
 
