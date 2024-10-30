@@ -12,6 +12,11 @@ interface IEmployer {
   description: string;
   company: string;
   membership: string;
+  otp: string;
+  passwordResetToken: String;
+  passwordResetTokenExpire: Date;
+  created_at: Date;
+  updated_at: Date;
 }
 
 const employerSchema = new Schema<IEmployer>(
