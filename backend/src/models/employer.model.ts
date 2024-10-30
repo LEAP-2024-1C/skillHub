@@ -1,12 +1,13 @@
 import { model, Schema } from "mongoose";
+import bcrypt from "bcrypt";
 
 interface IEmployer {
   _id: Schema.Types.ObjectId;
-  fullNameOrCompany: string;
+  fullnameOrCompany: string;
   type: string;
   email: string;
-  password: String;
-  number: number;
+  password: string;
+  number: string;
   image: string;
   description: string;
   company: string;
@@ -15,7 +16,7 @@ interface IEmployer {
 
 const employerSchema = new Schema<IEmployer>(
   {
-    fullNameOrCompany: {
+    fullnameOrCompany: {
       type: String,
       required: true,
     },
@@ -35,8 +36,8 @@ const employerSchema = new Schema<IEmployer>(
       required: [true, "Хэрэглэгчийн нууц үгийг заавал оруулна уу."],
     },
     number: {
-      type: Number,
-      required: true,
+      type: String,
+      default: "0",
     },
     image: {
       type: String,
@@ -59,6 +60,16 @@ const employerSchema = new Schema<IEmployer>(
     timestamps: true,
   }
 );
+
+employerSchema.pre("save", function (next) {
+  if(!this.isModified("password")) {
+    next();
+  } else {
+    const hashedPass = bcrypt.hashSync(this.password, 8);
+    this.password = hashedPass;
+    next();
+  }
+})
 
 const Employer = model<IEmployer>("Employer", employerSchema);
 
