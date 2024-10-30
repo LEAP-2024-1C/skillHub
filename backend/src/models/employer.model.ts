@@ -13,7 +13,7 @@ interface IEmployer {
   company: string;
   membership: string;
   otp: string;
-  passwordResetToken: String;
+  passwordResetToken: string;
   passwordResetTokenExpire: Date;
   created_at: Date;
   updated_at: Date;
@@ -67,14 +67,14 @@ const employerSchema = new Schema<IEmployer>(
 );
 
 employerSchema.pre("save", function (next) {
-  if(!this.isModified("password")) {
+  if (!this.isModified("password")) {
     next();
   } else {
     const hashedPass = bcrypt.hashSync(this.password, 8);
     this.password = hashedPass;
     next();
   }
-})
+});
 
 const Employer = model<IEmployer>("Employer", employerSchema);
 

@@ -15,21 +15,49 @@ const Login = () => {
   const router = useRouter();
   const [iseEyeOpen, setIsEyeOpen] = useState<boolean>(false);
 
-  interface IUser {
+  interface IEmployer {
+    email: string;
+    password: string;
+  }
+  interface IFreelancer {
     email: string;
     password: string;
   }
 
-  const [userData, setUserData] = useState<IUser>({
+  const [employerData, setEmployerData] = useState<IEmployer>({
+    email: "",
+    password: "",
+  });
+  const [freelancerData, setFreelancerData] = useState<IFreelancer>({
     email: "",
     password: "",
   });
 
-  const login = async () => {
-    const { email, password } = userData;
+  const loginEmployer = async () => {
+    const { email, password } = employerData;
 
     try {
-      const response = await axios.post(`${apiUrl}/api/v1/auth/login`, {
+      const response = await axios.post(`${apiUrl}/api/v1/employer/login`, {
+        email,
+        password,
+      });
+
+      if (response.status === 200) {
+        toast.success("Хэрэглэгч амжилттай нэвтэрлээ", { autoClose: 1000 });
+        const { token } = response.data;
+        localStorage.setItem("token", token);
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("There was an error signing in:", error);
+      toast.error("Нэвтрэх нэр эсвэл нууц үг буруу байна.");
+    }
+  };
+  const loginFreelancer = async () => {
+    const { email, password } = freelancerData;
+
+    try {
+      const response = await axios.post(`${apiUrl}/api/v1/freelancer/login`, {
         email,
         password,
       });
@@ -57,37 +85,67 @@ const Login = () => {
           <div className="flex gap-4">
             <h5
               className={` ${
-                role === "freelancer" ? "text-[#118a00]" : "text-[#71717A]"
+                role === "employer" ? "text-[#118a00]" : "text-[#71717A]"
               } underline`}
             >
-              Хувь хүн
+              Ажил олгогч
             </h5>
             |
             <h5
               className={` ${
-                role === "employer" ? "text-[#118a00]" : "text-[#71717A]"
+                role === "freelancer" ? "text-[#118a00]" : "text-[#71717A]"
               } underline`}
             >
-              Компани
+              Ажил хайгч
             </h5>
           </div>
           <div className="flex flex-col w-full gap-4">
-            <Input
-              placeholder="Имэйл хаяг"
-              className="w-full rounded-[18px] px-3 py-1 text-sm"
-              onChange={(e) =>
-                setUserData({ ...userData, email: e.target.value })
-              }
-            ></Input>
-            <div className="flex justify-end items-center">
+            {role === "employer" ? (
               <Input
-                type={iseEyeOpen ? "text" : "password"}
-                placeholder="Нууц үг"
+                placeholder="Имэйл хаяг"
                 className="w-full rounded-[18px] px-3 py-1 text-sm"
                 onChange={(e) =>
-                  setUserData({ ...userData, password: e.target.value })
+                  setEmployerData({ ...employerData, email: e.target.value })
                 }
               ></Input>
+            ) : (
+              <Input
+                placeholder="Имэйл хаяг"
+                className="w-full rounded-[18px] px-3 py-1 text-sm"
+                onChange={(e) =>
+                  setFreelancerData({
+                    ...freelancerData,
+                    email: e.target.value,
+                  })
+                }
+              ></Input>
+            )}
+            <div className="flex justify-end items-center">
+              {role === "employer" ? (
+                <Input
+                  type={iseEyeOpen ? "text" : "password"}
+                  placeholder="Нууц үг"
+                  className="w-full rounded-[18px] px-3 py-1 text-sm"
+                  onChange={(e) =>
+                    setEmployerData({
+                      ...employerData,
+                      password: e.target.value,
+                    })
+                  }
+                ></Input>
+              ) : (
+                <Input
+                  type={iseEyeOpen ? "text" : "password"}
+                  placeholder="Нууц үг"
+                  className="w-full rounded-[18px] px-3 py-1 text-sm"
+                  onChange={(e) =>
+                    setFreelancerData({
+                      ...freelancerData,
+                      password: e.target.value,
+                    })
+                  }
+                ></Input>
+              )}
               {iseEyeOpen ? (
                 <FaRegEyeSlash
                   className="flex absolute mr-5"
@@ -102,12 +160,21 @@ const Login = () => {
                 />
               )}
             </div>
-            <Button
-              className="w-full rounded-[18px] px-4 py-2 bg-[#118a00] text-white"
-              onClick={login}
-            >
-              Нэвтрэх
-            </Button>
+            {role === "employer" ? (
+              <Button
+                className="w-full rounded-[18px] px-4 py-2 bg-[#118a00] text-white"
+                onClick={loginEmployer}
+              >
+                Нэвтрэх
+              </Button>
+            ) : (
+              <Button
+                className="w-full rounded-[18px] px-4 py-2 bg-[#118a00] text-white"
+                onClick={loginFreelancer}
+              >
+                Нэвтрэх
+              </Button>
+            )}
             <Link href="/forgetpass/email" className="m-auto w-1/2">
               <Button className="w-full m-auto bg-inherit border-none text-sm text-[#71717A] rounded-2xl shadow-none">
                 Нууц үг мартсан
