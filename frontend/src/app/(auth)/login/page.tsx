@@ -11,9 +11,13 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useAuth } from "@/context/AuthProvider";
 
 const Login = () => {
-  const { role } = useAuth();
+  const { role, setRole } = useAuth();
   const router = useRouter();
   const [iseEyeOpen, setIsEyeOpen] = useState<boolean>(false);
+
+  const handleLogin = (role: string) => {
+    setRole(role);
+  };
 
   interface IEmployer {
     email: string;
@@ -85,16 +89,22 @@ const Login = () => {
           <div className="flex gap-4">
             <h5
               className={` ${
-                role === "employer" ? "text-[#118a00]" : "text-[#71717A]"
-              } underline`}
+                role === "employer"
+                  ? "text-[#118a00] underline"
+                  : "text-[#71717A]"
+              } `}
+              onClick={() => handleLogin("employer")}
             >
               Ажил олгогч
             </h5>
             |
             <h5
               className={` ${
-                role === "freelancer" ? "text-[#118a00]" : "text-[#71717A]"
-              } underline`}
+                role === "freelancer"
+                  ? "text-[#118a00] underline"
+                  : "text-[#71717A]"
+              } `}
+              onClick={() => handleLogin("freelancer")}
             >
               Ажил хайгч
             </h5>
