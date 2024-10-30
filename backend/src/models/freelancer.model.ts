@@ -1,11 +1,11 @@
 import { model, Schema } from "mongoose";
-
+import bcrypt from "bcrypt";
 interface IFreelancer {
   _id: Schema.Types.ObjectId;
   firstname: string;
   lastname: string;
   email: string;
-  password: String;
+  password: string;
   number: number;
   image: string;
   company: string;
@@ -108,6 +108,17 @@ const freelancerSchema = new Schema<IFreelancer>(
     timestamps: true,
   }
 );
+
+freelancerSchema.pre("save", function (next) {
+  if(!this.isModified("password")) {
+    next();
+  } else {
+    const hashedPass = bcrypt.hashSync(this.password, 8);
+    this.password = hashedPass;
+    next();
+  }
+})
+
 
 const Freelancer = model<IFreelancer>("Freelancer", freelancerSchema);
 
