@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-
+import skillRoute from "./routes/skill.route"
 dotenv.config();
 
 import freelancerRoute from "./routes/freelancer-route";
@@ -15,6 +15,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/api/v1", skillRoute);
 app.use("/api/v1/employer", employerRoute);
 app.use("/api/v1/freelancer", freelancerRoute);
 
