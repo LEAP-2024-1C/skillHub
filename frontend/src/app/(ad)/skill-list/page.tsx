@@ -1,8 +1,45 @@
+"use client";
 import { Avatar } from "@/components/ui/avatar";
 import { FaStar } from "react-icons/fa";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
+// import { useAuth } from "@/context/AuthProvider";
+// import { useRouter } from "next/navigation";
+import axios from "axios";
+import { apiUrl } from "@/app/utils/util";
+import { toast } from "react-toastify";
 const SkillList = () => {
+  // const { role } = useAuth();
+  // const router = useRouter();
+
+  interface IFreelancer {
+    image: string;
+    firstname: string;
+    skills: [];
+  }
+  const [allFreelancer, setAllFreelancer] = useState<IFreelancer>({
+    image: "",
+    firstname: "",
+    skills: [],
+  });
+  const getAllFreelancer = async () => {
+    const { image, firstname, skills } = allFreelancer;
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/v1/freelancer/get-all-user`
+      );
+      setAllFreelancer(response.data.freelancers);
+    } catch (error) {
+      console.error("There was an error signing in:", error);
+      toast.error("Нэвтрэх нэр эсвэл нууц үг буруу байна.");
+    }
+  };
+
+  useEffect(() => {
+    getAllFreelancer();
+  }, []);
+
   return (
     <div className="w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] flex gap-20 my-10 text-sm">
       <div className=" flex flex-col gap-3 w-[360px]">
@@ -138,6 +175,13 @@ const SkillList = () => {
       <div className="flex flex-wrap justify-between gap-12">
         {/* Card-1 */}
         <div className="hover:border hover:border-[#118a00] w-[30%] h-[400px] rounded-2xl flex flex-col items-center p-6 justify-between bg-[#f9f9f9]">
+          {allFreelancer.map((freelancer, idx) => {
+            return (
+              <div>
+                <h1 className="font-bold mt-5">{}</h1>
+              </div>
+            );
+          })}
           <div className="flex flex-col items-center">
             <Avatar
               style={{
@@ -146,7 +190,8 @@ const SkillList = () => {
               }}
               className="w-[120px] h-[120px]"
             />
-            <h1 className="font-bold mt-5">Г.Сэлэнгэ</h1>
+
+            <h1 className="font-bold mt-5">G.Selenge</h1>
             <p className="text-[#181818] mt-1">Программист</p>
           </div>
 
