@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { apiUrl } from "@/app/utils/util";
 import { toast } from "react-toastify";
@@ -78,6 +78,15 @@ const Login = () => {
     }
   };
 
+  // useEffect(() => {
+  //   loginEmployer(), loginFreelancer;
+  // }, [role]);
+
+  useEffect(() => {
+    setEmployerData({ email: "", password: "" });
+    setFreelancerData({ email: "", password: "" });
+  }, [role]);
+
   return (
     <section className=" flex items-center max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-sm ">
       <div className="flex items-center justify-center m-auto">
@@ -114,6 +123,7 @@ const Login = () => {
               <Input
                 placeholder="Имэйл хаяг"
                 className="w-full rounded-[18px] px-3 py-1 text-sm"
+                value={employerData.email}
                 onChange={(e) =>
                   setEmployerData({ ...employerData, email: e.target.value })
                 }
@@ -122,6 +132,7 @@ const Login = () => {
               <Input
                 placeholder="Имэйл хаяг"
                 className="w-full rounded-[18px] px-3 py-1 text-sm"
+                value={freelancerData.email}
                 onChange={(e) =>
                   setFreelancerData({
                     ...freelancerData,
@@ -136,6 +147,7 @@ const Login = () => {
                   type={iseEyeOpen ? "text" : "password"}
                   placeholder="Нууц үг"
                   className="w-full rounded-[18px] px-3 py-1 text-sm"
+                  value={employerData.password}
                   onChange={(e) =>
                     setEmployerData({
                       ...employerData,
@@ -148,6 +160,7 @@ const Login = () => {
                   type={iseEyeOpen ? "text" : "password"}
                   placeholder="Нууц үг"
                   className="w-full rounded-[18px] px-3 py-1 text-sm"
+                  value={freelancerData.password}
                   onChange={(e) =>
                     setFreelancerData({
                       ...freelancerData,
