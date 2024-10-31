@@ -2,6 +2,7 @@
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { TiDeleteOutline } from "react-icons/ti";
+import { CldUploadWidget } from "next-cloudinary";
 
 const SignUpSkills = () => {
   return (
@@ -14,13 +15,30 @@ const SignUpSkills = () => {
           </Avatar>
 
           <div className="relative hover:border  hover:border-[#118a00] rounded-2xl">
-            <input
+            {/* <input
               type="file"
               className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
             />
             <button className="bg-[#f9f9f9]  text-xs px-3 py-1 rounded-2xl">
               Choose File
-            </button>
+            </button> */}
+            <CldUploadWidget
+              uploadPreset="adminskillhub"
+              // onSuccess={(result) => {
+              //   console.log("URL", result?.info?.secure_url!);
+              // setFormData({
+              //   ...FormData,
+              //   images: [result?.info?.secure_url!],
+              // });
+              // }}
+              // onError={(err)=>{
+              //   console.log('Error',err)
+              // }}
+            >
+              {({ open }) => {
+                return <button onClick={() => open()}>Upload an Image</button>;
+              }}
+            </CldUploadWidget>
           </div>
         </div>
         <div className="border-[1px] rounded-2xl p-10 bg-[#f9f9f9] w-[46%]">
