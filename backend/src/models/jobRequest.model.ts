@@ -34,7 +34,7 @@ const jobRequestSchema = new Schema<IJobRequest>(
     salaryType: {
       type: String,
       enum: ["hour", "time"],
-      default: "Person",
+      default: "hour",
     },
     startingPrice: {
       type: Number,
@@ -45,7 +45,6 @@ const jobRequestSchema = new Schema<IJobRequest>(
         freelancerId: {
           type: Schema.Types.ObjectId,
           ref: "Freelancer",
-          required: true,
         },
       },
     ],
