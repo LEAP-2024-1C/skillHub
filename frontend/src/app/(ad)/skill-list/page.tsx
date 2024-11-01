@@ -14,22 +14,49 @@ const SkillList = () => {
   // const router = useRouter();
 
   interface IFreelancer {
-    image: string;
+    _id: string;
     firstname: string;
-    skills: [];
+    lastname: string;
+    email: string;
+    password: string;
+    number: number;
+    image: string;
+    company: string;
+    position: string;
+    skills: [
+      {
+        skill: string;
+        experience: number;
+        ratings: [
+          {
+            rating: number;
+            comment: string;
+          }
+        ];
+        salaryType: string;
+        startingSalary: number;
+      }
+    ];
+    type: string;
+    description: string;
   }
-  const [allFreelancer, setAllFreelancer] = useState<IFreelancer>({
-    image: "",
-    firstname: "",
-    skills: [],
-  });
-  const getAllFreelancer = async () => {
-    const { image, firstname, skills } = allFreelancer;
+
+  const [allFreelancers, setAllFreelancers] = useState<IFreelancer[]>([]);
+
+  const getAllFreelancers = async () => {
     try {
+      const userToken = localStorage.getItem("token");
+      if (!userToken) {
+        console.log("No user token found");
+        return;
+      }
       const response = await axios.get(
-        `${apiUrl}/api/v1/freelancer/get-all-user`
+        `${apiUrl}/api/v1/freelancer/get-all-freelancers`,
+        {
+          headers: { Authorization: `Bearer ${userToken}` },
+        }
       );
-      setAllFreelancer(response.data.freelancers);
+      setAllFreelancers(response.data.freelancer);
     } catch (error) {
       console.error("There was an error signing in:", error);
       toast.error("Нэвтрэх нэр эсвэл нууц үг буруу байна.");
@@ -37,7 +64,7 @@ const SkillList = () => {
   };
 
   useEffect(() => {
-    getAllFreelancer();
+    getAllFreelancers();
   }, []);
 
   return (
@@ -174,14 +201,63 @@ const SkillList = () => {
 
       <div className="flex flex-wrap justify-between gap-12">
         {/* Card-1 */}
-        <div className="hover:border hover:border-[#118a00] w-[30%] h-[400px] rounded-2xl flex flex-col items-center p-6 justify-between bg-[#f9f9f9]">
-          {allFreelancer.map((freelancer, idx) => {
-            return (
+        {allFreelancers?.map((freelancer) => {
+          return (
+            <div
+              key={freelancer?._id}
+              className="hover:border hover:border-[#118a00] w-[30%] h-[400px] rounded-2xl flex flex-col items-center p-6 justify-between bg-[#f9f9f9]"
+            >
+              <div className="flex flex-col items-center">
+                <Avatar
+                  style={{
+                    backgroundImage: `url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZSUyMG1hZ2V8ZW58MHx8MHx8fDA%3D)`,
+                    backgroundSize: "cover",
+                  }}
+                  className="w-[120px] h-[120px]"
+                />
+
+                <h1 className="font-bold mt-5">{freelancer?.firstname}</h1>
+                <p className="text-[#181818] mt-1">{freelancer?.company}</p>
+              </div>
+
+              <div className="flex gap-2 items-center mt-1">
+                <FaStar size={14} color="#108A00" />
+                <p className="text-[#181818]">4.6/5</p>
+                <p className="text-[#181818]">(1)</p>
+              </div>
+              <div className="flex flex-wrap justify-center items-center gap-2 mt-5">
+                <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
+                  Front-End
+                </p>
+                <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
+                  Back-End
+                </p>
+                <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
+                  UX UI
+                </p>
+                <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
+                  SQL
+                </p>
+                <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
+                  No SQL
+                </p>
+              </div>
               <div>
-                <h1 className="font-bold mt-5">{}</h1>
+                <button className="btn px-2 py-[1px] rounded-2xl w-[148px] bg-[#118A00] mt-5 text-white">
+                  Дэлгэрэнгүй
+                </button>
+              </div>
+            </div>
+          );
+        })}
+        <div className="hover:border hover:border-[#118a00] w-[30%] h-[400px] rounded-2xl flex flex-col items-center p-6 justify-between bg-[#f9f9f9]">
+          {/* {allFreelancers?.map((freelancer) => {
+            return (
+              <div key={freelancer._id}>
+                <h1 className="font-bold mt-5">{freelancer.firstname}</h1>
               </div>
             );
-          })}
+          })} */}
           <div className="flex flex-col items-center">
             <Avatar
               style={{
