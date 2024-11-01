@@ -5,9 +5,11 @@ import { useAuth } from "@/context/AuthProvider";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { IoIosArrowDown } from "react-icons/io";
+import { IoIosLogOut } from "react-icons/io";
 
 export const Header = () => {
   const { setRole } = useAuth();
+  const { role } = useAuth();
   const router = useRouter();
 
   const handleLogin = (role: string) => {
@@ -78,20 +80,53 @@ export const Header = () => {
           </ul>
         </div>
       </div>
-      {/*  */}
-      <div className="flex gap-3">
-        <Button
-          onClick={() => handleLogin("freelancer")}
-          className="bg-[#118a00] text-white rounded-2xl w-[120px] hover:bg-white hover:text-[#118a00] shadow-xl border-none"
-        >
-          Ажил хайх
+      {!role && (
+        <><Button
+        onClick={() => handleLogin("freelancer")}
+        className="bg-[#118a00] text-white rounded-2xl w-[120px] hover:bg-white hover:text-[#118a00] shadow-xl border-none"
+      >
+        Ажил хайх
         </Button>
         <Button
           onClick={() => handleLogin("employer")}
           className="bg-white text-[#118a00] rounded-2xl w-[120px] hover:bg-[#118a00] hover:text-white shadow-xl border-none"
         >
           Ажилтан хайх
-        </Button>
+        </Button></>
+     )} 
+      {/*  */}
+      <div className="flex gap-3">
+        {role === "freelancer" ? ( 
+          <>
+            <Link href={"/freelancer"}>  <img src="https://i.ibb.co/VVjDg9R/20240816-111053.jpg" alt="" className="w-[35px] h-[35px] rounded-full"/></Link>
+            
+            <Button onClick={() => handleLogin("freelancer")}>
+            <IoIosLogOut
+              className="iconn"
+              size={35}
+              onClick={() => {
+                localStorage.clear();
+              }}/></Button>
+
+          </>
+          
+        ) : (
+          <>
+          <Link href={"/employer"}>  <img src="https://images.unsplash.com/photo-1726551195599-ab0f00e9c19b?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxOHx8fGVufDB8fHx8fA%3D%3D" alt="" className="w-[35px] h-[35px] rounded-full"/></Link>
+          
+          <Button onClick={() => handleLogin("employer")}>
+          <IoIosLogOut
+            className="iconn"
+            size={35}
+            onClick={() => {
+              localStorage.clear();
+            }}/></Button>
+
+        </>
+        
+            
+      )} 
+      
       </div>
     </header>
   );
