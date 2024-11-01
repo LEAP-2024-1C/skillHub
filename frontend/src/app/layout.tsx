@@ -8,6 +8,7 @@ import { AuthProvider } from "@/context/AuthProvider";
 import EmployerProvider from "@/context/EmployerProvider";
 import CategoryProvider from "@/context/CategoryProvider";
 import SkillProvider from "@/context/SkillProvider";
+import FreelancerProvider from "@/context/FreelancerProvider";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -40,15 +41,17 @@ export default function RootLayout({
     <html lang="en" className={geologica.className}>
       <body className={`antialiased`}>
         <AuthProvider>
-          <EmployerProvider>
-            <CategoryProvider>
-              <SkillProvider>
-                <Header />
-                {children}
-                <Footer />
-              </SkillProvider>
-            </CategoryProvider>
-          </EmployerProvider>
+          <FreelancerProvider>
+            <EmployerProvider>
+              <CategoryProvider>
+                <SkillProvider>
+                  <Header />
+                  {children}
+                  <Footer />
+                </SkillProvider>
+              </CategoryProvider>
+            </EmployerProvider>
+          </FreelancerProvider>
         </AuthProvider>
       </body>
     </html>

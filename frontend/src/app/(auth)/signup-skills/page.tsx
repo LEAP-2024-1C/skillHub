@@ -3,8 +3,143 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { TiDeleteOutline } from "react-icons/ti";
 import { CldUploadWidget } from "next-cloudinary";
+import { useFreelancer } from "@/context/FreelancerProvider";
+import { useEffect, useState } from "react";
+import axios from "axios";
+// import { number, set } from "zod";
+// import { useSkill } from "@/context/SkillProvider";
+
+// interface IFreelancer {
+//   _id: string;
+//   firstname: string;
+//   lastname: string;
+//   email: string;
+//   password: string;
+//   number: number;
+//   image: string;
+//   company: string;
+//   position: string;
+//   skills: [
+//     {
+//       skill: string;
+//       experience: number;
+//       ratings: [
+//         {
+//           rating: number;
+//           comment: string;
+//         }
+//       ];
+//       salaryType: string;
+//       startingSalary: number;
+//     }
+//   ];
+//   type: string;
+//   description: string;
+// {category: {
+//   _id: 'fsdfsdfsdfa',
+//   name: 'Fincance'
+// }, skill: [excel]}
+// }
+
+// const skills = [
+//   { skill: "Exce", cat: "Tech" },
+//   { skill: "BI", cat: "FIn" },
+// ];
+// const cats = skills.map((s) => s.cat);
+
+// cats.map(c=> <div>
+//   <h1>c</h1>
+//   {skills.filter(s=>s.cat===c).map(s=><div>
+//     {s}
+//   </div>)}
+// </div>)
+
+const skills = [
+  "Excel",
+  "Power BI",
+  "Санхүү",
+  "Software engineer",
+  "Excel",
+  "Power BI",
+  "Санхүү",
+  "Software engineer",
+  "Excel",
+  "Power BI",
+  "Санхүү",
+  "Software engineer",
+];
 
 const SignUpSkills = () => {
+  const { freelancer } = useFreelancer();
+  // const { skills } = useSkill();
+  const [choosenSkills, setChoosenSkills] = useState<string[]>([]);
+
+  const addSkill = (skill: string) => {
+    console.log(skill);
+    if (choosenSkills.findIndex((c) => c === skill) === -1) {
+      setChoosenSkills([...choosenSkills, skill]);
+    }
+  };
+
+  const [updatedFreelancer, setUpdateFreelancer] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    description: "",
+    number: 10,
+    company: "",
+    position: "",
+  });
+
+  const updateFreelancerData = async () => {
+    const {
+      firstname,
+      lastname,
+      email,
+      description,
+      number,
+      company,
+      position,
+    } = updatedFreelancer;
+    try {
+      const res = await axios.put(
+        `http://localhost:8000/api/v1/freelancer/update-freelancer`,
+        {
+          firstname,
+          lastname,
+          email,
+          description,
+          number,
+          company,
+          position,
+        }
+      );
+
+      if (res.status === 200) {
+        setUpdateFreelancer(res.data.freelancer);
+      }
+    } catch (error) {
+      console.log("failed", error);
+    }
+  };
+  console.log("lastnane", freelancer?.lastname);
+  console.log("updatedFreelancer", updatedFreelancer.lastname);
+
+  useEffect(() => {
+    console.log("UE", freelancer);
+    if (freelancer) {
+      setUpdateFreelancer({
+        firstname: freelancer.firstname,
+        lastname: freelancer.lastname,
+        email: freelancer.email,
+        description: freelancer!.description,
+        number: freelancer.number,
+        company: freelancer.company,
+        position: freelancer.position,
+      });
+    }
+  }, [freelancer]);
+
   return (
     <div className="w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] mt-20 mb-20 text-sm justify-center items-center ">
       <h2 className="text-[#118a00] text-2xl">Дэлгэрэнгүй бүртгэл</h2>
@@ -48,6 +183,13 @@ const SignUpSkills = () => {
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
+                value={updatedFreelancer.lastname}
+                onChange={(e) => {
+                  setUpdateFreelancer({
+                    ...updatedFreelancer,
+                    lastname: e.target.value,
+                  });
+                }}
               />
             </div>
             <div className="flex flex-col gap-2 w-[48%]">
@@ -55,6 +197,7 @@ const SignUpSkills = () => {
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
+                value={freelancer?.firstname}
               />
             </div>
           </div>
@@ -63,6 +206,7 @@ const SignUpSkills = () => {
             <input
               type="text"
               className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff] min-h-40"
+              value={updatedFreelancer?.description}
             />
           </div>
           <div className="flex flex-col gap-2 w-[100%] mt-5">
@@ -70,6 +214,7 @@ const SignUpSkills = () => {
             <input
               type="text"
               className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
+              value={freelancer?.email}
             />
           </div>
           <div className="flex gap-5 mt-5">
@@ -78,6 +223,7 @@ const SignUpSkills = () => {
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
+                value={freelancer?.company}
               />
             </div>
             <div className="flex flex-col gap-2 w-[48%]">
@@ -85,6 +231,7 @@ const SignUpSkills = () => {
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
+                value={freelancer?.position}
               />
             </div>
           </div>
@@ -104,7 +251,10 @@ const SignUpSkills = () => {
             </select>
           </div>
           <div className="w-full flex justify-center">
-            <button className="btn w-36 mt-10 mx-auto bg-[#118a00] text-white rounded-2xl">
+            <button
+              className="btn w-36 mt-10 mx-auto bg-[#118a00] text-white rounded-2xl"
+              onClick={updateFreelancerData}
+            >
               Хадгалах
             </button>
           </div>
@@ -112,38 +262,19 @@ const SignUpSkills = () => {
         <div className="flex flex-col gap-2 w-[28%] p-10 text-sm">
           <label>Таны ур чадварууд:</label>
           <div className="flex flex-wrap gap-3 mt-5">
-            <div className="border-[1px] rounded-2xl px-3 py-1 border-[#118a00] text-[#118a00] flex items-center gap-2 group">
-              <p>Excel</p>
-              <TiDeleteOutline
-                size={15}
-                color="#118a00"
-                className="hidden group-hover:block"
-              />
-            </div>
-            <div className="border-[1px] rounded-2xl px-3 py-1 border-[#118a00] text-[#118a00] flex items-center gap-2 group">
-              <p>Power BI</p>
-              <TiDeleteOutline
-                size={15}
-                color="#118a00"
-                className="hidden group-hover:block"
-              />
-            </div>
-            <div className="border-[1px] rounded-2xl px-3 py-1 border-[#118a00] text-[#118a00] flex items-center gap-2 group">
-              <p>Санхүү</p>
-              <TiDeleteOutline
-                size={15}
-                color="#118a00"
-                className="hidden group-hover:block"
-              />
-            </div>
-            <div className="border-[1px] rounded-2xl px-3 py-1 border-[#118a00] text-[#118a00] flex items-center gap-2 group">
-              <p>Software engineer</p>
-              <TiDeleteOutline
-                size={15}
-                color="#118a00"
-                className="hidden group-hover:block"
-              />
-            </div>
+            {choosenSkills.map((s, i) => (
+              <div
+                key={i}
+                className="border-[1px] rounded-2xl px-3 py-1 border-[#118a00] text-[#118a00] flex items-center gap-2 group"
+              >
+                <p>{s}</p>
+                <TiDeleteOutline
+                  size={15}
+                  color="#118a00"
+                  className="hidden group-hover:block"
+                />
+              </div>
+            ))}
           </div>
           <label className="mt-5">Ур чадвар нэмэх:</label>
           <label className="mt-5">Категори:</label>
@@ -157,42 +288,22 @@ const SignUpSkills = () => {
           </select>
           <label className="mt-5">Ур чадварууд:</label>
           <div className="flex flex-wrap gap-3 mt-5">
-            <button className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2">
-              <p>Excel</p>
-            </button>
-            <button className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2">
-              <p>Power BI</p>
-            </button>
-            <button className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2">
-              <p>Санхүү</p>
-            </button>
-            <button className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2">
-              <p>Software engineer</p>
-            </button>
-            <button className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2">
-              <p>Excel</p>
-            </button>
-            <button className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2">
-              <p>Power BI</p>
-            </button>
-            <button className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2">
-              <p>Санхүү</p>
-            </button>
-            <button className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2">
-              <p>Software engineer</p>
-            </button>
-            <button className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2">
-              <p>Excel</p>
-            </button>
-            <button className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2">
-              <p>Power BI</p>
-            </button>
-            <button className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2">
-              <p>Санхүү</p>
-            </button>
-            <button className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2">
-              <p>Software engineer</p>
-            </button>
+            {/* {skills.map((skill) => {
+              return (
+                <button className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2">
+                  <p>${skill.name}</p>
+                </button>
+              );
+            })} */}
+            {skills.map((s) => (
+              <button
+                key={s}
+                className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2"
+                onClick={() => addSkill(s)}
+              >
+                <p>{s}</p>
+              </button>
+            ))}
           </div>
         </div>
       </div>

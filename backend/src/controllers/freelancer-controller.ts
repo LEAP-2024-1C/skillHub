@@ -65,3 +65,18 @@ export const getAllFreelancers = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server error", error });
   }
 };
+
+export const updateFreelancer = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.user;
+    const updatedFreelancer = await Freelancer.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.status(200).json({
+      message: "Ажил горилогчийн мэдээлэл амжилттай шинэчлэгдлээ.",
+      updatedFreelancer,
+    });
+  } catch (error) {
+    res.status(404).json({ message: "User not found", error: error });
+  }
+};

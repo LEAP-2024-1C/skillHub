@@ -25,7 +25,7 @@ const SkillProvider = ({ children }: { children: React.ReactNode }) => {
       const response = await axios.get(`${apiUrl}/api/v1/skill/skills`);
 
       if (response.status === 200) {
-        setSkill(response.data.category);
+        setSkill(response.data.skill);
         // console.log("USER", response.data.user);
       }
     } catch (error) {
