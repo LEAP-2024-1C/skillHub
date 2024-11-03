@@ -22,8 +22,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useAuth } from "@/context/AuthProvider";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const JobAds = () => {
+  const [employer, setEmployer] = useState(false);
+  const fetchEmployerData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.get(`http://localhost:8000/api/v1/employer/current-employer`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setEmployer(res.data.employer);
+     } catch (error) {
+      console.log("couldn't change header", error);
+    }
+  };
+  useEffect(() => {
+    fetchEmployerData();
+  }, []);
   return (
     <div className="flex  w-[1280px] m-auto min-h-[calc(100vh-326px)]  my-20 text-sm ">
       <div className="w-[200px]">
@@ -31,51 +51,82 @@ const JobAds = () => {
       </div>
 
       <div className="flex items-start gap-10 flex-col w-full mx-20">
-        <div className="w-full">
-          <div className="max-lg:w-full md:w-full rounded-2xl bg-[#f9f9f9] m-auto py-5 px-10">
-            <div className="flex gap-5">
-              <img
-                src="https://images.unsplash.com/photo-1521566652839-697aa473761a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D"
-                alt="profile"
-                className="w-[40px] h-[40px] rounded-full"
-              />
-
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="w-full rounded-2xl bg-[#fff]"
-                  >
-                    <input
-                      type="text"
-                      placeholder="Ажлын зар оруулах"
-                      className="bg-[#fff] rounded-2xl w-full px-5"
-                    />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[700px]">
-                  <DialogHeader>
-                    <DialogTitle className="text-[#118a00] font-normal">
-                      Зар нийтлэх:
-                    </DialogTitle>
-                  </DialogHeader>
-                  <div className="grid gap-4 py-4">
-                    <div className="flex items-end justify-between ">
-                      <div className="flex flex-col gap-4">
-                        {" "}
-                        <p className="w-[300px]">
-                          <strong className="font-normal">Гарчиг</strong>
+        {employer && (
+            <div className="w-full">
+            <div className="max-lg:w-full md:w-full rounded-2xl bg-[#f9f9f9] m-auto py-5 px-10">
+              <div className="flex gap-5">
+                <img
+                  src="https://images.unsplash.com/photo-1521566652839-697aa473761a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D"
+                  alt="profile"
+                  className="w-[40px] h-[40px] rounded-full"
+                />
+  
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="w-full rounded-2xl bg-[#fff]"
+                    >
+                      <input
+                        type="text"
+                        placeholder="Ажлын зар оруулах"
+                        className="bg-[#fff] rounded-2xl w-full px-5"
+                      />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[700px]">
+                    <DialogHeader>
+                      <DialogTitle className="text-[#118a00] font-normal">
+                        Зар нийтлэх:
+                      </DialogTitle>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                      <div className="flex items-end justify-between ">
+                        <div className="flex flex-col gap-4">
+                          {" "}
+                          <p className="w-[300px]">
+                            <strong className="font-normal">Гарчиг</strong>
+                          </p>
+                          <Input
+                            id="name"
+                            placeholder="Гарчиг"
+                            className="col-span-3 "
+                          />
+                        </div>
+                        <div className="flex flex-col gap-4 w-[300px]">
+                          {" "}
+                          <p>
+                            <strong className="font-normal">Төлөв</strong>
+                          </p>
+                          <Select>
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Сонгох" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectLabel>Төлөв</SelectLabel>
+                                <SelectItem value="est">Идэвхтэй</SelectItem>
+                                <SelectItem value="t">Идэвхгүй</SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-center gap-4">
+                        <p className="w-full">
+                          <strong className="font-normal">
+                            Дэлгэрэнгүй мэдээлэл
+                          </strong>
                         </p>
                         <Input
-                          id="name"
-                          placeholder="Гарчиг"
-                          className="col-span-3 "
+                          id="description"
+                          placeholder="Дэлгэрэнгүй"
+                          className="h-[72px] "
                         />
                       </div>
-                      <div className="flex flex-col gap-4 w-[300px]">
-                        {" "}
-                        <p>
-                          <strong className="font-normal">Төлөв</strong>
+                      <div className="flex flex-col items-center gap-4">
+                        <p className="w-full">
+                          <strong className="font-normal">Категори</strong>
                         </p>
                         <Select>
                           <SelectTrigger className="w-full">
@@ -83,117 +134,89 @@ const JobAds = () => {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectLabel>Төлөв</SelectLabel>
-                              <SelectItem value="est">Идэвхтэй</SelectItem>
-                              <SelectItem value="t">Идэвхгүй</SelectItem>
+                              <SelectLabel>Категори</SelectLabel>
+                              {category?.map((type, idx) => (
+                                <SelectItem key={`first ${idx}`} value="f">
+                                  {type.type}
+                                </SelectItem>
+                              ))}
                             </SelectGroup>
                           </SelectContent>
                         </Select>
                       </div>
+                      <div className="flex flex-col items-center gap-4">
+                        <p className="w-full">
+                          <strong className="font-normal">Ур чадвар</strong>
+                        </p>
+                        <Select>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Сонгох" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Ур чадвар</SelectLabel>
+                              {category?.map((type, idx) => (
+                                <SelectItem key={`second ${idx}`} value="est">
+                                  {type.type}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="flex flex-col items-center gap-4">
+                        <p className="w-full">
+                          <strong className="font-normal">Байршил</strong>
+                        </p>
+                        <Select>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Сонгох" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Байршил</SelectLabel>
+                              {location?.map((type, idx) => (
+                                <SelectItem key={`third ${idx}`} value="est">
+                                  {type.category}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <p className="w-full">
+                          <strong className="font-normal">
+                            Цалингийн мэдээлэл
+                          </strong>
+                        </p>
+                        <Select>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Сонгох" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Цалин олгох төрөл</SelectLabel>
+                              <SelectItem value="est">Цагаар</SelectItem>
+                              <SelectItem value="t">Удаагаар</SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                        <Input type="text" placeholder="Цалин эхлэх үнэ"></Input>
+                      </div>
                     </div>
-                    <div className="flex flex-col items-center gap-4">
-                      <p className="w-full">
-                        <strong className="font-normal">
-                          Дэлгэрэнгүй мэдээлэл
-                        </strong>
-                      </p>
-                      <Input
-                        id="description"
-                        placeholder="Дэлгэрэнгүй"
-                        className="h-[72px] "
-                      />
-                    </div>
-                    <div className="flex flex-col items-center gap-4">
-                      <p className="w-full">
-                        <strong className="font-normal">Категори</strong>
-                      </p>
-                      <Select>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Сонгох" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectLabel>Категори</SelectLabel>
-                            {category?.map((type, idx) => (
-                              <SelectItem key={`first ${idx}`} value="f">
-                                {type.type}
-                              </SelectItem>
-                            ))}
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="flex flex-col items-center gap-4">
-                      <p className="w-full">
-                        <strong className="font-normal">Ур чадвар</strong>
-                      </p>
-                      <Select>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Сонгох" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectLabel>Ур чадвар</SelectLabel>
-                            {category?.map((type, idx) => (
-                              <SelectItem key={`second ${idx}`} value="est">
-                                {type.type}
-                              </SelectItem>
-                            ))}
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="flex flex-col items-center gap-4">
-                      <p className="w-full">
-                        <strong className="font-normal">Байршил</strong>
-                      </p>
-                      <Select>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Сонгох" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectLabel>Байршил</SelectLabel>
-                            {location?.map((type, idx) => (
-                              <SelectItem key={`third ${idx}`} value="est">
-                                {type.category}
-                              </SelectItem>
-                            ))}
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <p className="w-full">
-                        <strong className="font-normal">
-                          Цалингийн мэдээлэл
-                        </strong>
-                      </p>
-                      <Select>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Сонгох" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectLabel>Цалин олгох төрөл</SelectLabel>
-                            <SelectItem value="est">Цагаар</SelectItem>
-                            <SelectItem value="t">Удаагаар</SelectItem>
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                      <Input type="text" placeholder="Цалин эхлэх үнэ"></Input>
-                    </div>
-                  </div>
-                  <DialogFooter>
-                    <Button type="submit" className="bg-[#118a00]">
-                      Нийтлэх
-                    </Button>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
+                    <DialogFooter>
+                      <Button type="submit" className="bg-[#118a00]">
+                        Нийтлэх
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              </div>
             </div>
           </div>
-        </div>
+        )}
+      
         <div className="w-full">
           {" "}
           <h1 className="m-auto">
