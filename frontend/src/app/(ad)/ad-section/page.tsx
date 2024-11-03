@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { category, JobCategory, location } from "./work-category";
+import {category, JobCategory, location } from "./work-category";
 import { FaArrowCircleRight } from "react-icons/fa";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -22,28 +22,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useAuth } from "@/context/AuthProvider";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEmployer } from "@/context/EmployerProvider";
+import { useCategory } from "@/context/CategoryProvider";
 
 const JobAds = () => {
-  const [employer, setEmployer] = useState(false);
-  const fetchEmployerData = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await axios.get(`http://localhost:8000/api/v1/employer/current-employer`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setEmployer(res.data.employer);
-     } catch (error) {
-      console.log("couldn't change header", error);
-    }
-  };
-  useEffect(() => {
-    fetchEmployerData();
-  }, []);
+  const { employer } = useEmployer();
+
   return (
     <div className="flex  w-[1280px] m-auto min-h-[calc(100vh-326px)]  my-20 text-sm ">
       <div className="w-[200px]">
@@ -135,7 +119,7 @@ const JobAds = () => {
                           <SelectContent>
                             <SelectGroup>
                               <SelectLabel>Категори</SelectLabel>
-                              {category?.map((type, idx) => (
+                              {category?.map((type:any, idx: any) => (
                                 <SelectItem key={`first ${idx}`} value="f">
                                   {type.type}
                                 </SelectItem>

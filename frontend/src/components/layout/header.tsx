@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthProvider";
+import { useEmployer } from "@/context/EmployerProvider";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -13,7 +14,7 @@ export const Header = () => {
   const { setRole } = useAuth();
   const router = useRouter();
   const [freelancer, setFreelancer] = useState(false);
-  const [employer, setEmployer] = useState(false);
+  const {employer} = useEmployer();
   const fetchFreelancerData = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -29,23 +30,6 @@ export const Header = () => {
   };
   useEffect(() => {
     fetchFreelancerData();
-  }, []);
-
-  const fetchEmployerData = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await axios.get(`http://localhost:8000/api/v1/employer/current-employer`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setEmployer(res.data.employer);
-     } catch (error) {
-      console.log("couldn't change header", error);
-    }
-  };
-  useEffect(() => {
-    fetchEmployerData();
   }, []);
 
   const handleLogin = (role: string) => {
