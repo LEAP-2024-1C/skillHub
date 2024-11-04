@@ -35,10 +35,7 @@ export const loginEmployer = async (req: Request, res: Response) => {
     if (!employer) {
       res.status(404).json({ message: "Бүртгэлтэй хэрэглэгч олдсонгүй." });
     } else {
-      const isCheck = bcrypt.compareSync(
-        password,
-        employer.password
-      );
+      const isCheck = bcrypt.compareSync(password, employer.password);
       if (!isCheck) {
         res
           .status(404)
@@ -56,7 +53,6 @@ export const loginEmployer = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(404).json({ message: "Бүртгэлтэй хэрэглэгч олдсонгүй." });
   }
-   
 };
 
 export const currentEmployer = async (req: Request, res: Response) => {
@@ -153,4 +149,13 @@ export const updateEmployer = async (req: Request, res: Response) => {
     message: "Хэрэглэгчийн мэдээлэл амжилттай шинэчлэгдлээ.",
     updatedUser,
   });
+};
+
+export const getAllEmployers = async (req: Request, res: Response) => {
+  try {
+    const allFreelancers = await Employer.find({});
+    res.status(200).json({ message: "Succeed", Employer: getAllEmployers });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
 };
