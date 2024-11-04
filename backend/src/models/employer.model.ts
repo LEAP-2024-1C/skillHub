@@ -17,6 +17,7 @@ interface IEmployer {
   passwordResetTokenExpire: Date;
   created_at: Date;
   updated_at: Date;
+  location: string;
 }
 
 const employerSchema = new Schema<IEmployer>(
@@ -60,6 +61,9 @@ const employerSchema = new Schema<IEmployer>(
       type: String,
       enum: ["Vip", "Basic"],
       default: "Basic",
+    },
+    location: {
+      type: String,
     },
   },
   {

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSkill } from "@/context/SkillProvider";
 import { toast } from "react-toastify";
+import { useCategory } from "@/context/CategoryProvider";
 
 export const location = [
   "Сонгохгүй",
@@ -86,6 +87,17 @@ export const location = [
 const SignUpSkills = () => {
   const { freelancer } = useFreelancer();
   const { skill } = useSkill();
+  const { category } = useCategory();
+  const [activeSkillId, setActiveSkillId] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const openModal = (skillId: string) => {
+    setActiveSkillId(skillId);
+  };
+  const closeModal = () => {
+    setActiveSkillId(null);
+  };
+
   const [choosenSkills, setChoosenSkills] = useState<
     {
       skill: string;
@@ -162,14 +174,19 @@ const SignUpSkills = () => {
       );
 
       if (res.status === 200) {
+        console.log("res data", res.data);
         setUpdateFreelancer(res.data.freelancer);
         toast.success("Амжилттай хадгаллаа", { autoClose: 1000 });
-        console.log("suceess");
+        console.log("success");
       }
     } catch (error) {
       console.log("failed", error);
       toast.success("Хадгалахад алдаа гарлаа");
     }
+  };
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCategory(e.target.value);
   };
 
   useEffect(() => {
@@ -215,7 +232,7 @@ const SignUpSkills = () => {
               {({ open }) => {
                 return (
                   <button
-                    className="px-3 py-1 bg-[#f9f9f9] rounded-2xl"
+                    className="px-3 py-1 bg-[#f9f9f9] rounded-2xl "
                     onClick={() => open()}
                   >
                     Upload an Image
@@ -228,7 +245,7 @@ const SignUpSkills = () => {
         <div className="border-[1px] rounded-2xl p-10 bg-[#f9f9f9] w-[46%] h-[700px]">
           <div className="flex gap-5">
             <div className="flex flex-col gap-2 w-[48%]">
-              <label>Овог</label>
+              <label className="text-slate-400">Овог</label>
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
@@ -242,7 +259,7 @@ const SignUpSkills = () => {
               />
             </div>
             <div className="flex flex-col gap-2 w-[48%]">
-              <label>Нэр</label>
+              <label className="text-slate-400">Нэр</label>
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
@@ -257,7 +274,7 @@ const SignUpSkills = () => {
             </div>
           </div>
           <div className="flex flex-col gap-2 w-[100%] mt-5">
-            <label>Дэлгэрэнгүй</label>
+            <label className="text-slate-400">Дэлгэрэнгүй</label>
             <input
               type="text"
               className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff] min-h-40"
@@ -272,7 +289,7 @@ const SignUpSkills = () => {
           </div>
           <div className="flex gap-5 mt-5">
             <div className="flex flex-col gap-2 w-[48%]">
-              <label>И-мэйл</label>
+              <label className="text-slate-400">И-мэйл</label>
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
@@ -286,7 +303,7 @@ const SignUpSkills = () => {
               />
             </div>
             <div className="flex flex-col gap-2 w-[48%]">
-              <label>Утас</label>
+              <label className="text-slate-400">Утас</label>
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
@@ -302,7 +319,7 @@ const SignUpSkills = () => {
           </div>
           <div className="flex gap-5 mt-5">
             <div className="flex flex-col gap-2 w-[48%]">
-              <label>Ажлын газар</label>
+              <label className="text-slate-400">Ажлын газар</label>
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
@@ -316,7 +333,7 @@ const SignUpSkills = () => {
               />
             </div>
             <div className="flex flex-col gap-2 w-[48%]">
-              <label>Албан тушаал</label>
+              <label className="text-slate-400">Албан тушаал</label>
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
@@ -391,16 +408,24 @@ const SignUpSkills = () => {
           </div>
           <label className="mt-5">Ур чадвар нэмэх:</label>
           <label className="mt-5">Категори:</label>
-          <select className="select select-bordered join-item w-full hover:border-[#118a00] border-none bg-[#f9f9f9]">
-            <option disabled selected>
-              Сонгох
-            </option>
-            <option>Баянгол</option>
-            <option>Баянзүрх</option>
-            <option>Хан-Уул</option>
+          <select
+            className="select select-bordered join-item w-full hover:border-[#118a00] border-none bg-[#f9f9f9]"
+            value={selectedCategory}
+            onChange={handleCategoryChange}
+          >
+            <option selected>Сонгох</option>
+            {/* <option value="Автомашин">Автомашин</option> */}
+            {/* <option value="Finance">Finance</option> */}
+            {category.map((cat) => {
+              return (
+                <option key={cat._id} value={cat.name}>
+                  {cat.name}
+                </option>
+              );
+            })}
           </select>
           <label className="mt-5">Ур чадварууд:</label>
-          <div className="flex flex-wrap gap-3 mt-5">
+          {/* <div className="flex flex-wrap gap-3 mt-5">
             {skill?.map((skill: { _id: string; name: string }) => {
               return (
                 <button
@@ -412,6 +437,55 @@ const SignUpSkills = () => {
                 </button>
               );
             })}
+          </div> */}
+          <div className="flex flex-wrap gap-3 mt-5">
+            {skill
+              ?.filter((skill) => skill.category.name === selectedCategory) // Filter skills based on selected category
+              .map((skill) => (
+                <div key={skill._id}>
+                  <button
+                    className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2"
+                    onClick={() => openModal(skill._id)}
+                  >
+                    <p>{skill.name}</p>
+                  </button>
+                  {activeSkillId === skill._id && (
+                    <dialog open className="modal">
+                      <div className="modal-box">
+                        <h3 className="">Ур чадвар: {skill.name}!</h3>
+                        <input
+                          type="number"
+                          placeholder="Ажилласан жил"
+                          className="input input-bordered w-full max-w-xs"
+                        />
+                        <select className="select select-bordered w-full max-w-xs">
+                          <option disabled selected>
+                            Төлбөрийн төрөл?
+                          </option>
+                          <option>цагаар</option>
+                          <option>удаагаар</option>
+                        </select>
+                        <input
+                          type="number"
+                          placeholder="Эхлэх цалин"
+                          className="input input-bordered w-full max-w-xs"
+                        />
+                        <div className="modal-action">
+                          <button
+                            className="btn"
+                            onClick={() => addSkill(skill._id, skill.name)}
+                          >
+                            Нэмэх
+                          </button>
+                          <button className="btn" onClick={closeModal}>
+                            Хаах
+                          </button>
+                        </div>
+                      </div>
+                    </dialog>
+                  )}
+                </div>
+              ))}
           </div>
         </div>
       </div>

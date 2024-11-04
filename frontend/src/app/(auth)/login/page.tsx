@@ -10,8 +10,6 @@ import Link from "next/link";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useAuth } from "@/context/AuthProvider";
 
-
-
 const Login = () => {
   const { role, setRole } = useAuth();
   const router = useRouter();
@@ -52,7 +50,7 @@ const Login = () => {
         toast.success("Хэрэглэгч амжилттай нэвтэрлээ", { autoClose: 1000 });
         const { token } = response.data;
         localStorage.setItem("token", token);
-        router.push("/");
+        router.push("/signup-skill-employer");
       }
     } catch (error) {
       console.error("There was an error signing in:", error);
@@ -72,7 +70,7 @@ const Login = () => {
         toast.success("Хэрэглэгч амжилттай нэвтэрлээ", { autoClose: 1000 });
         const { token } = response.data;
         localStorage.setItem("token", token);
-        router.push("/");
+        router.push("/signup-skills");
       }
     } catch (error) {
       console.error("There was an error signing in:", error);

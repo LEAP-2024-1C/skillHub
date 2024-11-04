@@ -88,16 +88,16 @@ export const Header = () => {
         {!freelancer && !employer && (
           <>
             <Button
-              onClick={() => handleLogin("freelancer")}
-              className="bg-[#118a00] text-white rounded-2xl w-[120px] hover:bg-white hover:text-[#118a00] shadow-xl border-none"
-            >
-              Ажил хайх
-            </Button>
-            <Button
               onClick={() => handleLogin("employer")}
               className="bg-white text-[#118a00] rounded-2xl w-[120px] hover:bg-[#118a00] hover:text-white shadow-xl border-none"
             >
               Ажилтан хайх
+            </Button>
+            <Button
+              onClick={() => handleLogin("freelancer")}
+              className="bg-[#118a00] text-white rounded-2xl w-[120px] hover:bg-white hover:text-[#118a00] shadow-xl border-none"
+            >
+              Ажил хайх
             </Button>
           </>
         )}
@@ -118,7 +118,7 @@ export const Header = () => {
                   className="iconn"
                   size={25}
                   onClick={() => {
-                    localStorage.clear();
+                    localStorage.removeItem("token");
                   }}
                   color="#118a00"
                 />
@@ -126,7 +126,7 @@ export const Header = () => {
             </div>
           )}
           {employer && (
-            <>
+            <div className="flex items-center gap-5">
               <Link href={"/employer"}>
                 {" "}
                 <img
@@ -139,13 +139,14 @@ export const Header = () => {
               <Link href={"/login"}>
                 <IoIosLogOut
                   className="iconn"
-                  size={35}
+                  size={25}
                   onClick={() => {
                     localStorage.removeItem("token");
                   }}
+                  color="#118a00"
                 />
               </Link>
-            </>
+            </div>
           )}
         </div>
       </div>
