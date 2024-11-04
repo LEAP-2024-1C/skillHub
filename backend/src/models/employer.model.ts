@@ -46,7 +46,8 @@ const employerSchema = new Schema<IEmployer>(
     },
     image: {
       type: String,
-      default: "image",
+      default:
+        "https://www.shutterstock.com/image-vector/programmer-computer-expert-black-linear-600nw-2033137370.jpg",
     },
     description: {
       type: String,

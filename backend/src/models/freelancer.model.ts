@@ -13,6 +13,7 @@ interface IFreelancer {
   skills: [
     {
       skill: Schema.Types.ObjectId;
+      name: string;
       experience: number;
       ratings: [
         {
@@ -55,7 +56,7 @@ const freelancerSchema = new Schema<IFreelancer>(
     image: {
       type: String,
       default:
-        "https://images.unsplash.com/photo-1726516335449-eaa942fd4c2f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxN3x8fGVufDB8fHx8fA%3D%3D",
+        "https://www.shutterstock.com/image-vector/programmer-computer-expert-black-linear-600nw-2033137370.jpg",
     },
     company: {
       type: String,
@@ -68,6 +69,9 @@ const freelancerSchema = new Schema<IFreelancer>(
         skill: {
           type: Schema.Types.ObjectId,
           ref: "Skill",
+        },
+        name: {
+          type: String,
         },
         experience: {
           type: Number,

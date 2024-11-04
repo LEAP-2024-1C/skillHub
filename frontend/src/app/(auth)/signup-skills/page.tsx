@@ -6,7 +6,6 @@ import { CldUploadWidget } from "next-cloudinary";
 import { useFreelancer } from "@/context/FreelancerProvider";
 import { useEffect, useState } from "react";
 import axios from "axios";
-// import { number, set } from "zod";
 import { useSkill } from "@/context/SkillProvider";
 import { toast } from "react-toastify";
 
@@ -88,17 +87,27 @@ const SignUpSkills = () => {
   const { freelancer } = useFreelancer();
   const { skill } = useSkill();
   const [choosenSkills, setChoosenSkills] = useState<
-    { skill: string; experience: number; startingSalary: number }[]
-  >([]);
+    {
+      skill: string;
+      name: string;
+      experience: number;
+      startingSalary: number;
+    }[]
+  >(freelancer?.skills || []);
 
   const [image, setImage] = useState("");
 
-  const addSkill = (skill: string) => {
-    if (!choosenSkills.some((s) => s.skill === skill)) {
+  const addSkill = (skillId: string, skillName: string) => {
+    if (!choosenSkills.some((s) => s.skill === skillId)) {
       setChoosenSkills([
         ...choosenSkills,
-        { skill, experience: 1, startingSalary: 100000 },
-      ]); // default experience
+        {
+          skill: skillId,
+          name: skillName,
+          experience: 1,
+          startingSalary: 100000,
+        },
+      ]);
     }
   };
 
@@ -129,10 +138,8 @@ const SignUpSkills = () => {
       // image,
     } = updatedFreelancer;
 
-    // const { skill, experience } = skills[0] || {};
     try {
       const token = localStorage.getItem("token");
-      console.log("JJ", choosenSkills);
       const res = await axios.put(
         `http://localhost:8000/api/v1/freelancer/update-freelancer`,
         {
@@ -164,11 +171,8 @@ const SignUpSkills = () => {
       toast.success("Хадгалахад алдаа гарлаа");
     }
   };
-  // console.log("lastnane", freelancer?.lastname);
-  // console.log("updatedFreelancer", updatedFreelancer.lastname);
 
   useEffect(() => {
-    console.log("UE", freelancer);
     if (freelancer) {
       setUpdateFreelancer({
         firstname: freelancer.firstname,
@@ -182,14 +186,9 @@ const SignUpSkills = () => {
         image: freelancer.image,
         skills: freelancer.skills,
       });
+      setChoosenSkills(freelancer.skills || []);
     }
   }, [freelancer]);
-
-  // useEffect(() => {
-  //   setImage();
-  // }, [freelancer]);
-
-  // console.log("image", image);
 
   return (
     <div className="w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] mt-20 mb-20 text-sm justify-center items-center ">
@@ -201,23 +200,11 @@ const SignUpSkills = () => {
           </Avatar>
 
           <div className="relative hover:border  hover:border-[#118a00] rounded-2xl">
-            {/* <input
-              type="file"
-              className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
-            />
-            <button className="bg-[#f9f9f9]  text-xs px-3 py-1 rounded-2xl">
-              Choose File
-            </button> */}
             <CldUploadWidget
               uploadPreset="adminskillhub"
               onSuccess={(result) => {
-                // console.log("URL", result?.info?.secure_url);
                 console.log("UpdatedFreelancer", updatedFreelancer);
                 if (typeof result?.info !== "string") {
-                  // setUpdateFreelancer({
-                  //   ...updatedFreelancer,
-                  //   image: result?.info?.secure_url || "",
-                  // });
                   setImage(result?.info?.secure_url || "");
                 }
               }}
@@ -226,7 +213,14 @@ const SignUpSkills = () => {
               }}
             >
               {({ open }) => {
-                return <button onClick={() => open()}>Upload an Image</button>;
+                return (
+                  <button
+                    className="px-3 py-1 bg-[#f9f9f9] rounded-2xl"
+                    onClick={() => open()}
+                  >
+                    Upload an Image
+                  </button>
+                );
               }}
             </CldUploadWidget>
           </div>
@@ -380,7 +374,7 @@ const SignUpSkills = () => {
                 className="border-[1px] rounded-2xl px-3 py-1 border-[#118a00] text-[#118a00] flex items-center gap-2 group"
               >
                 <p>
-                  {s.skill} - ({s.experience} жил)
+                  {s.name} - ({s.experience} жил)
                 </p>
                 <TiDeleteOutline
                   size={15}
@@ -407,26 +401,17 @@ const SignUpSkills = () => {
           </select>
           <label className="mt-5">Ур чадварууд:</label>
           <div className="flex flex-wrap gap-3 mt-5">
-            {skill?.map((skill: { name: string }) => {
+            {skill?.map((skill: { _id: string; name: string }) => {
               return (
                 <button
-                  key={skill.name}
+                  key={skill?._id}
                   className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2"
-                  onClick={() => addSkill(skill.name)}
+                  onClick={() => addSkill(skill._id, skill.name)}
                 >
-                  <p>{skill.name}</p>
+                  <p>{skill?.name}</p>
                 </button>
               );
             })}
-            {/* {skills.map((s) => (
-              <button
-                key={s}
-                className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2"
-                onClick={() => addSkill(s)}
-              >
-                <p>{s}</p>
-              </button>
-            ))} */}
           </div>
         </div>
       </div>
