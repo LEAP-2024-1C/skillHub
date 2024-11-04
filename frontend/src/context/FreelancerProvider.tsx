@@ -9,7 +9,7 @@ interface IFreelancer {
   lastname: string;
   email: string;
   password: string;
-  number: number;
+  number: string;
   image: string;
   company: string;
   position: string;
@@ -29,6 +29,7 @@ interface IFreelancer {
   ];
   type: string;
   description: string;
+  location: string;
 }
 
 interface IContext {

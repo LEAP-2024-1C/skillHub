@@ -9,23 +9,23 @@ interface ISkill {
 }
 
 interface IContext {
-  skill: ISkill | null;
-  setSkill: React.Dispatch<React.SetStateAction<ISkill | null>>;
+  skill: ISkill[] | [];
+  setSkill: React.Dispatch<React.SetStateAction<ISkill[] | []>>;
 }
 
 export const SkillContext = createContext<IContext>({
-  skill: null,
+  skill: [],
   setSkill: () => {},
 });
 
 const SkillProvider = ({ children }: { children: React.ReactNode }) => {
-  const [skill, setSkill] = useState<ISkill | null>(null);
+  const [skill, setSkill] = useState<ISkill[] | []>([]);
   const fetchSkillData = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/v1/skill/skills`);
 
       if (response.status === 200) {
-        setSkill(response.data.skill);
+        setSkill(response.data.Skill);
         // console.log("USER", response.data.user);
       }
     } catch (error) {
@@ -36,6 +36,8 @@ const SkillProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     fetchSkillData();
   }, []);
+
+  console.log("Skill", skill);
 
   return (
     <SkillContext.Provider value={{ skill, setSkill }}>

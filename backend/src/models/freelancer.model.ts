@@ -6,7 +6,7 @@ interface IFreelancer {
   lastname: string;
   email: string;
   password: string;
-  number: number;
+  number: string;
   image: string;
   company: string;
   position: string;
@@ -26,6 +26,7 @@ interface IFreelancer {
   ];
   type: string;
   description: string;
+  location: string;
 }
 
 const freelancerSchema = new Schema<IFreelancer>(
@@ -49,7 +50,7 @@ const freelancerSchema = new Schema<IFreelancer>(
       required: [true, "Хэрэглэгчийн нууц үгийг заавал оруулна уу."],
     },
     number: {
-      type: Number,
+      type: String,
     },
     image: {
       type: String,
@@ -67,11 +68,9 @@ const freelancerSchema = new Schema<IFreelancer>(
         skill: {
           type: Schema.Types.ObjectId,
           ref: "Skill",
-          required: true,
         },
         experience: {
           type: Number,
-          required: true,
         },
         ratings: [
           {
@@ -90,7 +89,6 @@ const freelancerSchema = new Schema<IFreelancer>(
         },
         startingSalary: {
           type: Number,
-          required: true,
         },
       },
     ],
@@ -101,7 +99,11 @@ const freelancerSchema = new Schema<IFreelancer>(
     },
     description: {
       type: String,
-      default: "comment",
+      default: "Хоосон байна.",
+    },
+    location: {
+      type: String,
+      default: "Сонгохгүй",
     },
   },
   {
@@ -110,15 +112,14 @@ const freelancerSchema = new Schema<IFreelancer>(
 );
 
 freelancerSchema.pre("save", function (next) {
-  if(!this.isModified("password")) {
+  if (!this.isModified("password")) {
     next();
   } else {
     const hashedPass = bcrypt.hashSync(this.password, 8);
     this.password = hashedPass;
     next();
   }
-})
-
+});
 
 const Freelancer = model<IFreelancer>("Freelancer", freelancerSchema);
 
