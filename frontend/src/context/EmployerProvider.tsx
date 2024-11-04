@@ -47,7 +47,7 @@ const EmployerProvider = ({ children }: { children: React.ReactNode }) => {
       );
 
       if (response.status === 200) {
-        setEmployer(response.data.user);
+        setEmployer(response.data.employer);
         // console.log("USER", response.data.user);
       }
     } catch (error) {
