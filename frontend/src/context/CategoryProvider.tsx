@@ -9,18 +9,18 @@ interface ICategory {
 }
 
 interface IContext {
-  category: ICategory | null;
-  setCategory: React.Dispatch<React.SetStateAction<ICategory | null>>;
+  category: ICategory [] |[];
+  setCategory: React.Dispatch<React.SetStateAction<ICategory [] | []>>;
 }
 
 export const CategoryContext = createContext<IContext>({
-  category: null,
+  category: [],
   setCategory: () => {},
 });
 
 const CategoryProvider = ({ children }: { children: React.ReactNode }) => {
   // const [token, setToken] = useState<string | null>(null);
-  const [category, setCategory] = useState<ICategory | null>(null);
+  const [category, setCategory] = useState<ICategory [] | []>([]);
   const fetchCategoryData = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/v1/category/categories`);
@@ -33,11 +33,12 @@ const CategoryProvider = ({ children }: { children: React.ReactNode }) => {
       console.error("Error fetching user data:", error);
     }
   };
+  
 
   useEffect(() => {
     fetchCategoryData();
   }, []);
-
+  console.log("category:", category);
   return (
     <CategoryContext.Provider value={{ category, setCategory }}>
       {children}
