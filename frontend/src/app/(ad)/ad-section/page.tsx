@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import {category, JobCategory, location } from "./work-category";
+import {JobCategory, location } from "./work-category";
 import { FaArrowCircleRight } from "react-icons/fa";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -24,10 +24,66 @@ import {
 } from "@/components/ui/select";
 import { useEmployer } from "@/context/EmployerProvider";
 import { useCategory } from "@/context/CategoryProvider";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { apiUrl } from "@/app/utils/util";
+import { useRouter } from "next/navigation";
 
 const JobAds = () => {
-  const { employer } = useEmployer();
+  const router = useRouter();
+  // interface IJobRequest {
+  //   title: string,
+  //   jobDetail: string,
+  //   salaryType:string,
+  //   startingPrice: string,
+  //   skillId:string,
+  // }
 
+  const { employer } = useEmployer();
+  const { category } = useCategory();
+  const [jobData, setJobData] = useState({
+    title: "",
+    jobDetail: "",
+    salaryType:"",
+    startingPrice: "",
+    skillId:"",
+  });
+
+  // const getJobRequestData = async () => {
+  //   const { title, jobDetail, skillId, startingPrice, salaryType } = jobData;
+  //   try {
+  //     const res = await axios.post(`${apiUrl}/api/v1/jobreq/job-ad`, {
+  //       title, jobDetail, skillId, startingPrice, salaryType
+  //    })
+  //   } catch (error) {
+      
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   getJobRequestData();
+  // }, [])
+
+  const handlePostAd = async() => {
+    const { title, jobDetail, skillId, startingPrice, salaryType } = jobData;
+    try {
+      const res = await axios.post(`${apiUrl}/api/v1/jobreq/job-ad`, {
+        title, 
+        jobDetail,
+        skillId,
+        startingPrice, 
+        salaryType
+      })
+      if (res.status === 200) {
+        setJobData(res.data.jobrequest);
+        router.push("/ad-section");
+      }
+     
+    } catch (error) {
+      console.error("error", error);
+    }
+}
+  console.log("job:", jobData);
   return (
     <div className="flex  w-[1280px] m-auto min-h-[calc(100vh-326px)]  my-20 text-sm ">
       <div className="w-[200px]">
@@ -75,6 +131,8 @@ const JobAds = () => {
                             id="name"
                             placeholder="Гарчиг"
                             className="col-span-3 "
+                            value={jobData.title}
+                          onChange={(e)=>setJobData({...jobData, title:e.target.value})}
                           />
                         </div>
                         <div className="flex flex-col gap-4 w-[300px]">
@@ -84,7 +142,8 @@ const JobAds = () => {
                           </p>
                           <Select>
                             <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Сонгох" />
+                              <SelectValue placeholder="Сонгох"
+                            />
                             </SelectTrigger>
                             <SelectContent>
                               <SelectGroup>
@@ -106,6 +165,8 @@ const JobAds = () => {
                           id="description"
                           placeholder="Дэлгэрэнгүй"
                           className="h-[72px] "
+                          value={jobData.jobDetail}
+                          onChange={(e)=>setJobData({...jobData, jobDetail:e.target.value})}
                         />
                       </div>
                       <div className="flex flex-col items-center gap-4">
@@ -120,8 +181,8 @@ const JobAds = () => {
                             <SelectGroup>
                               <SelectLabel>Категори</SelectLabel>
                               {category?.map((type:any, idx: any) => (
-                                <SelectItem key={`first ${idx}`} value="f">
-                                  {type.type}
+                                <SelectItem key={`first ${idx}`} value={`jobData.skillId${idx}`}>
+                                  {type.name}
                                 </SelectItem>
                               ))}
                             </SelectGroup>
@@ -140,8 +201,8 @@ const JobAds = () => {
                             <SelectGroup>
                               <SelectLabel>Ур чадвар</SelectLabel>
                               {category?.map((type, idx) => (
-                                <SelectItem key={`second ${idx}`} value="est">
-                                  {type.type}
+                                <SelectItem key={`second ${idx}`} value={jobData.skillId}>
+                                  {type.name}
                                 </SelectItem>
                               ))}
                             </SelectGroup>
@@ -160,7 +221,7 @@ const JobAds = () => {
                             <SelectGroup>
                               <SelectLabel>Байршил</SelectLabel>
                               {location?.map((type, idx) => (
-                                <SelectItem key={`third ${idx}`} value="est">
+                                <SelectItem key={`third ${idx}`} value={`${idx}`}>
                                   {type.category}
                                 </SelectItem>
                               ))}
@@ -174,23 +235,27 @@ const JobAds = () => {
                             Цалингийн мэдээлэл
                           </strong>
                         </p>
-                        <Select>
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Сонгох" />
+                        {/* <Select>
+                          <SelectTrigger className="w-full" value={jobData.salaryType}
+                            onChange={(e:any)=>setJobData({...jobData, salaryType:e.target.value})}>
+                            <SelectValue placeholder="Сонгох"
+                           />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
                               <SelectLabel>Цалин олгох төрөл</SelectLabel>
-                              <SelectItem value="est">Цагаар</SelectItem>
-                              <SelectItem value="t">Удаагаар</SelectItem>
+                              <SelectItem value={""}>Цагаар</SelectItem>
+                              <SelectItem value={""}>Удаагаар</SelectItem>
                             </SelectGroup>
                           </SelectContent>
-                        </Select>
-                        <Input type="text" placeholder="Цалин эхлэх үнэ"></Input>
+                        </Select> */}
+                        <Input type="text" placeholder="Цалин эхлэх үнэ" 
+                          value={jobData.startingPrice}
+                        onChange={(e)=>setJobData({...jobData, startingPrice:e.target.value})}></Input>
                       </div>
                     </div>
                     <DialogFooter>
-                      <Button type="submit" className="bg-[#118a00]">
+                      <Button type="submit" className="bg-[#118a00]" onClick={handlePostAd}>
                         Нийтлэх
                       </Button>
                     </DialogFooter>

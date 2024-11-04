@@ -18,6 +18,7 @@ export const jobRequest = async (req: Request, res: Response) => {
             return res.status(201).json({ message: "Job ad created", jobrequest: createJobAd });
         };
 
+
         if (!employrid) {
             res.status(404).json({ message: "user not found"});
        }
