@@ -65,6 +65,15 @@ export const getAllFreelancers = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server error", error });
   }
 };
+export const getFreelancers = async (req: Request, res: Response) => {
+  try {
+    const FreelancersCount = await Freelancer.countDocuments();
+    res.status(200).json({ message: "Succeed", FreelancersCount });
+    // console.log("employer", Employer);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
 
 export const updateFreelancer = async (req: Request, res: Response) => {
   try {

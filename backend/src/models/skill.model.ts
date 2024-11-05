@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 
-interface ISkill {
+export interface ISkill {
   _id: Schema.Types.ObjectId;
   name: string;
   category: Schema.Types.ObjectId;

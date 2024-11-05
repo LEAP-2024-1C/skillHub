@@ -153,8 +153,19 @@ export const updateEmployer = async (req: Request, res: Response) => {
 
 export const getAllEmployers = async (req: Request, res: Response) => {
   try {
-    const allFreelancers = await Employer.find({});
-    res.status(200).json({ message: "Succeed", Employer: getAllEmployers });
+    const allEmployers = await Employer.find({});
+    res.status(200).json({ message: "Succeed", Employer: allEmployers });
+    // console.log("employer", Employer);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
+export const getEmployers = async (req: Request, res: Response) => {
+  try {
+    const employerCount = await Employer.countDocuments();
+    res.status(200).json({ message: "Succeed", employerCount });
+    // console.log("employer", Employer);
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }

@@ -5,112 +5,54 @@ import { RiShieldStarLine } from "react-icons/ri";
 import { IoBriefcaseOutline } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { apiUrl } from "./utils/util";
 import { useCategory } from "@/context/CategoryProvider";
 import { useSkill } from "@/context/SkillProvider";
 
-interface IFreelancer {
-  _id: string;
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-  number: string;
-  image: string;
-  company: string;
-  position: string;
-  skills: [
-    {
-      skill: string;
-      experience: number;
-      ratings: [
-        {
-          rating: number;
-          comment: string;
-        }
-      ];
-      salaryType: string;
-      startingSalary: number;
-    }
-  ];
-  type: string;
-  description: string;
-  location: string;
-}
-interface IEmployer {
-  _id: string;
-  fullnameOrCompany: string;
-  type: string;
-  email: string;
-  password: string;
-  number: string;
-  image: string;
-  description: string;
-  company: string;
-  membership: string;
-  otp: string;
-  passwordResetToken: string;
-  passwordResetTokenExpire: Date;
-  created_at: Date;
-  updated_at: Date;
-}
-
 export default function Home() {
   const { category } = useCategory();
   const { skill } = useSkill();
-  const [freelancers, setFreelancers] = useState<IFreelancer[] | null>(null);
+
+  const [freelancersCount, setFreelancersCount] = useState<number>(0);
   //   const [dataTrue, setDataTrue] = useState(false);
   const fetchFreelancerData = async () => {
     try {
-      const token = localStorage.getItem("token");
       const response = await axios.get(
-        `${apiUrl}/api/v1/freelancer/get-all-freelancers`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `${apiUrl}/api/v1/freelancer/freelancers`
       );
 
       if (response.status === 200) {
         console.log("res data", response.data);
-        setFreelancers(response.data.freelancer);
+        setFreelancersCount(response.data.FreelancersCount);
         // console.log("USER", response.data.user);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
-  console.log("freelancer", freelancers);
+  console.log("freelancer", freelancersCount);
 
   useEffect(() => {
     fetchFreelancerData();
   }, []);
 
-  const [employers, setEmployers] = useState<IEmployer | null>(null);
+  const [employerCount, setEmployerCount] = useState<number>(0);
   const fetchEmployerData = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `${apiUrl}/api/v1/employer/get-all-employer`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${apiUrl}/api/v1/employer/employers`);
 
       if (response.status === 200) {
-        setEmployers(response.data.employer);
-        // console.log("USER", response.data.user);
+        console.log("==>", response.data);
+        setEmployerCount(response.data.employerCount);
+        console.log("===>", response.data.employer);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
-
+  console.log("Employers", employerCount);
   useEffect(() => {
     fetchEmployerData();
   }, []);
@@ -188,11 +130,11 @@ export default function Home() {
             <p className="text-[#118a00]">Нээлттэй ажлын зар</p>
           </div>
           <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
-            <p className="text-3xl font-semibold">{employers?.length}</p>
+            <p className="text-3xl font-semibold">{employerCount}</p>
             <p className="text-[#118a00]">Ажил олгогч</p>
           </div>
           <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
-            <p className="text-3xl font-semibold">{freelancers?.length}</p>
+            <p className="text-3xl font-semibold">{freelancersCount}</p>
             <p className="text-[#118a00]">Ажил горилогч</p>
           </div>
         </div>
@@ -267,7 +209,8 @@ export default function Home() {
         <div className="grid grid-cols-4 gap-8 mt-10 ">
           <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00] ">
             <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
-              Хөгжүүлэгч, IT
+              {category?.filter(cat,index)=>{
+              }}
             </div>
             <div className="flex gap-4">
               <div>4.85/5</div>
