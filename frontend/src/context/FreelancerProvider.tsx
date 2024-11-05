@@ -16,6 +16,7 @@ interface IFreelancer {
   skills: [
     {
       skill: string;
+      name: string;
       experience: number;
       ratings: [
         {

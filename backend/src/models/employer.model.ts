@@ -17,6 +17,7 @@ interface IEmployer {
   passwordResetTokenExpire: Date;
   created_at: Date;
   updated_at: Date;
+  location: string;
 }
 
 const employerSchema = new Schema<IEmployer>(
@@ -46,7 +47,8 @@ const employerSchema = new Schema<IEmployer>(
     },
     image: {
       type: String,
-      default: "image",
+      default:
+        "https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg",
     },
     description: {
       type: String,
@@ -59,6 +61,9 @@ const employerSchema = new Schema<IEmployer>(
       type: String,
       enum: ["Vip", "Basic"],
       default: "Basic",
+    },
+    location: {
+      type: String,
     },
   },
   {
