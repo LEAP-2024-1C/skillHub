@@ -1,17 +1,27 @@
 "use client";
-
+ 
 import { Edit, Star } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useFreelancer } from "@/context/FreelancerProvider"
+ 
+
 
 const FreelancerProfile = () => {
+ 
+  const { freelancer,averageRating} = useFreelancer();
   const [activeTab, setActiveTab] = useState<number>(1);
+
+  
+
+
+ 
   return (
     <div className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#f9f9f9]text-sm  my-10 px-[100px]">
       <div className="flex gap-10 items-center bg-[#f9f9f9] p-10 rounded-t-2xl">
         <div className="w-[200px]">
           <img
-            src="https://i.ibb.co/VVjDg9R/20240816-111053.jpg"
+            src={freelancer?.image}
             alt="profile"
             className="h-[150px] w-[150px] rounded-full border-4 border-[#118a00]"
           />
@@ -19,8 +29,8 @@ const FreelancerProfile = () => {
         <div className="w-full mr-10 ml-5">
           <div className="flex justify-between w-full items-center">
             <div className="flex gap-3 items-center">
-              <p className="text-2xl">Баяртогтох</p>
-              <p className="font-bold text-2xl">Тэмүүлэн</p>
+              <p className="text-2xl">{freelancer?.firstname}</p>
+              <p className="font-bold text-2xl">{freelancer?.lastname}</p>
             </div>
             <div className="flex items-center gap-5">
               <p className="text-[#118a00] text-sm border-[1px] border-[#118a00] px-2 py-[1px] rounded-full">
@@ -30,23 +40,24 @@ const FreelancerProfile = () => {
             </div>
           </div>
           <p className="mt-5 indent-10 text-justify">
-            Сайн байна уу? Намайг Тэмүүлэн гэдэг. Би гомо байхаа. Lorem ipsum
+          {freelancer?.description}
+            {/* Сайн байна уу? Намайг Тэмүүлэн гэдэг. Би гомо байхаа. Lorem ipsum
             dolor sit amet, consectetur adipisicing elit. Quidem ab ipsum in non
             cum odio soluta illum velit eligendi, error tempore consequatur nemo
-            corporis cupiditate praesentium neque similique dolores obcaecati.
+            corporis cupiditate praesentium neque similique dolores obcaecati. */}
           </p>
           <div className="mt-5 flex justify-between text-[#118a00] font-light pr-10 flex-wrap gap-2">
             <p>
               Имэйл:
-              <span className="text-[#191919] ml-2">temuulen@gmail.com</span>
+              <span className="text-[#191919] ml-2">{freelancer?.email}</span>
             </p>
             <p>
               Утасны дугаар:
-              <span className="text-[#191919] ml-2">88888888</span>
+              <span className="text-[#191919] ml-2">{freelancer?.number}</span>
             </p>
             <p>
               Компани:
-              <span className="text-[#191919] ml-2">Даяар Монгол</span>
+              <span className="text-[#191919] ml-2">{freelancer?.company}</span>
             </p>
             <p>
               Албан тушаал:
@@ -55,7 +66,7 @@ const FreelancerProfile = () => {
           </div>
         </div>
       </div>
-
+ 
       <div className="tabs tabs-lifted">
         <a
           className={`tab tab-lifted  ${
@@ -74,43 +85,46 @@ const FreelancerProfile = () => {
           Хийсэн ажлууд
         </a>
       </div>
-
+ 
       {/* Tab Panels */}
       <div
         className={`p-6 bg-base-100 border-base-300 rounded-box ${
           activeTab === 1 ? "" : "hidden"
         }`}
       >
+       {freelancer?.skills?.map((skill, index)=>(
         <div className="flex flex-col gap-5 mt-5">
           <div className="flex justify-between px-10 py-5 rounded-2xl border-l-[1px] border-[#118a00]">
-            <div className="w-[30%]">Үл хөдлөхийн зөвлөх</div>
+            <div className="w-[30%]">{skill?.skill}</div>
             <div className="flex items-center gap-2 w-[20%]">
-              <p>3.7/5</p>
+              <p>{averageRating}/5</p>
               <Star size={16} color="#118a00" />
             </div>
-            <div className="w-[20%]">9 ажил</div>
-            <div className="w-[20%] text-right">85,000₮ /цагаар/</div>
+            <div className="w-[20%]">{skill.experience}</div>
+            <div className="w-[20%] text-right">{skill.startingSalary}</div>
           </div>
           <div className="flex justify-between px-10 py-5 rounded-2xl border-l-[1px] border-[#118a00]">
-            <div className="w-[30%]">Лам</div>
+            <div className="w-[30%]">{skill?.skill}</div>
             <div className="flex items-center gap-2 w-[20%]">
-              <p>4.3/5</p>
+              <p>{averageRating}/5</p>
               <Star size={16} color="#118a00" />
             </div>
-            <div className="w-[20%]">19 ажил</div>
-            <div className="w-[20%] text-right">200,000₮ /цагаар/</div>
+            <div className="w-[20%]">{skill.experience}</div>
+            <div className="w-[20%] text-right">{skill.startingSalary}</div>
           </div>
           <div className="flex justify-between px-10 py-5 rounded-2xl border-l-[1px] border-[#118a00]">
-            <div className="w-[30%]">Software engineer</div>
+            <div className="w-[30%]">{skill?.skill}</div>
             <div className="flex items-center gap-2 w-[20%]">
-              <p>4.5/5</p>
+              <p>{averageRating}/5</p>
               <Star size={16} color="#118a00" />
             </div>
-            <div className="w-[20%] ">4 ажил</div>
-            <div className="w-[20%] text-right">300,000₮ /удаагаар/</div>
+            <div className="w-[20%] ">{skill.experience}</div>
+            <div className="w-[20%] text-right">{skill.startingSalary}</div>
           </div>
         </div>
+             ))}
       </div>
+ 
       <div
         className={`p-6 bg-base-100 border-base-300 rounded-box ${
           activeTab === 2 ? "" : "hidden"
@@ -133,7 +147,7 @@ const FreelancerProfile = () => {
                 </div>
                 <p className="text-slate-400">3 өдрийн өмнө</p>
               </div>
-
+ 
               <h1 className="text-xl mt-2">
                 <strong className="font-normal"> Хийморийн сан</strong>
               </h1>
@@ -145,10 +159,10 @@ const FreelancerProfile = () => {
                   Хурдан уншлага эдр
                 </p>
               </div>
-
+ 
               {/* <div className="mt-3 flex justify-between items-center">
                 <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
-
+ 
                 <button className="w-10">
                   <FaArrowCircleRight
                     size={25}
@@ -186,7 +200,7 @@ const FreelancerProfile = () => {
                 </div>
                 <p className="text-slate-400">3 өдрийн өмнө</p>
               </div>
-
+ 
               <h1 className="text-xl mt-2">
                 <strong className="font-normal"> Үл хөдлөхийн зөвлөх</strong>
               </h1>
@@ -198,10 +212,10 @@ const FreelancerProfile = () => {
                   Frontend
                 </p>
               </div>
-
+ 
               {/* <div className="mt-3 flex justify-between items-center">
                 <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
-
+ 
                 <button className="w-10">
                   <FaArrowCircleRight
                     size={25}
@@ -223,3 +237,5 @@ const FreelancerProfile = () => {
   );
 };
 export default FreelancerProfile;
+ 
+ 
