@@ -91,8 +91,16 @@ const SignUpSkills = () => {
   const [activeSkillId, setActiveSkillId] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("");
 
+  const [experience, setExperience] = useState(0); // Default experience
+  const [salaryType, setSalaryType] = useState("Hourly"); // Type of salary (hourly or fixed)
+  const [startingSalary, setStartingSalary] = useState(0); // Default starting salary
+
   const openModal = (skillId: string) => {
     setActiveSkillId(skillId);
+    // Reset to default values or fetch specific values related to the skill if needed
+    setExperience(0);
+    setSalaryType("Hourly");
+    setStartingSalary(0);
   };
   const closeModal = () => {
     setActiveSkillId(null);
@@ -104,6 +112,7 @@ const SignUpSkills = () => {
       name: string;
       experience: number;
       startingSalary: number;
+      salaryType: string;
     }[]
   >(freelancer?.skills || []);
 
@@ -116,8 +125,9 @@ const SignUpSkills = () => {
         {
           skill: skillId,
           name: skillName,
-          experience: 1,
-          startingSalary: 100000,
+          experience: experience, // Use experience from the modal
+          startingSalary: startingSalary, // Use startingSalary from the modal
+          salaryType: salaryType,
         },
       ]);
     }
@@ -187,6 +197,13 @@ const SignUpSkills = () => {
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(e.target.value);
+  };
+
+  const handleCloseModal = () => {
+    setActiveSkillId(null);
+    setExperience(0); // Reset experience
+    setSalaryType("Hourly"); // Reset salary type
+    setStartingSalary(0); // Reset starting salary
   };
 
   useEffect(() => {
@@ -440,7 +457,7 @@ const SignUpSkills = () => {
           </div> */}
           <div className="flex flex-wrap gap-3 mt-5">
             {skill
-              ?.filter((skill) => skill.category.name === selectedCategory) // Filter skills based on selected category
+              ?.filter((skill) => skill.category.name === selectedCategory)
               .map((skill) => (
                 <div key={skill._id}>
                   <button
@@ -455,29 +472,44 @@ const SignUpSkills = () => {
                         <h3 className="">Ур чадвар: {skill.name}!</h3>
                         <input
                           type="number"
+                          value={experience}
+                          onChange={(e) =>
+                            setExperience(Number(e.target.value))
+                          }
                           placeholder="Ажилласан жил"
                           className="input input-bordered w-full max-w-xs"
                         />
-                        <select className="select select-bordered w-full max-w-xs">
-                          <option disabled selected>
+                        <select
+                          className="select select-bordered w-full max-w-xs"
+                          value={salaryType}
+                          onChange={(e) => setSalaryType(e.target.value)}
+                        >
+                          <option defaultChecked selected>
                             Төлбөрийн төрөл?
                           </option>
-                          <option>цагаар</option>
-                          <option>удаагаар</option>
+                          <option value="Hourly">цагаар</option>
+                          <option value="Times">удаагаар</option>
                         </select>
                         <input
                           type="number"
+                          value={startingSalary}
+                          onChange={(e) =>
+                            setStartingSalary(Number(e.target.value))
+                          }
                           placeholder="Эхлэх цалин"
                           className="input input-bordered w-full max-w-xs"
                         />
                         <div className="modal-action">
                           <button
                             className="btn"
-                            onClick={() => addSkill(skill._id, skill.name)}
+                            onClick={() => {
+                              addSkill(skill._id, skill.name); // Add skill to the list
+                              closeModal(); // Close modal
+                            }}
                           >
                             Нэмэх
                           </button>
-                          <button className="btn" onClick={closeModal}>
+                          <button className="btn" onClick={handleCloseModal}>
                             Хаах
                           </button>
                         </div>
