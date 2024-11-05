@@ -252,7 +252,7 @@ const Signup = () => {
 
   return (
     <section className=" flex items-center justify-center  max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff]">
-      <div className="flex flex-col items-center justify-center gap-6 w-[334px]">
+      <div className="flex flex-col items-center justify-center gap-6 w-[334px] py-20">
         <h3 className="text-2xl font-semibold">Бүртгүүлэх</h3>
         <div className="flex gap-4 text-sm">
           {role === "freelancer" ? (
