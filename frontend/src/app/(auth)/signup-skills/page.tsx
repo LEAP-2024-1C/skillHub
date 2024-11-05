@@ -470,40 +470,51 @@ const SignUpSkills = () => {
                   </button>
                   {activeSkillId === skill._id && (
                     <dialog open className="modal">
-                      <div className="modal-box">
-                        <h3 className="">Ур чадвар: {skill.name}!</h3>
-                        <input
-                          type="number"
-                          value={experience}
-                          onChange={(e) =>
-                            setExperience(Number(e.target.value))
-                          }
-                          placeholder="Ажилласан жил"
-                          className="input input-bordered w-full max-w-xs"
-                        />
-                        <select
-                          className="select select-bordered w-full max-w-xs"
-                          value={salaryType}
-                          onChange={(e) => setSalaryType(e.target.value)}
-                        >
-                          <option defaultChecked selected>
-                            Төлбөрийн төрөл?
-                          </option>
-                          <option value="Hourly">цагаар</option>
-                          <option value="Times">удаагаар</option>
-                        </select>
-                        <input
-                          type="number"
-                          value={startingSalary}
-                          onChange={(e) =>
-                            setStartingSalary(Number(e.target.value))
-                          }
-                          placeholder="Эхлэх цалин"
-                          className="input input-bordered w-full max-w-xs"
-                        />
+                      <div className="modal-box flex flex-col gap-5">
+                        <h3 className="">
+                          Ур чадвар:{" "}
+                          <span className="text-[#118a00] font-semibold text-sm ml-1">
+                            {skill.name}!
+                          </span>
+                        </h3>
+                        <div>
+                          <p className="mb-2">Ажилласан жил:</p>
+                          <input
+                            type="number"
+                            value={experience}
+                            onChange={(e) =>
+                              setExperience(Number(e.target.value))
+                            }
+                            placeholder="Ажилласан жил"
+                            className="input input-bordered w-full "
+                          />
+                        </div>
+                        <div>
+                          <p className="mb-2">Төлбөрийн төрөл:</p>
+                          <select
+                            className="select select-bordered w-full "
+                            value={salaryType}
+                            onChange={(e) => setSalaryType(e.target.value)}
+                          >
+                            <option value="Hourly">цагаар</option>
+                            <option value="Times">удаагаар</option>
+                          </select>
+                        </div>
+                        <div>
+                          <p className="mb-2">Эхлэх цалин:</p>
+                          <input
+                            type="number"
+                            value={startingSalary}
+                            onChange={(e) =>
+                              setStartingSalary(Number(e.target.value))
+                            }
+                            placeholder="Эхлэх цалин"
+                            className="input input-bordered w-full"
+                          />
+                        </div>
                         <div className="modal-action">
                           <button
-                            className="btn"
+                            className="btn bg-[#118a00] text-white font-normal"
                             onClick={() => {
                               addSkill(skill._id, skill.name); // Add skill to the list
                               closeModal(); // Close modal
@@ -511,7 +522,10 @@ const SignUpSkills = () => {
                           >
                             Нэмэх
                           </button>
-                          <button className="btn" onClick={handleCloseModal}>
+                          <button
+                            className="btn  font-normal"
+                            onClick={handleCloseModal}
+                          >
                             Хаах
                           </button>
                         </div>
