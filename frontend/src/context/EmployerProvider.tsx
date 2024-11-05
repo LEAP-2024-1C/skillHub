@@ -19,6 +19,7 @@ interface IEmployer {
   passwordResetTokenExpire: Date;
   created_at: Date;
   updated_at: Date;
+  location: string;
 }
 
 interface IContext {

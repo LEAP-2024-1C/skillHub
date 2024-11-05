@@ -6,9 +6,9 @@ import { CldUploadWidget } from "next-cloudinary";
 import { useFreelancer } from "@/context/FreelancerProvider";
 import { useEffect, useState } from "react";
 import axios from "axios";
-// import { number, set } from "zod";
 import { useSkill } from "@/context/SkillProvider";
 import { toast } from "react-toastify";
+import { useCategory } from "@/context/CategoryProvider";
 
 export const location = [
   "Сонгохгүй",
@@ -87,18 +87,49 @@ export const location = [
 const SignUpSkills = () => {
   const { freelancer } = useFreelancer();
   const { skill } = useSkill();
+  const { category } = useCategory();
+  const [activeSkillId, setActiveSkillId] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const [experience, setExperience] = useState(0); // Default experience
+  const [salaryType, setSalaryType] = useState("Hourly"); // Type of salary (hourly or fixed)
+  const [startingSalary, setStartingSalary] = useState(0); // Default starting salary
+
+  const openModal = (skillId: string) => {
+    setActiveSkillId(skillId);
+    // Reset to default values or fetch specific values related to the skill if needed
+    setExperience(0);
+    setSalaryType("Hourly");
+    setStartingSalary(0);
+  };
+  const closeModal = () => {
+    setActiveSkillId(null);
+  };
+
   const [choosenSkills, setChoosenSkills] = useState<
-    { skill: string; experience: number; startingSalary: number }[]
-  >([]);
+    {
+      skill: string;
+      name: string;
+      experience: number;
+      startingSalary: number;
+      salaryType: string;
+    }[]
+  >(freelancer?.skills || []);
 
-  const [image, setImage] = useState("");
+  // const [image, setImage] = useState("");
 
-  const addSkill = (skill: string) => {
-    if (!choosenSkills.some((s) => s.skill === skill)) {
+  const addSkill = (skillId: string, skillName: string) => {
+    if (!choosenSkills.some((s) => s.skill === skillId)) {
       setChoosenSkills([
         ...choosenSkills,
-        { skill, experience: 1, startingSalary: 100000 },
-      ]); // default experience
+        {
+          skill: skillId,
+          name: skillName,
+          experience: experience, // Use experience from the modal
+          startingSalary: startingSalary, // Use startingSalary from the modal
+          salaryType: salaryType,
+        },
+      ]);
     }
   };
 
@@ -125,14 +156,11 @@ const SignUpSkills = () => {
       company,
       position,
       location,
-
-      // image,
+      image,
     } = updatedFreelancer;
 
-    // const { skill, experience } = skills[0] || {};
     try {
       const token = localStorage.getItem("token");
-      console.log("JJ", choosenSkills);
       const res = await axios.put(
         `http://localhost:8000/api/v1/freelancer/update-freelancer`,
         {
@@ -155,20 +183,29 @@ const SignUpSkills = () => {
       );
 
       if (res.status === 200) {
+        console.log("res data", res.data);
         setUpdateFreelancer(res.data.freelancer);
         toast.success("Амжилттай хадгаллаа", { autoClose: 1000 });
-        console.log("suceess");
+        console.log("success");
       }
     } catch (error) {
       console.log("failed", error);
       toast.success("Хадгалахад алдаа гарлаа");
     }
   };
-  // console.log("lastnane", freelancer?.lastname);
-  // console.log("updatedFreelancer", updatedFreelancer.lastname);
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCategory(e.target.value);
+  };
+
+  const handleCloseModal = () => {
+    setActiveSkillId(null);
+    setExperience(0); // Reset experience
+    setSalaryType("Hourly"); // Reset salary type
+    setStartingSalary(0); // Reset starting salary
+  };
 
   useEffect(() => {
-    console.log("UE", freelancer);
     if (freelancer) {
       setUpdateFreelancer({
         firstname: freelancer.firstname,
@@ -182,14 +219,9 @@ const SignUpSkills = () => {
         image: freelancer.image,
         skills: freelancer.skills,
       });
+      setChoosenSkills(freelancer.skills || []);
     }
   }, [freelancer]);
-
-  // useEffect(() => {
-  //   setImage();
-  // }, [freelancer]);
-
-  // console.log("image", image);
 
   return (
     <div className="w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] mt-20 mb-20 text-sm justify-center items-center ">
@@ -197,36 +229,34 @@ const SignUpSkills = () => {
       <div className="flex justify-between mt-10">
         <div className="flex flex-col gap-10 items-center w-[23%] p-10">
           <Avatar className="w-36 h-36 bg-[#f9f9f9]">
-            <AvatarImage src={image === "" ? freelancer?.image : image} />
+            <AvatarImage
+              src={freelancer?.image}
+              className="w-full h-full object-cover"
+            />
           </Avatar>
 
           <div className="relative hover:border  hover:border-[#118a00] rounded-2xl">
-            {/* <input
-              type="file"
-              className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
-            />
-            <button className="bg-[#f9f9f9]  text-xs px-3 py-1 rounded-2xl">
-              Choose File
-            </button> */}
             <CldUploadWidget
               uploadPreset="adminskillhub"
               onSuccess={(result) => {
-                // console.log("URL", result?.info?.secure_url);
-                console.log("UpdatedFreelancer", updatedFreelancer);
-                if (typeof result?.info !== "string") {
-                  // setUpdateFreelancer({
-                  //   ...updatedFreelancer,
-                  //   image: result?.info?.secure_url || "",
-                  // });
-                  setImage(result?.info?.secure_url || "");
+                const info = result.info;
+                if (typeof info !== "string" && info?.secure_url) {
+                  setUpdateFreelancer((prevFreelancer) => ({
+                    ...prevFreelancer,
+                    image: info.secure_url,
+                  }));
                 }
-              }}
-              onError={(err) => {
-                console.log("Error", err);
               }}
             >
               {({ open }) => {
-                return <button onClick={() => open()}>Upload an Image</button>;
+                return (
+                  <button
+                    className="px-3 py-1 bg-[#f9f9f9] rounded-2xl "
+                    onClick={() => open()}
+                  >
+                    Upload an Image
+                  </button>
+                );
               }}
             </CldUploadWidget>
           </div>
@@ -234,7 +264,7 @@ const SignUpSkills = () => {
         <div className="border-[1px] rounded-2xl p-10 bg-[#f9f9f9] w-[46%] h-[700px]">
           <div className="flex gap-5">
             <div className="flex flex-col gap-2 w-[48%]">
-              <label>Овог</label>
+              <label className="text-slate-400">Овог</label>
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
@@ -248,7 +278,7 @@ const SignUpSkills = () => {
               />
             </div>
             <div className="flex flex-col gap-2 w-[48%]">
-              <label>Нэр</label>
+              <label className="text-slate-400">Нэр</label>
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
@@ -263,7 +293,7 @@ const SignUpSkills = () => {
             </div>
           </div>
           <div className="flex flex-col gap-2 w-[100%] mt-5">
-            <label>Дэлгэрэнгүй</label>
+            <label className="text-slate-400">Дэлгэрэнгүй</label>
             <input
               type="text"
               className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff] min-h-40"
@@ -278,7 +308,7 @@ const SignUpSkills = () => {
           </div>
           <div className="flex gap-5 mt-5">
             <div className="flex flex-col gap-2 w-[48%]">
-              <label>И-мэйл</label>
+              <label className="text-slate-400">И-мэйл</label>
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
@@ -292,7 +322,7 @@ const SignUpSkills = () => {
               />
             </div>
             <div className="flex flex-col gap-2 w-[48%]">
-              <label>Утас</label>
+              <label className="text-slate-400">Утас</label>
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
@@ -308,7 +338,7 @@ const SignUpSkills = () => {
           </div>
           <div className="flex gap-5 mt-5">
             <div className="flex flex-col gap-2 w-[48%]">
-              <label>Ажлын газар</label>
+              <label className="text-slate-400">Ажлын газар</label>
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
@@ -322,7 +352,7 @@ const SignUpSkills = () => {
               />
             </div>
             <div className="flex flex-col gap-2 w-[48%]">
-              <label>Албан тушаал</label>
+              <label className="text-slate-400">Албан тушаал</label>
               <input
                 type="text"
                 className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
@@ -380,7 +410,7 @@ const SignUpSkills = () => {
                 className="border-[1px] rounded-2xl px-3 py-1 border-[#118a00] text-[#118a00] flex items-center gap-2 group"
               >
                 <p>
-                  {s.skill} - ({s.experience} жил)
+                  {s.name} - ({s.experience} жил)
                 </p>
                 <TiDeleteOutline
                   size={15}
@@ -397,36 +427,99 @@ const SignUpSkills = () => {
           </div>
           <label className="mt-5">Ур чадвар нэмэх:</label>
           <label className="mt-5">Категори:</label>
-          <select className="select select-bordered join-item w-full hover:border-[#118a00] border-none bg-[#f9f9f9]">
-            <option disabled selected>
-              Сонгох
-            </option>
-            <option>Баянгол</option>
-            <option>Баянзүрх</option>
-            <option>Хан-Уул</option>
+          <select
+            className="select select-bordered join-item w-full hover:border-[#118a00] border-none bg-[#f9f9f9]"
+            value={selectedCategory}
+            onChange={handleCategoryChange}
+          >
+            <option selected>Сонгох</option>
+            {/* <option value="Автомашин">Автомашин</option> */}
+            {/* <option value="Finance">Finance</option> */}
+            {category.map((cat) => {
+              return (
+                <option key={cat._id} value={cat.name}>
+                  {cat.name}
+                </option>
+              );
+            })}
           </select>
           <label className="mt-5">Ур чадварууд:</label>
-          <div className="flex flex-wrap gap-3 mt-5">
-            {skill?.map((skill: { name: string }) => {
+          {/* <div className="flex flex-wrap gap-3 mt-5">
+            {skill?.map((skill: { _id: string; name: string }) => {
               return (
                 <button
-                  key={skill.name}
+                  key={skill?._id}
                   className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2"
-                  onClick={() => addSkill(skill.name)}
+                  onClick={() => addSkill(skill._id, skill.name)}
                 >
-                  <p>{skill.name}</p>
+                  <p>{skill?.name}</p>
                 </button>
               );
             })}
-            {/* {skills.map((s) => (
-              <button
-                key={s}
-                className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2"
-                onClick={() => addSkill(s)}
-              >
-                <p>{s}</p>
-              </button>
-            ))} */}
+          </div> */}
+          <div className="flex flex-wrap gap-3 mt-5">
+            {skill
+              ?.filter((skill) => skill.category.name === selectedCategory)
+              .map((skill) => (
+                <div key={skill._id}>
+                  <button
+                    className="border-[1px] rounded-2xl px-3 py-1 border-slate-400 text-slate-400 flex items-center gap-2"
+                    onClick={() => openModal(skill._id)}
+                  >
+                    <p>{skill.name}</p>
+                  </button>
+                  {activeSkillId === skill._id && (
+                    <dialog open className="modal">
+                      <div className="modal-box">
+                        <h3 className="">Ур чадвар: {skill.name}!</h3>
+                        <input
+                          type="number"
+                          value={experience}
+                          onChange={(e) =>
+                            setExperience(Number(e.target.value))
+                          }
+                          placeholder="Ажилласан жил"
+                          className="input input-bordered w-full max-w-xs"
+                        />
+                        <select
+                          className="select select-bordered w-full max-w-xs"
+                          value={salaryType}
+                          onChange={(e) => setSalaryType(e.target.value)}
+                        >
+                          <option defaultChecked selected>
+                            Төлбөрийн төрөл?
+                          </option>
+                          <option value="Hourly">цагаар</option>
+                          <option value="Times">удаагаар</option>
+                        </select>
+                        <input
+                          type="number"
+                          value={startingSalary}
+                          onChange={(e) =>
+                            setStartingSalary(Number(e.target.value))
+                          }
+                          placeholder="Эхлэх цалин"
+                          className="input input-bordered w-full max-w-xs"
+                        />
+                        <div className="modal-action">
+                          <button
+                            className="btn"
+                            onClick={() => {
+                              addSkill(skill._id, skill.name); // Add skill to the list
+                              closeModal(); // Close modal
+                            }}
+                          >
+                            Нэмэх
+                          </button>
+                          <button className="btn" onClick={handleCloseModal}>
+                            Хаах
+                          </button>
+                        </div>
+                      </div>
+                    </dialog>
+                  )}
+                </div>
+              ))}
           </div>
         </div>
       </div>
