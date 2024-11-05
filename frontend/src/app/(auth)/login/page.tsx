@@ -50,7 +50,7 @@ const Login = () => {
         toast.success("Хэрэглэгч амжилттай нэвтэрлээ", { autoClose: 1000 });
         const { token } = response.data;
         localStorage.setItem("token", token);
-        router.push("/signup-skill-employer");
+        router.push("/signup-skills-employer");
       }
     } catch (error) {
       console.error("There was an error signing in:", error);

@@ -109,7 +109,7 @@ export const Header = () => {
                 <img
                   src={freelancer?.image}
                   alt="profile"
-                  className="w-[35px] h-[35px] rounded-full"
+                  className="w-[35px] h-[35px] rounded-full object-cover"
                 />
               </Link>
 
@@ -132,7 +132,7 @@ export const Header = () => {
                 <img
                   src={employer?.image}
                   alt=""
-                  className="w-[35px] h-[35px] rounded-full"
+                  className="w-[35px] h-[35px] rounded-full object-cover"
                 />
               </Link>
 

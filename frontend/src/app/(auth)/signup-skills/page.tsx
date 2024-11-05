@@ -116,7 +116,7 @@ const SignUpSkills = () => {
     }[]
   >(freelancer?.skills || []);
 
-  const [image, setImage] = useState("");
+  // const [image, setImage] = useState("");
 
   const addSkill = (skillId: string, skillName: string) => {
     if (!choosenSkills.some((s) => s.skill === skillId)) {
@@ -156,8 +156,7 @@ const SignUpSkills = () => {
       company,
       position,
       location,
-
-      // image,
+      image,
     } = updatedFreelancer;
 
     try {
@@ -230,20 +229,23 @@ const SignUpSkills = () => {
       <div className="flex justify-between mt-10">
         <div className="flex flex-col gap-10 items-center w-[23%] p-10">
           <Avatar className="w-36 h-36 bg-[#f9f9f9]">
-            <AvatarImage src={image === "" ? freelancer?.image : image} />
+            <AvatarImage
+              src={freelancer?.image}
+              className="w-full h-full object-cover"
+            />
           </Avatar>
 
           <div className="relative hover:border  hover:border-[#118a00] rounded-2xl">
             <CldUploadWidget
               uploadPreset="adminskillhub"
               onSuccess={(result) => {
-                console.log("UpdatedFreelancer", updatedFreelancer);
-                if (typeof result?.info !== "string") {
-                  setImage(result?.info?.secure_url || "");
+                const info = result.info;
+                if (typeof info !== "string" && info?.secure_url) {
+                  setUpdateFreelancer((prevFreelancer) => ({
+                    ...prevFreelancer,
+                    image: info.secure_url,
+                  }));
                 }
-              }}
-              onError={(err) => {
-                console.log("Error", err);
               }}
             >
               {({ open }) => {

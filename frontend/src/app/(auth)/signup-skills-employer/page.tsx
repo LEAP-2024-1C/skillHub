@@ -10,7 +10,6 @@ import { location } from "@/app/(auth)/signup-skills/page";
 
 const SignUpSkillsEmployer = () => {
   const { employer } = useEmployer();
-  const [image, setImage] = useState("");
 
   const [updatedEmployer, setUpdateEmployer] = useState({
     fullnameOrCompany: "",
@@ -34,8 +33,7 @@ const SignUpSkillsEmployer = () => {
       company,
       membership,
       location,
-
-      // image,
+      image,
     } = updatedEmployer;
 
     try {
@@ -93,19 +91,22 @@ const SignUpSkillsEmployer = () => {
       <div className="flex justify-between mt-10">
         <div className="flex flex-col gap-10 items-center w-[23%] p-10 ml-[10%]">
           <Avatar className="w-36 h-36 bg-[#f9f9f9]">
-            <AvatarImage src={image === "" ? employer?.image : image} />
+            <AvatarImage
+              src={employer?.image}
+              className="w-full h-full object-cover"
+            />
           </Avatar>
-
           <div className="relative hover:border  hover:border-[#118a00] rounded-2xl">
             <CldUploadWidget
               uploadPreset="adminskillhub"
               onSuccess={(result) => {
-                if (typeof result?.info !== "string") {
-                  setImage(result?.info?.secure_url || "");
+                const info = result.info;
+                if (typeof info !== "string" && info?.secure_url) {
+                  setUpdateEmployer((prevEmployer) => ({
+                    ...prevEmployer,
+                    image: info.secure_url,
+                  }));
                 }
-              }}
-              onError={(err) => {
-                console.log("Error", err);
               }}
             >
               {({ open }) => {
