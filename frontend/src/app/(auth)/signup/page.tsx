@@ -11,7 +11,7 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import { useAuth } from "@/context/AuthProvider";
 
 const Signup = () => {
-  const { role } = useAuth();
+  const { role, setRole } = useAuth();
   const router = useRouter();
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [emailCheck, setEmailCheck] = useState<boolean>(false);
@@ -21,6 +21,10 @@ const Signup = () => {
   const [passSymbol, setPassSymbol] = useState<boolean>(false);
   const [iseEyeOpen, setIsEyeOpen] = useState<boolean>(false);
   const [isCompany, setIsCompany] = useState<string>("Person");
+
+  const handleLogin = (role: string) => {
+    setRole(role);
+  };
 
   interface IFreelancer {
     firstname: string;
@@ -176,8 +180,7 @@ const Signup = () => {
     }
   };
   const signUpEmployer = async () => {
-    const { fullnameOrCompany, type, email, password, repassword } =
-      employerData;
+    const { fullnameOrCompany, email, password, repassword } = employerData;
     if (password !== repassword) {
       toast.error("Нууц үг хоорондоо тохирохгүй байна.");
       return;
@@ -189,7 +192,12 @@ const Signup = () => {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ email, fullnameOrCompany, type, password }),
+        body: JSON.stringify({
+          email,
+          fullnameOrCompany,
+          type: isCompany,
+          password,
+        }),
       });
 
       if (response.status === 201) {
@@ -210,6 +218,38 @@ const Signup = () => {
     checkEmployer();
   }, [employerData]);
 
+  useEffect(() => {
+    setEmployerData({
+      fullnameOrCompany: "",
+      type: isCompany,
+      email: "",
+      password: "",
+      repassword: "",
+    });
+    setFreelancerData({
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+      repassword: "",
+    });
+  }, [role]);
+
+  // const [freelancerData, setFreelancerData] = useState<IFreelancer>({
+  //   firstname: "",
+  //   lastname: "",
+  //   email: "",
+  //   password: "",
+  //   repassword: "",
+  // });
+  // const [employerData, setEmployerData] = useState<IEmployer>({
+  //   fullnameOrCompany: "",
+  //   type: isCompany,
+  //   email: "",
+  //   password: "",
+  //   repassword: "",
+  // });
+
   return (
     <section className=" flex items-center justify-center  max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff]">
       <div className="flex flex-col items-center justify-center gap-6 w-[334px]">
@@ -217,13 +257,35 @@ const Signup = () => {
         <div className="flex gap-4 text-sm">
           {role === "freelancer" ? (
             <>
-              <h5 className=" text-[#71717A]">Ажил олгогч</h5>|
-              <h5 className="text-[#118a00] underline">Ажил хайгч</h5>
+              <h5
+                className=" text-[#71717A]"
+                onClick={() => handleLogin("employer")}
+              >
+                Ажил олгогч
+              </h5>
+              |
+              <h5
+                className="text-[#118a00] underline"
+                onClick={() => handleLogin("freelancer")}
+              >
+                Ажил хайгч
+              </h5>
             </>
           ) : (
             <>
-              <h5 className="text-[#118a00] underline">Ажил олгогч</h5>|
-              <h5 className="text-[#71717A]">Ажил хайх</h5>
+              <h5
+                className="text-[#118a00] underline"
+                onClick={() => handleLogin("employer")}
+              >
+                Ажил олгогч
+              </h5>
+              |
+              <h5
+                className="text-[#71717A]"
+                onClick={() => handleLogin("freelancer")}
+              >
+                Ажил хайх
+              </h5>
             </>
           )}
         </div>
@@ -389,37 +451,28 @@ const Signup = () => {
               }
             ></Input>
             <div className="flex w-full rounded-2xl text-sm text-[#71717A] border-[1px]">
-              {isCompany === "Company" ? (
-                <>
-                  <p
-                    className="w-[50%] text-center py-1"
-                    onClick={() => setIsCompany("Person")}
-                  >
-                    Хувь хүн
-                  </p>
-                  <p
-                    className="w-[50%] text-center py-1  bg-[#118a00] rounded-2xl text-white"
-                    onClick={() => setIsCompany("Company")}
-                  >
-                    Компани
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p
-                    className="w-[50%] text-center py-1 bg-[#118a00] rounded-2xl text-white"
-                    onClick={() => setIsCompany("Person")}
-                  >
-                    Хувь хүн
-                  </p>
-                  <p
-                    className="w-[50%] text-center py-1  "
-                    onClick={() => setIsCompany("Company")}
-                  >
-                    Компани
-                  </p>
-                </>
-              )}
+              <>
+                <p
+                  className={`w-[50%] text-center py-1 ${
+                    isCompany === "Person"
+                      ? "bg-[#118a00] rounded-2xl text-white"
+                      : null
+                  }`}
+                  onClick={() => setIsCompany("Person")}
+                >
+                  Хувь хүн
+                </p>
+                <p
+                  className={`w-[50%] text-center py-1 ${
+                    isCompany === "Company"
+                      ? "bg-[#118a00] rounded-2xl text-white"
+                      : null
+                  }`}
+                  onClick={() => setIsCompany("Company")}
+                >
+                  Компани
+                </p>
+              </>
             </div>
             <div className="flex flex-col gap-1">
               <Input

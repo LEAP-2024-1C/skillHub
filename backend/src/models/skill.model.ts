@@ -3,7 +3,7 @@ import { model, Schema } from "mongoose";
 interface ISkill {
   _id: Schema.Types.ObjectId;
   name: string;
-  categoryId: Schema.Types.ObjectId;
+  category: Schema.Types.ObjectId;
 }
 
 const skillSchema = new Schema<ISkill>(
@@ -12,7 +12,7 @@ const skillSchema = new Schema<ISkill>(
       type: String,
       required: true,
     },
-    categoryId: {
+    category: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "Category",
