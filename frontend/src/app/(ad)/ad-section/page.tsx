@@ -24,56 +24,48 @@ import {
 } from "@/components/ui/select";
 import { useEmployer } from "@/context/EmployerProvider";
 import { useCategory } from "@/context/CategoryProvider";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { apiUrl } from "@/app/utils/util";
 import { useRouter } from "next/navigation";
+import { useSkill } from "@/context/SkillProvider";
 
 const JobAds = () => {
   const router = useRouter();
-  // interface IJobRequest {
-  //   title: string,
-  //   jobDetail: string,
-  //   salaryType:string,
-  //   startingPrice: string,
-  //   skillId:string,
-  // }
-
+  const { skill } = useSkill();
   const { employer } = useEmployer();
   const { category } = useCategory();
   const [jobData, setJobData] = useState({
     title: "",
     jobDetail: "",
-    salaryType:"",
-    startingPrice: "",
     skillId:"",
+    startingPrice: "",
   });
+  const [ jobAds, setJobAds ] = useState([]);
 
-  // const getJobRequestData = async () => {
-  //   const { title, jobDetail, skillId, startingPrice, salaryType } = jobData;
-  //   try {
-  //     const res = await axios.post(`${apiUrl}/api/v1/jobreq/job-ad`, {
-  //       title, jobDetail, skillId, startingPrice, salaryType
-  //    })
-  //   } catch (error) {
-      
-  //   }
-  // }
 
-  // useEffect(() => {
-  //   getJobRequestData();
-  // }, [])
+  const showJobAds = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8000/api/v1/jobreq/get-ads`);
+      setJobAds(res.data.allAds);
+      console.log("job-ad", res.data.allAds);
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+
 
   const handlePostAd = async() => {
-    const { title, jobDetail, skillId, startingPrice, salaryType } = jobData;
+    const { title, jobDetail, skillId, startingPrice,  } = jobData;
     try {
       const res = await axios.post(`${apiUrl}/api/v1/jobreq/job-ad`, {
-        title, 
-        jobDetail,
-        skillId,
-        startingPrice, 
-        salaryType
+        employerId:employer?._id,
+        title:title, 
+        jobDetail:jobDetail,
+        skillId:skillId,
+        startingPrice:startingPrice
       })
+
       if (res.status === 200) {
         setJobData(res.data.jobrequest);
         router.push("/ad-section");
@@ -82,8 +74,16 @@ const JobAds = () => {
     } catch (error) {
       console.error("error", error);
     }
-}
-  console.log("job:", jobData);
+  }
+  
+  const handleSkillChange = (value: string) => {
+    console.log("first", value)
+    setJobData({...jobData, skillId: value})
+  }
+
+  useEffect(() => {
+    showJobAds();
+  }, []);
   return (
     <div className="flex  w-[1280px] m-auto min-h-[calc(100vh-326px)]  my-20 text-sm ">
       <div className="w-[200px]">
@@ -180,8 +180,8 @@ const JobAds = () => {
                           <SelectContent>
                             <SelectGroup>
                               <SelectLabel>Категори</SelectLabel>
-                              {category?.map((type:any, idx: any) => (
-                                <SelectItem key={`first ${idx}`} value={`jobData.skillId${idx}`}>
+                              {category?.map((type, idx) => (
+                                <SelectItem key={`first ${idx}`} value={type._id}>
                                   {type.name}
                                 </SelectItem>
                               ))}
@@ -193,21 +193,27 @@ const JobAds = () => {
                         <p className="w-full">
                           <strong className="font-normal">Ур чадвар</strong>
                         </p>
-                        <Select>
+                       
+                          <Select onValueChange={handleSkillChange}>
                           <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Сонгох" />
+                              <SelectValue placeholder="Сонгох"/>
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
                               <SelectLabel>Ур чадвар</SelectLabel>
-                              {category?.map((type, idx) => (
-                                <SelectItem key={`second ${idx}`} value={jobData.skillId}>
+                              {skill?.map((type, idx) => (
+                                <SelectItem
+                                  key={`first ${idx}`}
+                                  value={type._id}
+                                  // onChange={(e:ChangeEvent<HTMLInputElement>)=>setJobData({...jobData, skillId: type._id})}
+                                  >
                                   {type.name}
                                 </SelectItem>
-                              ))}
+                            ))}
                             </SelectGroup>
                           </SelectContent>
-                        </Select>
+                          </Select>
+                            
                       </div>
                       <div className="flex flex-col items-center gap-4">
                         <p className="w-full">
@@ -235,23 +241,25 @@ const JobAds = () => {
                             Цалингийн мэдээлэл
                           </strong>
                         </p>
-                        {/* <Select>
-                          <SelectTrigger className="w-full" value={jobData.salaryType}
-                            onChange={(e:any)=>setJobData({...jobData, salaryType:e.target.value})}>
+                        <Select>
+                          <SelectTrigger className="w-full">
                             <SelectValue placeholder="Сонгох"
                            />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
                               <SelectLabel>Цалин олгох төрөл</SelectLabel>
-                              <SelectItem value={""}>Цагаар</SelectItem>
-                              <SelectItem value={""}>Удаагаар</SelectItem>
+                              <SelectItem value="hour">Цагаар</SelectItem>
+                              <SelectItem value="time">Удаагаар</SelectItem>
                             </SelectGroup>
                           </SelectContent>
-                        </Select> */}
+                        </Select>
                         <Input type="text" placeholder="Цалин эхлэх үнэ" 
                           value={jobData.startingPrice}
-                        onChange={(e)=>setJobData({...jobData, startingPrice:e.target.value})}></Input>
+                          onChange={(e) => setJobData({
+                            ...jobData,
+                            startingPrice: e.target.value
+                          })}></Input>
                       </div>
                     </div>
                     <DialogFooter>
@@ -272,7 +280,7 @@ const JobAds = () => {
             <strong className="text-[#118a00] text-xl">Ажлын зарууд</strong>
           </h1>
           <div className="flex flex-col my-10 gap-10 w-full bg-[#f9f9f9] p-10 rounded-2xl">
-            <Link href={"/ad-detail"}>
+            {jobAds?.map((ad)=><Link href={"/ad-detail"}>
               <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-5 px-10 bg-white group">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-5">
@@ -291,12 +299,12 @@ const JobAds = () => {
                 <h1 className="text-xl mt-2">
                   <strong className="font-normal">
                     {" "}
-                    Тооцооны нягтлан бодогч
+                    {ad.title}
                   </strong>
                 </h1>
                 <div className="flex gap-2 flex-wrap mt-2 px-10">
                   <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
+                    
                   </p>
                   <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
                     Frontend
@@ -304,7 +312,7 @@ const JobAds = () => {
                 </div>
 
                 <div className="mt-3 flex justify-between items-center">
-                  <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
+                  <p className="">Эхлэх цалин: {ad.startingPrice}₮ /цаг/</p>
 
                   <button className="w-10">
                     <FaArrowCircleRight
@@ -314,224 +322,10 @@ const JobAds = () => {
                   </button>
                 </div>
               </div>
-            </Link>
+            </Link>)}
+            
             {/* map */}
-            <Link href={"/ad-detail"}>
-              <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-5 px-10 bg-white group">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-5">
-                    <img
-                      src="https://images.unsplash.com/photo-1729273792109-b6665f9151a8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
-                      alt=""
-                      className="w-[40px] h-[40px] rounded-full"
-                    />
-                    <h1>
-                      <strong className="font-normal">Green LLC</strong>
-                    </h1>
-                  </div>
-                  <p className="text-slate-400">3 өдрийн өмнө</p>
-                </div>
-
-                <h1 className="text-xl mt-2">
-                  <strong className="font-normal">
-                    {" "}
-                    Тооцооны нягтлан бодогч
-                  </strong>
-                </h1>
-                <div className="flex gap-2 flex-wrap mt-2 px-10">
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                </div>
-
-                <div className="mt-3 flex justify-between items-center">
-                  <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
-
-                  <button className="w-10">
-                    <FaArrowCircleRight
-                      size={25}
-                      className="arrow hidden group-hover:block"
-                    />
-                  </button>
-                </div>
-              </div>
-            </Link>
-            <Link href={"/ad-detail"}>
-              <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-5 px-10 bg-white group">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-5">
-                    <img
-                      src="https://images.unsplash.com/photo-1729273792109-b6665f9151a8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
-                      alt=""
-                      className="w-[40px] h-[40px] rounded-full"
-                    />
-                    <h1>
-                      <strong className="font-normal">Green LLC</strong>
-                    </h1>
-                  </div>
-                  <p className="text-slate-400">3 өдрийн өмнө</p>
-                </div>
-
-                <h1 className="text-xl mt-2">
-                  <strong className="font-normal">
-                    {" "}
-                    Тооцооны нягтлан бодогч
-                  </strong>
-                </h1>
-                <div className="flex gap-2 flex-wrap mt-2 px-10">
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                </div>
-
-                <div className="mt-3 flex justify-between items-center">
-                  <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
-
-                  <button className="w-10">
-                    <FaArrowCircleRight
-                      size={25}
-                      className="arrow hidden group-hover:block"
-                    />
-                  </button>
-                </div>
-              </div>
-            </Link>
-            <Link href={"/ad-detail"}>
-              <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-5 px-10 bg-white group">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-5">
-                    <img
-                      src="https://images.unsplash.com/photo-1729273792109-b6665f9151a8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
-                      alt=""
-                      className="w-[40px] h-[40px] rounded-full"
-                    />
-                    <h1>
-                      <strong className="font-normal">Green LLC</strong>
-                    </h1>
-                  </div>
-                  <p className="text-slate-400">3 өдрийн өмнө</p>
-                </div>
-
-                <h1 className="text-xl mt-2">
-                  <strong className="font-normal">
-                    {" "}
-                    Тооцооны нягтлан бодогч
-                  </strong>
-                </h1>
-                <div className="flex gap-2 flex-wrap mt-2 px-10">
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                </div>
-
-                <div className="mt-3 flex justify-between items-center">
-                  <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
-
-                  <button className="w-10">
-                    <FaArrowCircleRight
-                      size={25}
-                      className="arrow hidden group-hover:block"
-                    />
-                  </button>
-                </div>
-              </div>
-            </Link>
-            <Link href={"/ad-detail"}>
-              <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-5 px-10 bg-white group">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-5">
-                    <img
-                      src="https://images.unsplash.com/photo-1729273792109-b6665f9151a8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
-                      alt=""
-                      className="w-[40px] h-[40px] rounded-full"
-                    />
-                    <h1>
-                      <strong className="font-normal">Green LLC</strong>
-                    </h1>
-                  </div>
-                  <p className="text-slate-400">3 өдрийн өмнө</p>
-                </div>
-
-                <h1 className="text-xl mt-2">
-                  <strong className="font-normal">
-                    {" "}
-                    Тооцооны нягтлан бодогч
-                  </strong>
-                </h1>
-                <div className="flex gap-2 flex-wrap mt-2 px-10">
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                </div>
-
-                <div className="mt-3 flex justify-between items-center">
-                  <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
-
-                  <button className="w-10">
-                    <FaArrowCircleRight
-                      size={25}
-                      className="arrow hidden group-hover:block"
-                    />
-                  </button>
-                </div>
-              </div>
-            </Link>
-            <Link href={"/ad-detail"}>
-              <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-5 px-10 bg-white group">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-5">
-                    <img
-                      src="https://images.unsplash.com/photo-1729273792109-b6665f9151a8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
-                      alt=""
-                      className="w-[40px] h-[40px] rounded-full"
-                    />
-                    <h1>
-                      <strong className="font-normal">Green LLC</strong>
-                    </h1>
-                  </div>
-                  <p className="text-slate-400">3 өдрийн өмнө</p>
-                </div>
-
-                <h1 className="text-xl mt-2">
-                  <strong className="font-normal">
-                    {" "}
-                    Тооцооны нягтлан бодогч
-                  </strong>
-                </h1>
-                <div className="flex gap-2 flex-wrap mt-2 px-10">
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                </div>
-
-                <div className="mt-3 flex justify-between items-center">
-                  <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
-
-                  <button className="w-10">
-                    <FaArrowCircleRight
-                      size={25}
-                      className="arrow hidden group-hover:block"
-                    />
-                  </button>
-                </div>
-              </div>
-            </Link>
-            <Link href={"/ad-detail"}>
+           <Link href={"/ad-detail"}>
               <div className="w-full rounded-2xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-5 px-10 bg-white group">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-5">

@@ -7,7 +7,7 @@ interface IJobRequest {
   title: string;
   jobDetail: string;
   salaryType: string;
-  startingPrice: number;
+  startingPrice: string;
   freelancers: [{ freelancerId: Schema.Types.ObjectId }];
 }
 
@@ -37,7 +37,7 @@ const jobRequestSchema = new Schema<IJobRequest>(
       default: "hour",
     },
     startingPrice: {
-      type: Number,
+      type: String,
       required: true,
     },
     freelancers: [
