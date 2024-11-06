@@ -3,10 +3,11 @@
 import { apiUrl } from "@/app/utils/util";
 import { IFreelancer, useFreelancer } from "@/context/FreelancerProvider";
 import axios from "axios";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Edit, Star } from "lucide-react";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthProvider";
 
 const DetailPage = () => {
   const { freelancerId } = useParams();
@@ -14,6 +15,12 @@ const DetailPage = () => {
   const { freelancer } = useFreelancer();
   const [choosenFreelancer, setChoosenFreelancer] =
     useState<IFreelancer | null>(null);
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  if (!isAuthenticated) {
+    router.push("/login");
+  }
 
   const fetchFreelancerData = async () => {
     try {

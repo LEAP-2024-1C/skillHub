@@ -36,11 +36,13 @@ export interface IFreelancer {
 interface IContext {
   freelancer: IFreelancer | null;
   setFreelancer: React.Dispatch<React.SetStateAction<IFreelancer | null>>;
+  fetchFreelancerData: () => void;
 }
 
 export const FreelancerContext = createContext<IContext>({
   freelancer: null,
   setFreelancer: () => {},
+  fetchFreelancerData: () => {},
 });
 
 const FreelancerProvider = ({ children }: { children: React.ReactNode }) => {
@@ -73,7 +75,9 @@ const FreelancerProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <FreelancerContext.Provider value={{ freelancer, setFreelancer }}>
+    <FreelancerContext.Provider
+      value={{ freelancer, setFreelancer, fetchFreelancerData }}
+    >
       {children}
     </FreelancerContext.Provider>
   );

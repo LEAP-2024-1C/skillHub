@@ -1,12 +1,26 @@
 "use client";
 
+import { useAuth } from "@/context/AuthProvider";
 import { useEmployer } from "@/context/EmployerProvider";
 import { Edit } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { FaArrowCircleRight } from "react-icons/fa";
 
 const FreelancerProfile = () => {
-  const { employer } = useEmployer();
+  const { employer, fetchEmployerData } = useEmployer();
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  if (!isAuthenticated) {
+    router.push("/login");
+  }
+
+  useEffect(() => {
+    fetchEmployerData();
+  }, [employer]);
+
   return (
     <div className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#f9f9f9]text-sm  my-10 px-[100px]">
       <div className="flex gap-10 items-center bg-[#f9f9f9] p-10 rounded-t-2xl">

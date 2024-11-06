@@ -1,4 +1,15 @@
-const termOfService = () => {
+"use client";
+import { useAuth } from "@/context/AuthProvider";
+import { useRouter } from "next/navigation";
+
+const TermOfService = () => {
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  if (!isAuthenticated) {
+    router.push("/login");
+    return null;
+  }
   return (
     <section className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] py-20 flex items-center gap-[58.5px] justify-center text-[#1818189f] text-justify">
       <div className="flex flex-col gap-5 w-[800px]">
@@ -97,4 +108,4 @@ const termOfService = () => {
   );
 };
 
-export default termOfService;
+export default TermOfService;

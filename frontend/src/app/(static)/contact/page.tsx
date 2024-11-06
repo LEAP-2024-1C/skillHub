@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const contact = () => {
+const Contact = () => {
   return (
     <section className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] py-20 flex items-center gap-[58.5px] justify-center text-[#181818] text-justify">
       <div className="flex flex-col gap-5">
@@ -32,7 +32,7 @@ const contact = () => {
         </div>
         <div className="flex justify-between mt-5">
           <p className="text-[#1818189f]">Бидний хаяг:</p>
-          <p>Сүхбаатар дүүрэг, ла ла ла, Гурван гол оффис</p>
+          <p>Сүхбаатар дүүрэг, ... , Гурван гол оффис</p>
         </div>
         <Link
           href={
@@ -50,4 +50,4 @@ const contact = () => {
   );
 };
 
-export default contact;
+export default Contact;

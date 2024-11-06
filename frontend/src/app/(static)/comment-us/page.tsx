@@ -1,7 +1,19 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+"use client";
 
-const commentUs = () => {
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/AuthProvider";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+const CommentUs = () => {
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  if (!isAuthenticated) {
+    router.push("/login");
+    return null;
+  }
+
   return (
     <section className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] py-20 flex items-center gap-[58.5px] justify-center text-[#181818]">
       <div className="flex flex-col gap-5 w-[800px]">
@@ -35,4 +47,4 @@ const commentUs = () => {
   );
 };
 
-export default commentUs;
+export default CommentUs;

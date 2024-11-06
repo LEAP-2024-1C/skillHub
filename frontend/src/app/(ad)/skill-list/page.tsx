@@ -10,6 +10,8 @@ import { useCategory } from "@/context/CategoryProvider";
 import { useSkill } from "@/context/SkillProvider";
 import { location } from "@/app/(auth)/signup-skills/page";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthProvider";
+import { useRouter } from "next/navigation";
 
 const SkillList = () => {
   const { category } = useCategory();
@@ -21,9 +23,16 @@ const SkillList = () => {
   const [filteredFreelancers, setFilteredFreelancers] = useState<IFreelancer[]>(
     []
   );
+  const [nameInput, setNameInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
   const [skillInput, setSkillInput] = useState("");
   const [locationInput, setLocationInput] = useState("");
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  if (!isAuthenticated) {
+    router.push("/login");
+  }
 
   interface IFreelancer {
     _id: string;
@@ -128,7 +137,8 @@ const SkillList = () => {
     if (
       selectedCategories.length === 0 &&
       selectedSkills.length === 0 &&
-      selectedLocations.length === 0
+      selectedLocations.length === 0 &&
+      !nameInput
     ) {
       setFilteredFreelancers(allFreelancers);
       return;
@@ -149,7 +159,16 @@ const SkillList = () => {
           selectedCategories.includes(sk.skill.category)
         );
 
-      return hasSelectedSkills && isInSelectedLocation && isInSelectedCategory;
+      const isInputName = freelancer.firstname
+        .toLowerCase()
+        .includes(nameInput.toLowerCase());
+
+      return (
+        hasSelectedSkills &&
+        isInSelectedLocation &&
+        isInSelectedCategory &&
+        isInputName
+      );
     });
 
     setFilteredFreelancers(filtered);
@@ -164,7 +183,13 @@ const SkillList = () => {
       filterSkillsByCategory(); // This still runs to filter skills based on categories
       filterFreelancers(); // Call to filter freelancers based on selected categories, skills, and locations
     }
-  }, [selectedCategories, selectedSkills, selectedLocations, allFreelancers]);
+  }, [
+    selectedCategories,
+    selectedSkills,
+    selectedLocations,
+    allFreelancers,
+    nameInput,
+  ]);
 
   // console.log("SelectedCategory", selectedCategories);
   // console.log("SelectedSkill", selectedSkills);
@@ -174,6 +199,14 @@ const SkillList = () => {
     <div className="w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] flex gap-20 my-10 text-sm">
       <div className=" flex flex-col gap-3 w-[200px]">
         <div className="flex flex-col  w-[200px] gap-1">
+          <h1 className="font-bold">Нэр</h1>
+          <Input
+            className="h-[28px] my-2"
+            value={nameInput}
+            onChange={(e) => setNameInput(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col  w-[200px] gap-1 mt-5">
           <h1 className="font-bold">Категори</h1>
           <Input
             className="h-[28px] my-2"

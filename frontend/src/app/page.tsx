@@ -74,13 +74,15 @@ export default function Home() {
   return (
     <section className="  max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-[#181818] text-sm mt-10">
       <div className="flex gap-5">
-        <a href="">Хөгжүүлэгч, IT</a>
-        <a href="">Санхүү</a>
-        <a href="">Дизайн</a>
-        <a href="">Борлуулалт, маркетинг</a>
-        <a href="">Гэр ахуй</a>
+        {category?.slice(0, 5).map((cat) => {
+          return (
+            <a key={cat._id} href="/ad-section">
+              {cat.name}
+            </a>
+          );
+        })}
         <div className="flex items-center gap-2">
-          <a href="">Бүгд</a>
+          <a href="/ad-section">Бүгд</a>
           <IoIosArrowDown size={12} className="icon" color="black" />
         </div>
       </div>
@@ -94,7 +96,7 @@ export default function Home() {
           </div>
           <div className="my-3 text-slate-400">
             Хуучин дүрмийг март. Та хамгийн <br />
-            сайн хүмүүстэй хамтран ажилла. Яг одоо. Яг энд.
+            шилдгүүдтэй хамтран ажилла. Яг одоо. Яг энд.
           </div>
           <Link href={"/login"}>
             <button className="btn  w-36 h-12 bg-[#118a00] text-white">
@@ -104,7 +106,7 @@ export default function Home() {
         </div>
         <img
           className="h-96"
-          src="https://img.freepik.com/free-vector/happy-freelancer-with-computer-home-young-man-sitting-armchair-using-laptop-chatting-online-smiling-vector-illustration-distance-work-online-learning-freelance_74855-8401.jpg?t=st=1729919441~exp=1729923041~hmac=4ada854095b0a5fc83ceba585f40ba7f8a16a72c3990e9c3caa13d4360121ead&w=2000"
+          src="https://i.ibb.co/Tqnbd2V/17575182-66e0-4fd7-bf9d-0fd44b6edaeb-transformed.jpg"
           alt="photo"
         />
       </div>
@@ -197,7 +199,7 @@ export default function Home() {
           </div>
           {/* button  */}
           <div className="flex gap-4">
-            <Link href={"/login"}>
+            <Link href={"/signup"}>
               <button className="btn bg-[#118a00] text-white w-48 h-12">
                 Үнэгүй бүртгүүлнэ үү
               </button>
@@ -243,21 +245,16 @@ export default function Home() {
           Сүүлд нэмэгдсэн ажлын зарууд
         </div>
         <div className="flex gap-4 mt-1 flex-row-reverse text-sm">
-          <button className=" border-[#118a00] rounded-2xl px-2 py-1 text-sm text-slate-400">
-            Хөгжүүлэгч, IT
-          </button>
-          <button className=" border-[#118a00] rounded-2xl px-2 py-1 text-sm text-slate-400">
-            Санхүү
-          </button>
-          <button className=" border-[#118a00] rounded-2xl px-2 py-1 text-sm text-slate-400">
-            Дизайн
-          </button>
-          <button className=" border-[#118a00] rounded-2xl px-2 py-1 text-sm text-slate-400">
-            Борлуулалт маркетинг
-          </button>
-          <button className=" border-[#118a00] rounded-2xl px-2 py-1 text-sm text-slate-400">
-            Админ ба хэрэглэгчийн дэмжлэг
-          </button>
+          {category.slice(0, 5).map((cat) => {
+            return (
+              <button
+                key={`second ${cat._id}`}
+                className=" border-[#118a00] rounded-2xl px-2 py-1 text-sm text-slate-400"
+              >
+                {cat.name}
+              </button>
+            );
+          })}
         </div>
         {/* recent job box start */}
         <div className="flex flex-wrap mt-10 text-sm justify-between">
@@ -390,7 +387,7 @@ export default function Home() {
 
         {/* button slide gargadag  */}
         <div className="w-full flex justify-center">
-          <Link href={"/login"}>
+          <Link href={"/ad-section"}>
             <button className="btn bg-[#118a00] text-white w-48 mt-10 text-sm rounded-2xl">
               Бусад ажил харах
             </button>

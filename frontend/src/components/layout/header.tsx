@@ -6,19 +6,29 @@ import { useEmployer } from "@/context/EmployerProvider";
 import { useFreelancer } from "@/context/FreelancerProvider";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
 
 export const Header = () => {
-  const { setRole } = useAuth();
+  // const { setRole } = useAuth();
   const router = useRouter();
-  const { employer } = useEmployer();
-  const { freelancer } = useFreelancer();
+  const { employer, fetchEmployerData } = useEmployer();
+  const { freelancer, fetchFreelancerData } = useFreelancer();
+  const { isAuthenticated, logout, setRole } = useAuth();
 
   const handleLogin = (role: string) => {
     setRole(role);
     router.push("/login");
   };
+
+  useEffect(() => {
+    // Fetch data immediately upon login
+    if (isAuthenticated) {
+      fetchFreelancerData();
+      fetchEmployerData();
+    }
+  }, [isAuthenticated]);
 
   return (
     <header className="flex justify-between px-10 h-16 items-center bg-[#181818] text-sm text-[#181818 ]">
@@ -85,7 +95,7 @@ export const Header = () => {
       </div>
 
       <div className="flex gap-2">
-        {!freelancer && !employer && (
+        {!isAuthenticated ? (
           <>
             <Button
               onClick={() => handleLogin("employer")}
@@ -100,55 +110,52 @@ export const Header = () => {
               Ажил хайх
             </Button>
           </>
+        ) : (
+          <div className="flex gap-3">
+            {freelancer && (
+              <div className="flex items-center gap-5">
+                <Link href={"/freelancer"}>
+                  {" "}
+                  <img
+                    src={freelancer?.image}
+                    alt="profile"
+                    className="w-[35px] h-[35px] rounded-full object-cover"
+                  />
+                </Link>
+
+                <Link href={"/login"}>
+                  <IoIosLogOut
+                    className="iconn"
+                    size={25}
+                    onClick={logout}
+                    color="#118a00"
+                  />
+                </Link>
+              </div>
+            )}
+            {employer && (
+              <div className="flex items-center gap-5">
+                <Link href={"/employer"}>
+                  {" "}
+                  <img
+                    src={employer?.image}
+                    alt=""
+                    className="w-[35px] h-[35px] rounded-full object-cover"
+                  />
+                </Link>
+
+                <Link href={"/login"}>
+                  <IoIosLogOut
+                    className="iconn"
+                    size={25}
+                    onClick={logout}
+                    color="#118a00"
+                  />
+                </Link>
+              </div>
+            )}
+          </div>
         )}
-        <div className="flex gap-3">
-          {freelancer && (
-            <div className="flex items-center gap-5">
-              <Link href={"/freelancer"}>
-                {" "}
-                <img
-                  src={freelancer?.image}
-                  alt="profile"
-                  className="w-[35px] h-[35px] rounded-full object-cover"
-                />
-              </Link>
-
-              <Link href={"/login"}>
-                <IoIosLogOut
-                  className="iconn"
-                  size={25}
-                  onClick={() => {
-                    localStorage.removeItem("token");
-                  }}
-                  color="#118a00"
-                />
-              </Link>
-            </div>
-          )}
-          {employer && (
-            <div className="flex items-center gap-5">
-              <Link href={"/employer"}>
-                {" "}
-                <img
-                  src={employer?.image}
-                  alt=""
-                  className="w-[35px] h-[35px] rounded-full object-cover"
-                />
-              </Link>
-
-              <Link href={"/login"}>
-                <IoIosLogOut
-                  className="iconn"
-                  size={25}
-                  onClick={() => {
-                    localStorage.removeItem("token");
-                  }}
-                  color="#118a00"
-                />
-              </Link>
-            </div>
-          )}
-        </div>
       </div>
     </header>
   );
