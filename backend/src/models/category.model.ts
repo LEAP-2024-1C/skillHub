@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 
-interface ICategory {
+export interface ICategory {
   _id: Schema.Types.ObjectId;
   name: string;
 }
@@ -13,7 +13,6 @@ const categorySchema = new Schema<ICategory>(
     },
   },
   { timestamps: true }
-  
 );
 
 const Category = model<ICategory>("Category", categorySchema);
