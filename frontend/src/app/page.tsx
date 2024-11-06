@@ -5,7 +5,7 @@ import { RiShieldStarLine } from "react-icons/ri";
 import { IoBriefcaseOutline } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiUrl } from "./utils/util";
 import { useCategory } from "@/context/CategoryProvider";
@@ -44,9 +44,7 @@ export default function Home() {
       const response = await axios.get(`${apiUrl}/api/v1/employer/employers`);
 
       if (response.status === 200) {
-        console.log("==>", response.data);
         setEmployerCount(response.data.employerCount);
-        console.log("===>", response.data.employer);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -57,6 +55,22 @@ export default function Home() {
     fetchEmployerData();
   }, []);
 
+  const [statitics, setStatistics] =
+    useState<[object: { catName: string; skillCount: number }]>();
+  const fetchStatiticsData = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/v1/skill/stat`);
+      if (response.status === 200) {
+        setStatistics(response.data.stat);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchStatiticsData();
+  }, []);
   return (
     <section className="  max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-[#181818] text-sm mt-10">
       <div className="flex gap-5">
@@ -205,81 +219,22 @@ export default function Home() {
             <p className="underline hover:text-[#118a00]">Ажил хайх</p>
           </Link>
         </div>
-        {/* boxes */}
-        <div className="grid grid-cols-4 gap-8 mt-10 ">
-          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00] ">
-            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
-              {category?.filter(cat,index)=>{
-              }}
+
+        <div className="grid grid-cols-4 gap-8 mt-10">
+          {statitics?.slice(0, 8).map((item, index) => (
+            <div
+              key={index}
+              className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00] "
+            >
+              <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
+                {item.catName}
+              </div>
+              <div className="flex gap-4">
+                <div>4.85/5</div>
+                <div>{item.skillCount} ур чадвар</div>
+              </div>
             </div>
-            <div className="flex gap-4">
-              <div>4.85/5</div>
-              <div>1953 ур чадвар</div>
-            </div>
-          </div>
-          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
-              Санхүү
-            </div>
-            <div className="flex gap-4">
-              <div>4.85/5</div>
-              <div>294 ур чадвар</div>
-            </div>
-          </div>
-          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
-              Дизайн
-            </div>
-            <div className="flex gap-4">
-              <div>4.85/5</div>
-              <div>984 ур чадвар</div>
-            </div>
-          </div>
-          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
-              Борлуулалт маркетинг
-            </div>
-            <div className="flex gap-4">
-              <div>4.85/5</div>
-              <div>392 ур чадвар</div>
-            </div>
-          </div>
-          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
-              Гэр ахуй
-            </div>
-            <div className="flex gap-4">
-              <div>4.85/5</div>
-              <div>505 ур чадвар</div>
-            </div>
-          </div>
-          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
-              Ментор
-            </div>
-            <div className="flex gap-4">
-              <div>4.85/5</div>
-              <div>801 чадвар</div>
-            </div>
-          </div>
-          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
-              Сургалт
-            </div>
-            <div className="flex gap-4">
-              <div>4.85/5</div>
-              <div>101 чадвар</div>
-            </div>
-          </div>
-          <div className="bg-[#f9f9f9] rounded-2xl flex flex-col gap-2 p-10 items-center justify-center h-[120px] hover:border hover:border-[#118a00]">
-            <div className="font-black text-black text-lg bg-[#f9f9f9]  text-center">
-              Барилга
-            </div>
-            <div className="flex gap-4">
-              <div>4.85/5</div>
-              <div>201 чадвар</div>
-            </div>
-          </div>
+          ))}
         </div>
         {/* recently post start */}
       </div>
