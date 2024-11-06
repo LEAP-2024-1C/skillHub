@@ -188,7 +188,7 @@ const SignUpSkills = () => {
         // console.log("res data", res.data);
         setUpdateFreelancer(res.data.freelancer);
         toast.success("Амжилттай хадгаллаа", { autoClose: 1000 });
-        router.push("/employer");
+        router.push("/freelancer");
         // console.log("success");
       }
     } catch (error) {
