@@ -133,23 +133,23 @@ export default function Home() {
           Манай сайтад одоогоор ...
         </h3>
         <div className="flex justify-evenly mt-10">
-          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
+          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-16 py-5 rounded-2xl">
             <p className="text-3xl font-semibold">{category.length}</p>
             <p className="text-[#118a00]">Категори</p>
           </div>
-          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
+          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-16 py-5 rounded-2xl">
             <p className="text-3xl font-semibold">{skill.length}</p>
             <p className="text-[#118a00]">Ур чадвар</p>
           </div>
-          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
+          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-16 py-5 rounded-2xl">
             <p className="text-3xl font-semibold">32</p>
             <p className="text-[#118a00]">Нээлттэй ажлын зар</p>
           </div>
-          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
+          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-16 py-5 rounded-2xl">
             <p className="text-3xl font-semibold">{employerCount}</p>
             <p className="text-[#118a00]">Ажил олгогч</p>
           </div>
-          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-20 py-5 rounded-2xl">
+          <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-16 py-5 rounded-2xl">
             <p className="text-3xl font-semibold">{freelancersCount}</p>
             <p className="text-[#118a00]">Ажил горилогч</p>
           </div>
