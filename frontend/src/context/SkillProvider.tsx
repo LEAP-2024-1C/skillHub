@@ -6,6 +6,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 interface ISkill {
   _id: string;
   name: string;
+  category: { _id: string; name: string };
 }
 
 interface IContext {

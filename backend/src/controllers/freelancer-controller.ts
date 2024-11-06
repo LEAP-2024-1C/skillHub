@@ -50,7 +50,11 @@ export const signupFreelancer = async (req: Request, res: Response) => {
 export const currentFreelancer = async (req: Request, res: Response) => {
   try {
     const { id } = req.user;
-    const freelancer = await Freelancer.findById(id);
+    const freelancer = await Freelancer.findById(id).populate({
+      path: "skills.skill",
+      model: "Skill",
+      select: "name category",
+    });
     res.status(200).json({ freelancer: freelancer, message: "success" });
   } catch (error) {
     res.status(404).json({ message: "User not found", error: error });
@@ -59,7 +63,11 @@ export const currentFreelancer = async (req: Request, res: Response) => {
 
 export const getAllFreelancers = async (req: Request, res: Response) => {
   try {
-    const allFreelancers = await Freelancer.find({});
+    const allFreelancers = await Freelancer.find({}).populate({
+      path: "skills.skill",
+      model: "Skill",
+      select: "name category",
+    });
     res.status(200).json({ message: "Succeed", freelancer: allFreelancers });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
@@ -87,5 +95,15 @@ export const updateFreelancer = async (req: Request, res: Response) => {
     });
   } catch (error) {
     res.status(404).json({ message: "User not found", error: error });
+  }
+};
+
+export const getFreelancerById = async (req: Request, res: Response) => {
+  try {
+    const { freelancerId } = req.params;
+    const freelancer = await Freelancer.findById(freelancerId);
+    res.status(200).json({ message: "Succeed", freelancer });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
   }
 };

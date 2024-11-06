@@ -141,14 +141,18 @@ export const verifyPassword = async (req: Request, res: Response) => {
 };
 
 export const updateEmployer = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const updatedUser = await Employer.findByIdAndUpdate(id, req.body, {
-    new: true,
-  });
-  res.status(200).json({
-    message: "Хэрэглэгчийн мэдээлэл амжилттай шинэчлэгдлээ.",
-    updatedUser,
-  });
+  try {
+    const { id } = req.user;
+    const updatedEmployer = await Employer.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.status(200).json({
+      message: "Хэрэглэгчийн мэдээлэл амжилттай шинэчлэгдлээ.",
+      updatedEmployer,
+    });
+  } catch (error) {
+    res.status(404).json({ message: "User not found", error: error });
+  }
 };
 
 export const getAllEmployers = async (req: Request, res: Response) => {

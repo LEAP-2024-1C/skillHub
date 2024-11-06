@@ -1,20 +1,51 @@
 "use client";
 
-import { useFreelancer } from "@/context/FreelancerProvider";
+import { apiUrl } from "@/app/utils/util";
+import { IFreelancer, useFreelancer } from "@/context/FreelancerProvider";
+import axios from "axios";
+import { useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { Edit, Star } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
-const FreelancerProfile = () => {
-  const { freelancer } = useFreelancer();
-
+const DetailPage = () => {
+  const { freelancerId } = useParams();
   const [activeTab, setActiveTab] = useState<number>(1);
+  const { freelancer } = useFreelancer();
+  const [choosenFreelancer, setChoosenFreelancer] =
+    useState<IFreelancer | null>(null);
+
+  const fetchFreelancerData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `${apiUrl}/api/v1/freelancer/${freelancerId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setChoosenFreelancer(response.data.freelancer);
+        console.log("USER", response.data.user);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFreelancerData();
+  }, []);
+
   return (
     <div className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#f9f9f9]text-sm  my-10 px-[100px]">
       <div className="flex gap-10 items-center bg-[#f9f9f9] p-10 rounded-t-2xl">
         <div className="w-[200px]">
           <img
-            src={`${freelancer?.image}`}
+            src={`${choosenFreelancer?.image}`}
             alt="profile"
             className="h-[150px] w-[150px] rounded-full border-4 border-[#118a00] object-cover"
           />
@@ -22,38 +53,48 @@ const FreelancerProfile = () => {
         <div className="w-full mr-10 ml-5">
           <div className="flex justify-between w-full items-center">
             <div className="flex gap-3 items-center">
-              <p className="text-2xl">{freelancer?.firstname}</p>
-              <p className="font-bold text-2xl">{freelancer?.lastname}</p>
+              <p className="text-2xl">{choosenFreelancer?.firstname}</p>
+              <p className="font-bold text-2xl">
+                {choosenFreelancer?.lastname}
+              </p>
             </div>
             <div className="flex items-center gap-5">
               <p className="text-[#118a00] text-sm border-[1px] border-[#118a00] px-2 py-[1px] rounded-full">
-                {freelancer?.type}
+                {choosenFreelancer?.type}
               </p>
-              <Link href="/signup-skills">
-                <Edit color="#118a00" size={22} />
-              </Link>
+              {freelancerId === freelancer?._id ? (
+                <Link href="/signup-skills">
+                  <Edit color="#118a00" size={22} />
+                </Link>
+              ) : null}
             </div>
           </div>
           <p className="mt-5 indent-10 text-justify">
-            {freelancer?.description}
+            {choosenFreelancer?.description}
           </p>
           <div className="mt-5 flex justify-between text-[#118a00] font-light pr-10 flex-wrap gap-2">
             <p>
               Имэйл:
-              <span className="text-[#191919] ml-2">{freelancer?.email}</span>
+              <span className="text-[#191919] ml-2">
+                {choosenFreelancer?.email}
+              </span>
             </p>
             <p>
               Утасны дугаар:
-              <span className="text-[#191919] ml-2">{freelancer?.number}</span>
+              <span className="text-[#191919] ml-2">
+                {choosenFreelancer?.number}
+              </span>
             </p>
             <p>
               Компани:
-              <span className="text-[#191919] ml-2">{freelancer?.company}</span>
+              <span className="text-[#191919] ml-2">
+                {choosenFreelancer?.company}
+              </span>
             </p>
             <p>
               Албан тушаал:
               <span className="text-[#191919] ml-2">
-                {freelancer?.position}
+                {choosenFreelancer?.position}
               </span>
             </p>
           </div>
@@ -86,7 +127,7 @@ const FreelancerProfile = () => {
         }`}
       >
         <div className="flex flex-col gap-5 mt-5">
-          {freelancer?.skills?.map((skill, index) => {
+          {choosenFreelancer?.skills?.map((skill, index) => {
             return (
               <div
                 key={index}
@@ -217,4 +258,5 @@ const FreelancerProfile = () => {
     </div>
   );
 };
-export default FreelancerProfile;
+
+export default DetailPage;
