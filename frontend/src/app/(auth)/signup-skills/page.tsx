@@ -9,6 +9,7 @@ import axios from "axios";
 import { useSkill } from "@/context/SkillProvider";
 import { toast } from "react-toastify";
 import { useCategory } from "@/context/CategoryProvider";
+import { useRouter } from "next/navigation";
 
 export const location = [
   "Сонгохгүй",
@@ -94,6 +95,7 @@ const SignUpSkills = () => {
   const [experience, setExperience] = useState(0); // Default experience
   const [salaryType, setSalaryType] = useState("Hourly"); // Type of salary (hourly or fixed)
   const [startingSalary, setStartingSalary] = useState(0); // Default starting salary
+  const router = useRouter();
 
   const openModal = (skillId: string) => {
     setActiveSkillId(skillId);
@@ -183,10 +185,11 @@ const SignUpSkills = () => {
       );
 
       if (res.status === 200) {
-        console.log("res data", res.data);
+        // console.log("res data", res.data);
         setUpdateFreelancer(res.data.freelancer);
         toast.success("Амжилттай хадгаллаа", { autoClose: 1000 });
-        console.log("success");
+        router.push("/employer");
+        // console.log("success");
       }
     } catch (error) {
       console.log("failed", error);

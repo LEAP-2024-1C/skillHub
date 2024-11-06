@@ -7,9 +7,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useEmployer } from "@/context/EmployerProvider";
 import { location } from "@/app/(auth)/signup-skills/page";
+import { useRouter } from "next/navigation";
 
 const SignUpSkillsEmployer = () => {
   const { employer } = useEmployer();
+  const router = useRouter();
 
   const [updatedEmployer, setUpdateEmployer] = useState({
     fullnameOrCompany: "",
@@ -61,6 +63,7 @@ const SignUpSkillsEmployer = () => {
       if (res.status === 200) {
         setUpdateEmployer(res.data.employer);
         toast.success("Амжилттай хадгаллаа", { autoClose: 1000 });
+        router.push("/employer");
         console.log("success");
       }
     } catch (error) {

@@ -88,3 +88,13 @@ export const updateFreelancer = async (req: Request, res: Response) => {
     res.status(404).json({ message: "User not found", error: error });
   }
 };
+
+export const getFreelancerById = async (req: Request, res: Response) => {
+  try {
+    const { freelancerId } = req.params;
+    const freelancer = await Freelancer.findById(freelancerId);
+    res.status(200).json({ message: "Succeed", freelancer });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};

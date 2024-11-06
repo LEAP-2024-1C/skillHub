@@ -3,7 +3,21 @@ import { apiUrl } from "@/app/utils/util";
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-interface IFreelancer {
+interface ISkill {
+  skill: string;
+  name: string;
+  experience: number;
+  ratings?: [
+    {
+      rating: number;
+      comment: string;
+    }
+  ];
+  salaryType: string;
+  startingSalary: number;
+}
+
+export interface IFreelancer {
   _id: string;
   firstname: string;
   lastname: string;
@@ -13,21 +27,7 @@ interface IFreelancer {
   image: string;
   company: string;
   position: string;
-  skills: [
-    {
-      skill: string;
-      name: string;
-      experience: number;
-      ratings: [
-        {
-          rating: number;
-          comment: string;
-        }
-      ];
-      salaryType: string;
-      startingSalary: number;
-    }
-  ];
+  skills: ISkill[];
   type: string;
   description: string;
   location: string;

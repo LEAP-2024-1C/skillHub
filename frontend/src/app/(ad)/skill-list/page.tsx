@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { useCategory } from "@/context/CategoryProvider";
 import { useSkill } from "@/context/SkillProvider";
 import { location } from "@/app/(auth)/signup-skills/page";
+import Link from "next/link";
 
 const SkillList = () => {
   const { category } = useCategory();
@@ -301,9 +302,11 @@ const SkillList = () => {
                 Байршил: {freelancer?.location}
               </p>
               <div>
-                <button className="btn px-2 py-[1px] rounded-2xl w-[148px] bg-[#118A00] mt-3 text-white">
-                  Дэлгэрэнгүй
-                </button>
+                <Link href={`/skill-list/detail/${freelancer._id}`}>
+                  <button className="btn px-2 py-[1px] rounded-2xl w-[148px] bg-[#118A00] mt-3 text-white">
+                    Дэлгэрэнгүй
+                  </button>
+                </Link>
               </div>
             </div>
           );

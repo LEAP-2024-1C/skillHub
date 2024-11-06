@@ -1,56 +1,59 @@
 "use client";
 
+import { useEmployer } from "@/context/EmployerProvider";
 import { Edit } from "lucide-react";
 import Link from "next/link";
 import { FaArrowCircleRight } from "react-icons/fa";
 
 const FreelancerProfile = () => {
+  const { employer } = useEmployer();
   return (
     <div className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#f9f9f9]text-sm  my-10 px-[100px]">
       <div className="flex gap-10 items-center bg-[#f9f9f9] p-10 rounded-t-2xl">
         <div className="w-[200px] flex flex-col justify-center items-center gap-3">
           <img
-            src="https://i.ibb.co/VVjDg9R/20240816-111053.jpg"
+            src={`${employer?.image}`}
             alt="profile"
-            className="h-[150px] w-[150px] rounded-full border-4 border-[#118a00]"
+            className="h-[150px] w-[150px] rounded-full border-4 border-[#118a00] object-cover"
           />
-          <p>Vip</p>
+          {/* <p className="text-[#118a00]">({employer?.membership})</p> */}
         </div>
         <div className="w-full mr-10 ml-5">
           <div className="flex justify-between w-full items-center">
             <div className="flex gap-3 items-center">
-              <p className="text-2xl text-[#118a00]">Хувь хүн:</p>
-              <p className="font-bold text-2xl">Тэмүүлэн</p>
+              <p className="text-2xl text-[#118a00]">{employer?.type}:</p>
+              <p className="font-bold text-2xl">
+                {employer?.fullnameOrCompany}
+              </p>
             </div>
             <div className="flex items-center gap-5">
               <p className="text-[#118a00] text-sm border-[1px] border-[#118a00] px-2 py-[1px] rounded-full">
-                Идэвхтэй
+                {employer?.membership}
               </p>
-              <Edit color="#118a00" size={22} />
+              <Link href="/signup-skills-employer">
+                <Edit color="#118a00" size={22} />
+              </Link>
             </div>
           </div>
-          <p className="mt-5 indent-10 text-justify">
-            Сайн байна уу? Намайг Тэмүүлэн гэдэг. Би гомо байхаа. Lorem ipsum
-            dolor sit amet, consectetur adipisicing elit. Quidem ab ipsum in non
-            cum odio soluta illum velit eligendi, error tempore consequatur nemo
-            corporis cupiditate praesentium neque similique dolores obcaecati.
-          </p>
+          <p className="mt-5 indent-10 text-justify">{employer?.description}</p>
           <div className="mt-5 flex justify-between text-[#118a00] font-light pr-10 flex-wrap gap-2">
             <p>
               Имэйл:
-              <span className="text-[#191919] ml-2">temuulen@gmail.com</span>
+              <span className="text-[#191919] ml-2">{employer?.email}</span>
             </p>
             <p>
               Утасны дугаар:
-              <span className="text-[#191919] ml-2">88888888</span>
+              <span className="text-[#191919] ml-2">{employer?.number}</span>
             </p>
             <p>
               Компани:
-              <span className="text-[#191919] ml-2">Даяар Монгол</span>
+              <span className="text-[#191919] ml-2">{employer?.company}</span>
             </p>
             <p>
-              Албан тушаал:
-              <span className="text-[#191919] ml-2">Даяанч</span>
+              Гишүүнчлэл:
+              <span className="text-[#191919] ml-2">
+                {employer?.membership}
+              </span>
             </p>
           </div>
         </div>
@@ -183,7 +186,6 @@ const FreelancerProfile = () => {
 
               <div className="mt-3 flex justify-between items-center">
                 <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
-
                 <button className="w-10">
                   <FaArrowCircleRight
                     size={25}
