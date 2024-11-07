@@ -29,10 +29,10 @@ import axios from "axios";
 import { apiUrl } from "@/app/utils/util";
 import { useRouter } from "next/navigation";
 import { useSkill } from "@/context/SkillProvider";
-import { location } from "@/app/(auth)/signup-skills/page";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
 import { useAuth } from "@/context/AuthProvider";
+import location from "@/components/location";
 
 interface IJobRequest {
   _id: string;

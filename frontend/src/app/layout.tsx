@@ -24,9 +24,9 @@ import "react-toastify/dist/ReactToastify.css";
 // });
 
 const geologica = Geologica({
-  subsets: ["cyrillic"],
-  display: "swap",
+  subsets: ["latin", "cyrillic"],
   weight: "400",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
