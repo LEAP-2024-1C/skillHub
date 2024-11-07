@@ -9,6 +9,7 @@ import { useEmployer } from "@/context/EmployerProvider";
 import { location } from "@/app/(auth)/signup-skills/page";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthProvider";
+import { apiUrl } from "@/app/utils/util";
 
 const SignUpSkillsEmployer = () => {
   const { employer } = useEmployer();
@@ -47,7 +48,7 @@ const SignUpSkillsEmployer = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.put(
-        `http://localhost:8000/api/v1/employer/update-employer`,
+        `${apiUrl}/api/v1/employer/update-employer`,
         {
           fullnameOrCompany,
           type,

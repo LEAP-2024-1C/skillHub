@@ -56,7 +56,7 @@ const JobAds = () => {
   const showJobAds = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/api/v1/jobreq/get-ads`
+        `${apiUrl}/api/v1/jobreq/get-ads`
       );
       setJobAds(res.data.allAds);
       console.log("job-ad", res.data.allAds);

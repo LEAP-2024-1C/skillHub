@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { useCategory } from "@/context/CategoryProvider";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthProvider";
+import { apiUrl } from "@/app/utils/util";
 
 export const location = [
   "Сонгохгүй",
@@ -170,7 +171,7 @@ const SignUpSkills = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.put(
-        `http://localhost:8000/api/v1/freelancer/update-freelancer`,
+        `${apiUrl}/api/v1/freelancer/update-freelancer`,
         {
           firstname,
           lastname,

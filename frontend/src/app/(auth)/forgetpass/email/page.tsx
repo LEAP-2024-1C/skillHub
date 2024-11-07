@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import MoonLoader from "react-spinners/ClipLoader";
+import { apiUrl } from "@/app/utils/util";
 
 const Email = () => {
   const router = useRouter();
@@ -35,10 +36,9 @@ const Email = () => {
 
   const handleSendOtp = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:8000/api/v1/auth/forget-password",
-        { email }
-      );
+      const res = await axios.post(`${apiUrl}/api/v1/auth/forget-password`, {
+        email,
+      });
       if (res.status === 200) {
         setStep(step + 1);
         toast.success("Otp code таны имэйл хаяг руу явууллаа.");
