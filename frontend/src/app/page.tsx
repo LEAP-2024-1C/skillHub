@@ -317,7 +317,7 @@ export default function Home() {
         </div>
         {/* recent job box start */}
         <div className="flex flex-wrap mt-10 text-sm justify-between">
-          {jobAds.map((jobAd) => {
+          {jobAds.slice(0, 6).map((jobAd) => {
             return (
               <Link
                 href={`/ad-section/detail/${jobAd._id}`}
