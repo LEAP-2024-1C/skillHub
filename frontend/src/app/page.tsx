@@ -14,9 +14,8 @@ import { useSkill } from "@/context/SkillProvider";
 export default function Home() {
   const { category } = useCategory();
   const { skill } = useSkill();
-
   const [freelancersCount, setFreelancersCount] = useState<number>(0);
-  //   const [dataTrue, setDataTrue] = useState(false);
+
   const fetchFreelancerData = async () => {
     try {
       const response = await axios.get(
@@ -26,7 +25,6 @@ export default function Home() {
       if (response.status === 200) {
         console.log("res data", response.data);
         setFreelancersCount(response.data.FreelancersCount);
-        // console.log("USER", response.data.user);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -204,9 +202,6 @@ export default function Home() {
                 Үнэгүй бүртгүүлнэ үү
               </button>
             </Link>
-            {/* <button className="btn bg-[#118a00] text-white w-36 h-12">
-              Ажилд авахдаа халуун сур
-            </button> */}
           </div>
         </div>
       </div>

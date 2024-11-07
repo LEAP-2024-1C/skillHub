@@ -35,7 +35,6 @@ export const EmployerContext = createContext<IContext>({
 });
 
 const EmployerProvider = ({ children }: { children: React.ReactNode }) => {
-  // const [token, setToken] = useState<string | null>(null);
   const [employer, setEmployer] = useState<IEmployer | null>(null);
   const fetchEmployerData = async () => {
     try {
