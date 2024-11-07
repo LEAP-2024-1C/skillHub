@@ -1,16 +1,17 @@
 "use client";
 
-import { apiUrl } from "@/app/utils/util";
+// import { apiUrl } from "@/app/utils/util";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useRouter, useSearchParams } from "next/navigation";
+// import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+// import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const NewPass = () => {
-  const router = useRouter();
-  const params = useSearchParams();
+  // const router = useRouter();
+  // const params = useSearchParams();
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [passUpper, setPassUpper] = useState<boolean>(false);
   const [passLower, setPassLower] = useState<boolean>(false);
@@ -68,42 +69,42 @@ const NewPass = () => {
     }
   };
 
-  const handleNewPassword = async () => {
-    const { password, repassword } = passData;
+  // const handleNewPassword = async () => {
+  //   const { password, repassword } = passData;
 
-    if (password !== repassword) {
-      toast.error("Нууц үг хоорондоо тохирохгүй байна.");
-      return;
-    }
+  //   if (password !== repassword) {
+  //     toast.error("Нууц үг хоорондоо тохирохгүй байна.");
+  //     return;
+  //   }
 
-    try {
-      const response = await fetch(`${apiUrl}/api/v1/auth/verify-password`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          password,
-          resetToken: params.get("resettoken"),
-        }),
-      });
+  //   try {
+  //     const response = await fetch(`${apiUrl}/api/v1/auth/verify-password`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         password,
+  //         resetToken: params.get("resettoken"),
+  //       }),
+  //     });
 
-      if (response.status === 200) {
-        toast.success("Нууц үг амжилттай солигдлоо", { autoClose: 1000 });
-        router.push("/login");
-      }
-    } catch (error) {
-      console.error("There was an error signing up:", error);
-      toast.error("Алдаа гарлаа. Дахин оролдоно уу.");
-    }
-  };
+  //     if (response.status === 200) {
+  //       toast.success("Нууц үг амжилттай солигдлоо", { autoClose: 1000 });
+  //       router.push("/login");
+  //     }
+  //   } catch (error) {
+  //     console.error("There was an error signing up:", error);
+  //     toast.error("Алдаа гарлаа. Дахин оролдоно уу.");
+  //   }
+  // };
 
   useEffect(() => {
     check();
   }, [passData]);
 
   return (
-    <div className="h-[calc(100vh-363px)] flex flex-col items-center justify-center max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-sm">
+    <div className="h-[calc(100vh-363px)] flex flex-col items-center">
       <div className="w-[320px] mt-24">
         <h1 className="text-2xl font-semibold mb-8 text-center">
           Нууц үг сэргээх
@@ -165,11 +166,10 @@ const NewPass = () => {
             </li>
           </ul>
           {isChecked ? (
-            <Button className="button-primary" onClick={handleNewPassword}>
-              Үүсгэх
-            </Button>
+            // <Button className="button-primary" onClick={handleNewPassword}>
+            <Button className="button-primary">Үүсгэх</Button>
           ) : (
-            <Button className="bg-[#118a00]">Үүсгэх</Button>
+            <Button className="button-primary">Үүсгэх</Button>
           )}
         </div>
       </div>

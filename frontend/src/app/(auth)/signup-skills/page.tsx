@@ -12,20 +12,7 @@ import { useCategory } from "@/context/CategoryProvider";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthProvider";
 import { apiUrl } from "@/app/utils/util";
-
-export const location = [
-  "Сонгохгүй",
-  "Баянзүрх",
-  "Баянгол",
-  "Хан-Уул",
-  "Чингэлтэй",
-  "Налайх",
-  "Сүхбаатар",
-  "Сонгинохайрхан",
-  "Багануур",
-  "Багахангай",
-  "Орон нутаг",
-];
+import location from "@/components/location";
 
 // interface IFreelancer {
 //   _id: string;
@@ -393,7 +380,7 @@ const SignUpSkills = () => {
               <option disabled selected className="text-black">
                 Сонгох
               </option>
-              {location.map((loc) => {
+              {location?.map((loc) => {
                 return (
                   <option key={loc} className="text-black">
                     {loc}

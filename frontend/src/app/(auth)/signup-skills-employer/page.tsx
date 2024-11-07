@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useEmployer } from "@/context/EmployerProvider";
-import { location } from "@/app/(auth)/signup-skills/page";
+import location from "@/components/location";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthProvider";
 import { apiUrl } from "@/app/utils/util";

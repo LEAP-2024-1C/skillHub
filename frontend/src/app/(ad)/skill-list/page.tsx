@@ -8,7 +8,7 @@ import { apiUrl } from "@/app/utils/util";
 import { toast } from "react-toastify";
 import { useCategory } from "@/context/CategoryProvider";
 import { useSkill } from "@/context/SkillProvider";
-import { location } from "@/app/(auth)/signup-skills/page";
+import location from "@/components/location";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthProvider";
 import { useRouter } from "next/navigation";
