@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   currentEmployer,
   getAllEmployers,
+  getEmployerById,
   getEmployers,
   loginEmployer,
   signupEmployer,
@@ -17,5 +18,6 @@ router.route("/employers").get(getEmployers);
 router.route("/signup").post(signupEmployer);
 router.route("/login").post(loginEmployer);
 router.route("/update-employer").put(authentication, updateEmployer);
+router.route("/:employerId").get(authentication, getEmployerById);
 
 export default router;
