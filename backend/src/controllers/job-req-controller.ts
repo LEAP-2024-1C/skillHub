@@ -41,7 +41,8 @@ export const getJobAds = async (req: Request, res: Response) => {
   try {
     const allAds = await JobRequest.find({})
       .populate("employerId")
-      .populate("skill");
+      .populate("skill")
+      .sort({ createdAt: -1 });
     res.status(200).json({ message: "Succeed", allAds: allAds });
   } catch (error) {
     res.status(400).json({ message: "Failed to get job ads", error });

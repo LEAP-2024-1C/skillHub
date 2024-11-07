@@ -288,7 +288,7 @@ const JobAds = () => {
 
   useEffect(() => {
     showJobAds();
-  }, []);
+  }, [jobData]);
 
   useEffect(() => {
     if (jobAds.length > 0) {
