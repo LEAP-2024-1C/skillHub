@@ -36,9 +36,12 @@ const Email = () => {
 
   const handleSendOtp = async () => {
     try {
-      const res = await axios.post(`${apiUrl}/api/v1/auth/forget-password`, {
-        email,
-      });
+      const res = await axios.post(
+        `${apiUrl}/api/v1/employer/forget-password`,
+        {
+          email,
+        }
+      );
       if (res.status === 200) {
         setStep(step + 1);
         toast.success("Otp code таны имэйл хаяг руу явууллаа.");
@@ -52,12 +55,12 @@ const Email = () => {
   const handleConfirmOtp = async (value: string) => {
     setOtpValue(value);
     if (value.length === 4) {
-      //   router.push("/forgetpass/newpass");
+      // router.push("/forgetpass/newpass");
       try {
-        const res = await axios.post(
-          "http://localhost:8000/api/v1/auth/verify-otp",
-          { email, otpValue: value }
-        );
+        const res = await axios.post(`${apiUrl}/api/v1/employer/verify-otp`, {
+          email,
+          otpValue: value,
+        });
         if (res.status === 200) {
           toast.success(
             "Нууц үг сэргээх холбоосыг таны имэйл хаяг руу явууллаа."

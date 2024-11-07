@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { generateHtmlTemplate } from "./generateHtmlTemplate";
+
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   host: "smtp.gmail.com",

@@ -29,7 +29,7 @@ export const generateHtmlTemplate = (otp: string) => {
           <p style="font-size: 0.9em;">
             Хүндэтгэсэн,
             <br />
-            E-Commerce ХХК
+            SkillHub ХХК
           </p>
           <hr style="border: none; border-top: 1px solid #eee;" />
         </div>
