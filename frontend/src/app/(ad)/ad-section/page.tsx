@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { JobCategory, location } from "./work-category";
+import { JobCategory } from "./work-category";
 import { FaArrowCircleRight } from "react-icons/fa";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -29,6 +29,7 @@ import axios from "axios";
 import { apiUrl } from "@/app/utils/util";
 import { useRouter } from "next/navigation";
 import { useSkill } from "@/context/SkillProvider";
+import { location } from "@/app/(auth)/signup-skills/page";
 
 interface IJobRequest {
   _id: string;
@@ -43,8 +44,9 @@ interface IJobRequest {
 const JobAds = () => {
   const router = useRouter();
   const { skill } = useSkill();
-  const { employer } = useEmployer();
   const { category } = useCategory();
+  const { employer } = useEmployer();
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [jobData, setJobData] = useState({
     title: "",
     jobDetail: "",
@@ -53,11 +55,13 @@ const JobAds = () => {
   });
   const [jobAds, setJobAds] = useState<IJobRequest[]>([]);
 
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCategory(e.target.value);
+  };
+
   const showJobAds = async () => {
     try {
-      const res = await axios.get(
-        `${apiUrl}/api/v1/jobreq/get-ads`
-      );
+      const res = await axios.get(`${apiUrl}/api/v1/jobreq/get-ads`);
       setJobAds(res.data.allAds);
       console.log("job-ad", res.data.allAds);
     } catch (error) {
@@ -93,6 +97,8 @@ const JobAds = () => {
   useEffect(() => {
     showJobAds();
   }, []);
+
+  console.log("Selected category", selectedCategory);
 
   console.log("jobs", jobAds);
   return (
@@ -190,24 +196,40 @@ const JobAds = () => {
                         <p className="w-full">
                           <strong className="font-normal">Категори</strong>
                         </p>
-                        <Select>
+                        {/* <Select>
                           <SelectTrigger className="w-full">
                             <SelectValue placeholder="Сонгох" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
                               <SelectLabel>Категори</SelectLabel>
-                              {category?.map((type, idx) => (
+                              {category?.map((cat, idx) => (
                                 <SelectItem
                                   key={`first ${idx}`}
-                                  value={type._id}
+                                  value={cat._id}
                                 >
-                                  {type.name}
+                                  {cat.name}
                                 </SelectItem>
                               ))}
                             </SelectGroup>
                           </SelectContent>
-                        </Select>
+                        </Select> */}
+                        <select
+                          className="select select-bordered join-item w-full border-[1px] border-[#ebeaea]"
+                          value={selectedCategory}
+                          onChange={handleCategoryChange}
+                        >
+                          <option selected>Сонгох</option>
+                          {/* <option value="Автомашин">Автомашин</option> */}
+                          {/* <option value="Finance">Finance</option> */}
+                          {category.map((cat) => {
+                            return (
+                              <option key={cat._id} value={cat.name}>
+                                {cat.name}
+                              </option>
+                            );
+                          })}
+                        </select>
                       </div>
                       <div className="flex flex-col items-center gap-4">
                         <p className="w-full">
@@ -221,15 +243,20 @@ const JobAds = () => {
                           <SelectContent>
                             <SelectGroup>
                               <SelectLabel>Ур чадвар</SelectLabel>
-                              {skill?.map((type, idx) => (
-                                <SelectItem
-                                  key={`first ${idx}`}
-                                  value={type.name}
-                                  // onChange={(e:ChangeEvent<HTMLInputElement>)=>setJobData({...jobData, skillId: type._id})}
-                                >
-                                  {type.name}
-                                </SelectItem>
-                              ))}
+                              {skill
+                                ?.filter(
+                                  (skill) =>
+                                    skill.category.name === selectedCategory
+                                )
+                                .map((type, idx) => (
+                                  <SelectItem
+                                    key={`first ${idx}`}
+                                    value={type.name}
+                                    // onChange={(e:ChangeEvent<HTMLInputElement>)=>setJobData({...jobData, skillId: type._id})}
+                                  >
+                                    {type.name}
+                                  </SelectItem>
+                                ))}
                             </SelectGroup>
                           </SelectContent>
                         </Select>
@@ -238,7 +265,7 @@ const JobAds = () => {
                         <p className="w-full">
                           <strong className="font-normal">Байршил</strong>
                         </p>
-                        <Select>
+                        {/* <Select>
                           <SelectTrigger className="w-full">
                             <SelectValue placeholder="Сонгох" />
                           </SelectTrigger>
@@ -255,7 +282,29 @@ const JobAds = () => {
                               ))}
                             </SelectGroup>
                           </SelectContent>
-                        </Select>
+                        </Select> */}
+                        <select
+                          className="select select-bordered join-item w-full mt-2 p-2 rounded-lg text-black border border-gray-300 bg-white transition duration-200 ease-in-out "
+                          aria-label="Choose an option"
+                          // value={updatedFreelancer?.location}
+                          // onChange={(e) => {
+                          //   setUpdateFreelancer({
+                          //     ...updatedFreelancer,
+                          //     location: e.target.value,
+                          //   });
+                          // }}
+                        >
+                          <option disabled selected className="text-black">
+                            Сонгох
+                          </option>
+                          {location?.map((loc) => {
+                            return (
+                              <option key={loc} className="text-black">
+                                {loc}
+                              </option>
+                            );
+                          })}
+                        </select>
                       </div>
                       <div className="flex items-center gap-4">
                         <p className="w-full">
