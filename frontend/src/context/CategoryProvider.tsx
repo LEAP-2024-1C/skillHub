@@ -9,8 +9,8 @@ interface ICategory {
 }
 
 interface IContext {
-  category: ICategory [] |[];
-  setCategory: React.Dispatch<React.SetStateAction<ICategory [] | []>>;
+  category: ICategory[] | [];
+  setCategory: React.Dispatch<React.SetStateAction<ICategory[] | []>>;
 }
 
 export const CategoryContext = createContext<IContext>({
@@ -19,21 +19,18 @@ export const CategoryContext = createContext<IContext>({
 });
 
 const CategoryProvider = ({ children }: { children: React.ReactNode }) => {
-  // const [token, setToken] = useState<string | null>(null);
-  const [category, setCategory] = useState<ICategory [] | []>([]);
+  const [category, setCategory] = useState<ICategory[] | []>([]);
   const fetchCategoryData = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/v1/category/categories`);
 
       if (response.status === 200) {
         setCategory(response.data.category);
-        // console.log("USER", response.data.user);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
-  
 
   useEffect(() => {
     fetchCategoryData();

@@ -9,6 +9,8 @@ import EmployerProvider from "@/context/EmployerProvider";
 import CategoryProvider from "@/context/CategoryProvider";
 import SkillProvider from "@/context/SkillProvider";
 import FreelancerProvider from "@/context/FreelancerProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -48,6 +50,7 @@ export default function RootLayout({
                   <Header />
                   {children}
                   <Footer />
+                  <ToastContainer />
                 </SkillProvider>
               </CategoryProvider>
             </EmployerProvider>

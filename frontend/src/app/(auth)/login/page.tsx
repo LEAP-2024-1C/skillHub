@@ -11,7 +11,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useAuth } from "@/context/AuthProvider";
 
 const Login = () => {
-  const { role, setRole } = useAuth();
+  const { role, setRole, login } = useAuth();
   const router = useRouter();
   const [iseEyeOpen, setIsEyeOpen] = useState<boolean>(false);
 
@@ -50,6 +50,7 @@ const Login = () => {
         toast.success("Хэрэглэгч амжилттай нэвтэрлээ", { autoClose: 1000 });
         const { token } = response.data;
         localStorage.setItem("token", token);
+        login("employer");
         router.push("/signup-skills-employer");
       }
     } catch (error) {
@@ -70,6 +71,7 @@ const Login = () => {
         toast.success("Хэрэглэгч амжилттай нэвтэрлээ", { autoClose: 1000 });
         const { token } = response.data;
         localStorage.setItem("token", token);
+        login("freelancer");
         router.push("/signup-skills");
       }
     } catch (error) {

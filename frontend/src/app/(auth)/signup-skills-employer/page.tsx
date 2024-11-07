@@ -8,10 +8,16 @@ import { toast } from "react-toastify";
 import { useEmployer } from "@/context/EmployerProvider";
 import { location } from "@/app/(auth)/signup-skills/page";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthProvider";
 
 const SignUpSkillsEmployer = () => {
   const { employer } = useEmployer();
+  const { isAuthenticated } = useAuth();
   const router = useRouter();
+
+  if (!isAuthenticated) {
+    router.push("/login");
+  }
 
   const [updatedEmployer, setUpdateEmployer] = useState({
     fullnameOrCompany: "",

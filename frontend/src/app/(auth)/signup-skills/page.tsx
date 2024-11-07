@@ -10,6 +10,7 @@ import { useSkill } from "@/context/SkillProvider";
 import { toast } from "react-toastify";
 import { useCategory } from "@/context/CategoryProvider";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthProvider";
 
 export const location = [
   "Сонгохгүй",
@@ -95,7 +96,12 @@ const SignUpSkills = () => {
   const [experience, setExperience] = useState(0); // Default experience
   const [salaryType, setSalaryType] = useState("Hourly"); // Type of salary (hourly or fixed)
   const [startingSalary, setStartingSalary] = useState(0); // Default starting salary
+  const { isAuthenticated } = useAuth();
   const router = useRouter();
+
+  if (!isAuthenticated) {
+    router.push("/login");
+  }
 
   const openModal = (skillId: string) => {
     setActiveSkillId(skillId);

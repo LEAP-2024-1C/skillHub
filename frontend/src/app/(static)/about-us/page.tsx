@@ -1,4 +1,4 @@
-const aboutUs = () => {
+const AboutUs = () => {
   return (
     <section className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] flex items-center gap-[58.5px] justify-center text-[#181818] text-justify  ">
       <div>
@@ -16,4 +16,4 @@ const aboutUs = () => {
   );
 };
 
-export default aboutUs;
+export default AboutUs;

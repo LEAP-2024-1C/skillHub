@@ -1,12 +1,25 @@
 "use client";
 
+import { useAuth } from "@/context/AuthProvider";
 import { useFreelancer } from "@/context/FreelancerProvider";
-import { Edit, Star } from "lucide-react";
+import { Edit } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { FaStar } from "react-icons/fa";
 
 const FreelancerProfile = () => {
-  const { freelancer } = useFreelancer();
+  const { freelancer, fetchFreelancerData } = useFreelancer();
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  if (!isAuthenticated) {
+    router.push("/login");
+  }
+
+  useEffect(() => {
+    fetchFreelancerData();
+  }, [freelancer]);
 
   const [activeTab, setActiveTab] = useState<number>(1);
   return (
@@ -95,7 +108,7 @@ const FreelancerProfile = () => {
                 <div className="w-[30%]">{skill.name}</div>
                 <div className="flex items-center gap-2 w-[20%]">
                   <p>4.7/5</p>
-                  <Star size={16} color="#118a00" />
+                  <FaStar size={16} color="#118a00" />
                 </div>
                 <div className="w-[20%]">{skill.experience} жил</div>
                 <div className="w-[20%] text-right">
@@ -153,11 +166,11 @@ const FreelancerProfile = () => {
               </div> */}
               <div className="mt-5">
                 <div className="flex">
-                  <Star size={16} color="#118a00" />
-                  <Star size={16} color="#118a00" />
-                  <Star size={16} color="#118a00" />
-                  <Star size={16} color="#118a00" />
-                  <Star size={16} color="#118a00" />
+                  <FaStar size={16} color="#118a00" />
+                  <FaStar size={16} color="#118a00" />
+                  <FaStar size={16} color="#118a00" />
+                  <FaStar size={16} color="#118a00" />
+                  <FaStar size={16} color="#118a00" />
                 </div>
                 <p className="mt-2">
                   Хүссэн үр дүнг цаг хугацаанд нь гаргаж чадсан. Баярлалаа!
@@ -206,7 +219,7 @@ const FreelancerProfile = () => {
               </div> */}
               <div className="mt-5">
                 <div className="flex">
-                  <Star size={16} color="#118a00" />
+                  <FaStar size={16} color="#118a00" />
                 </div>
                 <p className="mt-2">Мөнгөө авчаад нэг ч ирж уулзаагүй.</p>
               </div>

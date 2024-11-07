@@ -36,17 +36,17 @@ export interface IFreelancer {
 interface IContext {
   freelancer: IFreelancer | null;
   setFreelancer: React.Dispatch<React.SetStateAction<IFreelancer | null>>;
+  fetchFreelancerData: () => void;
 }
 
 export const FreelancerContext = createContext<IContext>({
   freelancer: null,
   setFreelancer: () => {},
+  fetchFreelancerData: () => {},
 });
 
 const FreelancerProvider = ({ children }: { children: React.ReactNode }) => {
-  // const [token, setToken] = useState<string | null>(null);
   const [freelancer, setFreelancer] = useState<IFreelancer | null>(null);
-  //   const [dataTrue, setDataTrue] = useState(false);
   const fetchFreelancerData = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -61,7 +61,6 @@ const FreelancerProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (response.status === 200) {
         setFreelancer(response.data.freelancer);
-        // console.log("USER", response.data.user);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -73,7 +72,9 @@ const FreelancerProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <FreelancerContext.Provider value={{ freelancer, setFreelancer }}>
+    <FreelancerContext.Provider
+      value={{ freelancer, setFreelancer, fetchFreelancerData }}
+    >
       {children}
     </FreelancerContext.Provider>
   );

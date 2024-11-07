@@ -25,15 +25,16 @@ interface IEmployer {
 interface IContext {
   employer: IEmployer | null;
   setEmployer: React.Dispatch<React.SetStateAction<IEmployer | null>>;
+  fetchEmployerData: () => void;
 }
 
 export const EmployerContext = createContext<IContext>({
   employer: null,
   setEmployer: () => {},
+  fetchEmployerData: () => {},
 });
 
 const EmployerProvider = ({ children }: { children: React.ReactNode }) => {
-  // const [token, setToken] = useState<string | null>(null);
   const [employer, setEmployer] = useState<IEmployer | null>(null);
   const fetchEmployerData = async () => {
     try {
@@ -49,7 +50,6 @@ const EmployerProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (response.status === 200) {
         setEmployer(response.data.employer);
-        // console.log("USER", response.data.user);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -61,7 +61,9 @@ const EmployerProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <EmployerContext.Provider value={{ employer, setEmployer }}>
+    <EmployerContext.Provider
+      value={{ employer, setEmployer, fetchEmployerData }}
+    >
       {children}
     </EmployerContext.Provider>
   );
