@@ -50,7 +50,8 @@ const JobAds = () => {
   const [jobData, setJobData] = useState({
     title: "",
     jobDetail: "",
-    skill: "",
+    skills: "",
+    salaryType: "hour",
     startingPrice: "",
   });
   const [jobAds, setJobAds] = useState<IJobRequest[]>([]);
@@ -70,13 +71,14 @@ const JobAds = () => {
   };
 
   const handlePostAd = async () => {
-    const { title, jobDetail, skill, startingPrice } = jobData;
+    const { title, jobDetail, skills, salaryType, startingPrice } = jobData;
     try {
       const res = await axios.post(`${apiUrl}/api/v1/jobreq/job-ad`, {
         employerId: employer?._id,
         title: title,
         jobDetail: jobDetail,
-        skills: skill,
+        skills: skills,
+        salaryType: salaryType,
         startingPrice: startingPrice,
       });
 
@@ -89,10 +91,10 @@ const JobAds = () => {
     }
   };
 
-  const handleSkillChange = (value: string) => {
-    console.log("first", value);
-    setJobData({ ...jobData, skill: value });
-  };
+  // const handleSkillChange = (value: string) => {
+  //   console.log("first", value);
+  //   setJobData({ ...jobData, skill: value });
+  // };
 
   useEffect(() => {
     showJobAds();
@@ -236,7 +238,7 @@ const JobAds = () => {
                           <strong className="font-normal">Ур чадвар</strong>
                         </p>
 
-                        <Select onValueChange={handleSkillChange}>
+                        <Select>
                           <SelectTrigger className="w-full">
                             <SelectValue placeholder="Сонгох" />
                           </SelectTrigger>
@@ -248,13 +250,21 @@ const JobAds = () => {
                                   (skill) =>
                                     skill.category.name === selectedCategory
                                 )
-                                .map((type, idx) => (
+                                .map((sk) => (
                                   <SelectItem
-                                    key={`first ${idx}`}
-                                    value={type.name}
-                                    // onChange={(e:ChangeEvent<HTMLInputElement>)=>setJobData({...jobData, skillId: type._id})}
+                                    key={sk._id} // Unique key based on skill ID
+                                    value={sk.name}
+                                    // onSelect={() =>
+                                    //   setJobData({
+                                    //     ...jobData,
+                                    //     skills: [
+                                    //       ...(jobData.skills || []),
+                                    //       { _id: sk._id, name: sk.name },
+                                    //     ],
+                                    //   })
+                                    // }
                                   >
-                                    {type.name}
+                                    {sk.name}
                                   </SelectItem>
                                 ))}
                             </SelectGroup>

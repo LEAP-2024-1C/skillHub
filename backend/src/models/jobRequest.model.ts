@@ -18,11 +18,10 @@ const jobRequestSchema = new Schema<IJobRequest>(
       ref: "Employer",
       required: true,
     },
-    skills: 
-       {
-        type: Schema.Types.ObjectId,
-        ref: "Skill",
-        },
+    skills: {
+      type: Schema.Types.ObjectId,
+      ref: "Skill",
+    },
     title: {
       type: String,
       required: true,
