@@ -3,11 +3,11 @@ import { model, Schema } from "mongoose";
 interface IJobRequest {
   _id: Schema.Types.ObjectId;
   employerId: Schema.Types.ObjectId;
-  skillId: Schema.Types.ObjectId;
+  skills: Schema.Types.ObjectId;
   title: string;
   jobDetail: string;
   salaryType: string;
-  startingPrice: number;
+  startingPrice: string;
   freelancers: [{ freelancerId: Schema.Types.ObjectId }];
 }
 
@@ -18,11 +18,11 @@ const jobRequestSchema = new Schema<IJobRequest>(
       ref: "Employer",
       required: true,
     },
-    skillId: {
-      type: Schema.Types.ObjectId,
-      ref: "Skill",
-      required: true,
-    },
+    skills: 
+       {
+        type: Schema.Types.ObjectId,
+        ref: "Skill",
+        },
     title: {
       type: String,
       required: true,
@@ -37,7 +37,7 @@ const jobRequestSchema = new Schema<IJobRequest>(
       default: "hour",
     },
     startingPrice: {
-      type: Number,
+      type: String,
       required: true,
     },
     freelancers: [
