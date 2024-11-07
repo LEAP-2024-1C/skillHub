@@ -174,3 +174,13 @@ export const getEmployers = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server error", error });
   }
 };
+
+export const getEmployerById = async (req: Request, res: Response) => {
+  try {
+    const { employerId } = req.params;
+    const employer = await Employer.findById(employerId);
+    res.status(200).json({ message: "Succeed", employer });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};

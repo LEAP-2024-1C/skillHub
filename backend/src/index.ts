@@ -8,7 +8,7 @@ import freelancerRoute from "./routes/freelancer-route";
 import employerRoute from "./routes/employer-route";
 import categoryRoute from "./routes/category-route";
 import skillRoute from "./routes/skill-route";
-import jobreqRoute from "./routes/job-ad-route";
+import jobreqRoute from "./routes/job-req-route";
 import { connectDB } from "./config/db";
 
 const PORT = process.env.PORT || "";
