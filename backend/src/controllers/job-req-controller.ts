@@ -60,3 +60,12 @@ export const getJobAdById = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server error", error });
   }
 };
+
+export const getJobAdsCount = async (req: Request, res: Response) => {
+  try {
+    const JobAdCount = await JobRequest.countDocuments();
+    res.status(200).json({ message: "Succeed", JobAdCount });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};

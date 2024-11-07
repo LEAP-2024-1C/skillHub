@@ -11,10 +11,43 @@ import { apiUrl } from "./utils/util";
 import { useCategory } from "@/context/CategoryProvider";
 import { useSkill } from "@/context/SkillProvider";
 
+interface IJobRequest {
+  _id: string;
+  employerId: {
+    _id: string;
+    fullnameOrCompany: string;
+    type: string;
+    email: string;
+    password: string;
+    number: string;
+    image: string;
+    description: string;
+    company: string;
+    membership: string;
+    otp: string;
+    passwordResetToken: string;
+    passwordResetTokenExpire: Date;
+    created_at: Date;
+    updated_at: Date;
+  };
+  skill: {
+    _id: string;
+    name: string;
+    category: string;
+  };
+  title: string;
+  jobDetail: string;
+  salaryType: string;
+  startingPrice: string;
+  createdAt: string;
+  location: string;
+}
+
 export default function Home() {
   const { category } = useCategory();
   const { skill } = useSkill();
   const [freelancersCount, setFreelancersCount] = useState<number>(0);
+  const [jobAds, setJobAds] = useState<IJobRequest[]>([]);
 
   const fetchFreelancerData = async () => {
     try {
@@ -53,6 +86,19 @@ export default function Home() {
     fetchEmployerData();
   }, []);
 
+  const [jobAdCount, setJobAdCount] = useState<number>(0);
+  const fetchJobAdCountData = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/v1/jobreq/job-ad-count`);
+
+      if (response.status === 200) {
+        setJobAdCount(response.data.JobAdCount);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
   const [statitics, setStatistics] =
     useState<[object: { catName: string; skillCount: number }]>();
   const fetchStatiticsData = async () => {
@@ -66,6 +112,23 @@ export default function Home() {
     }
   };
 
+  const showJobAds = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/api/v1/jobreq/get-ads`);
+      setJobAds(res.data.allAds);
+      console.log("job-ad", res.data.allAds);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  useEffect(() => {
+    showJobAds();
+  }, []);
+
+  useEffect(() => {
+    fetchJobAdCountData();
+  }, []);
   useEffect(() => {
     fetchStatiticsData();
   }, []);
@@ -140,7 +203,7 @@ export default function Home() {
             <p className="text-[#118a00]">Ур чадвар</p>
           </div>
           <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-16 py-5 rounded-2xl">
-            <p className="text-3xl font-semibold">32</p>
+            <p className="text-3xl font-semibold">{jobAdCount}</p>
             <p className="text-[#118a00]">Нээлттэй ажлын зар</p>
           </div>
           <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-16 py-5 rounded-2xl">
@@ -159,7 +222,8 @@ export default function Home() {
 
       <div className="flex justify-between  items-center border-b-[1px] border-[#118a00] py-32">
         <img
-          src="https://www.upwork.com/static/ui-images/1.6.7/images/hiw-2.png"
+          className="h-[320px] rounded-3xl ml-10"
+          src="https://i.ibb.co/XLZ71wc/example-2.png"
           alt=""
         />
         <div className="w-2/3 flex flex-col justify-center   gap-5">
@@ -253,131 +317,37 @@ export default function Home() {
         </div>
         {/* recent job box start */}
         <div className="flex flex-wrap mt-10 text-sm justify-between">
-          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] px-10 py-5 justify-between gap-5 hover:border hover:border-[#118a00]">
-            <div className="flex flex-col gap-3 w-full ">
-              <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
-              <div className="flex">
-                Компанийн орлогын тайлан боловсруулж, шинжилгээ хийлгэнэ.
-              </div>
+          {jobAds.map((jobAd) => {
+            return (
+              <Link
+                href={`/ad-section/detail/${jobAd._id}`}
+                key={jobAd._id}
+                className="w-[49%]"
+              >
+                <div className="flex  my-3 rounded-xl bg-[#f9f9f9] px-10 py-5 justify-between gap-5 hover:border hover:border-[#118a00]">
+                  <div className="flex flex-col gap-3 w-full ">
+                    <div className="font-black text-xl">{jobAd.title}</div>
+                    <div className="flex">{jobAd.jobDetail}</div>
 
-              <div className="flex gap-4">
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
-                  Product Photographer
-                </p>
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
-                  Video Editing
-                </p>
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs  rounded-2xl px-3 py-1">
-                  Videography
-                </p>
-              </div>
-              <div className="flex gap-5 ml-auto">
-                <p>Үнэлгээ: 100000</p>
-                <p>/цаг тутам/</p>
-              </div>
-            </div>
-            <IoBriefcaseOutline size={20} color="green" />
-          </div>
-          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] px-10 py-5 justify-between gap-5 hover:border hover:border-[#118a00]">
-            <div className="flex flex-col gap-3 w-full ">
-              <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
-              <div className="flex">
-                Компанийн орлогын тайлан боловсруулж, шинжилгээ хийлгэнэ.
-              </div>
-
-              <div className="flex gap-4">
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
-                  Product Photographer
-                </p>
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
-                  Video Editing
-                </p>
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs  rounded-2xl px-3 py-1">
-                  Videography
-                </p>
-              </div>
-              <div className="flex gap-5 ml-auto">
-                <p>Үнэлгээ: 100000</p>
-                <p>/цаг тутам/</p>
-              </div>
-            </div>
-            <IoBriefcaseOutline size={20} color="green" />
-          </div>
-          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] px-10 py-5 justify-between gap-5 hover:border hover:border-[#118a00]">
-            <div className="flex flex-col gap-3 w-full ">
-              <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
-              <div className="flex">
-                Компанийн орлогын тайлан боловсруулж, шинжилгээ хийлгэнэ.
-              </div>
-
-              <div className="flex gap-4">
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
-                  Product Photographer
-                </p>
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
-                  Video Editing
-                </p>
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs  rounded-2xl px-3 py-1">
-                  Videography
-                </p>
-              </div>
-              <div className="flex gap-5 ml-auto">
-                <p>Үнэлгээ: 100000</p>
-                <p>/цаг тутам/</p>
-              </div>
-            </div>
-            <IoBriefcaseOutline size={20} color="green" />
-          </div>
-          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] px-10 py-5 justify-between gap-5 hover:border hover:border-[#118a00]">
-            <div className="flex flex-col gap-3 w-full ">
-              <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
-              <div className="flex">
-                Компанийн орлогын тайлан боловсруулж, шинжилгээ хийлгэнэ.
-              </div>
-
-              <div className="flex gap-4">
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
-                  Product Photographer
-                </p>
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
-                  Video Editing
-                </p>
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs  rounded-2xl px-3 py-1">
-                  Videography
-                </p>
-              </div>
-              <div className="flex gap-5 ml-auto">
-                <p>Үнэлгээ: 100000</p>
-                <p>/цаг тутам/</p>
-              </div>
-            </div>
-            <IoBriefcaseOutline size={20} color="green" />
-          </div>
-          <div className="flex w-[49%] my-3 rounded-xl bg-[#f9f9f9] px-10 py-5 justify-between gap-5 hover:border hover:border-[#118a00]">
-            <div className="flex flex-col gap-3 w-full ">
-              <div className="font-black text-xl">Санхүүгийн шинжилгээ</div>
-              <div className="flex">
-                Компанийн орлогын тайлан боловсруулж, шинжилгээ хийлгэнэ.
-              </div>
-
-              <div className="flex gap-4">
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
-                  Product Photographer
-                </p>
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
-                  Video Editing
-                </p>
-                <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs  rounded-2xl px-3 py-1">
-                  Videography
-                </p>
-              </div>
-              <div className="flex gap-5 ml-auto">
-                <p>Үнэлгээ: 100000</p>
-                <p>/цаг тутам/</p>
-              </div>
-            </div>
-            <IoBriefcaseOutline size={20} color="green" />
-          </div>
+                    <div className="flex gap-4">
+                      <p className="border-[1px] border-[#118a00] text-[#118a00] text-xs rounded-2xl px-3 py-1">
+                        {jobAd.skill.name}
+                      </p>
+                    </div>
+                    <div className="flex gap-5 ml-auto">
+                      <p>Үнэлгээ: {jobAd.startingPrice}₮</p>
+                      {jobAd.salaryType === "hour" ? (
+                        <p>/цагаар/</p>
+                      ) : (
+                        <p>/удаагаар/</p>
+                      )}
+                    </div>
+                  </div>
+                  <IoBriefcaseOutline size={20} color="green" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         {/* button slide gargadag  */}
