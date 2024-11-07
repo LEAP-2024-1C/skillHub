@@ -24,11 +24,21 @@ import {
 } from "@/components/ui/select";
 import { useEmployer } from "@/context/EmployerProvider";
 import { useCategory } from "@/context/CategoryProvider";
-import { ChangeEvent, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import axios from "axios";
 import { apiUrl } from "@/app/utils/util";
 import { useRouter } from "next/navigation";
 import { useSkill } from "@/context/SkillProvider";
+
+interface IJobRequest {
+  _id: string;
+  employerId: string;
+  skills: string;
+  title: string;
+  jobDetail: string;
+  salaryType: string;
+  startingPrice: string;
+}
 
 const JobAds = () => {
   const router = useRouter();
@@ -38,10 +48,10 @@ const JobAds = () => {
   const [jobData, setJobData] = useState({
     title: "",
     jobDetail: "",
-    skillId:"",
-    startingPrice: "",
+    skill:"",
+    startingPrice: ""
   });
-  const [ jobAds, setJobAds ] = useState([]);
+  const [jobAds, setJobAds] = useState<IJobRequest[]>([]);
 
 
   const showJobAds = async () => {
@@ -56,13 +66,13 @@ const JobAds = () => {
 
 
   const handlePostAd = async() => {
-    const { title, jobDetail, skillId, startingPrice,  } = jobData;
+    const { title, jobDetail, skill, startingPrice } = jobData;
     try {
       const res = await axios.post(`${apiUrl}/api/v1/jobreq/job-ad`, {
         employerId:employer?._id,
         title:title, 
         jobDetail:jobDetail,
-        skillId:skillId,
+        skills: skill,
         startingPrice:startingPrice
       })
 
@@ -78,12 +88,14 @@ const JobAds = () => {
   
   const handleSkillChange = (value: string) => {
     console.log("first", value)
-    setJobData({...jobData, skillId: value})
+    setJobData({...jobData, skill: value})
   }
 
   useEffect(() => {
     showJobAds();
   }, []);
+
+  console.log("jobs", jobAds);
   return (
     <div className="flex  w-[1280px] m-auto min-h-[calc(100vh-326px)]  my-20 text-sm ">
       <div className="w-[200px]">
@@ -204,7 +216,7 @@ const JobAds = () => {
                               {skill?.map((type, idx) => (
                                 <SelectItem
                                   key={`first ${idx}`}
-                                  value={type._id}
+                                  value={type.name}
                                   // onChange={(e:ChangeEvent<HTMLInputElement>)=>setJobData({...jobData, skillId: type._id})}
                                   >
                                   {type.name}
@@ -280,7 +292,7 @@ const JobAds = () => {
             <strong className="text-[#118a00] text-xl">Ажлын зарууд</strong>
           </h1>
           <div className="flex flex-col my-10 gap-10 w-full bg-[#f9f9f9] p-10 rounded-2xl">
-            {jobAds?.map((ad)=><Link href={"/ad-detail"}>
+            {jobAds?.map((ad)=><Link href={"/ad-detail"} key={ad._id}>
               <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-5 px-10 bg-white group">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-5">
@@ -304,10 +316,10 @@ const JobAds = () => {
                 </h1>
                 <div className="flex gap-2 flex-wrap mt-2 px-10">
                   <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    
+                {ad.skills}
                   </p>
                   <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
+                   
                   </p>
                 </div>
 

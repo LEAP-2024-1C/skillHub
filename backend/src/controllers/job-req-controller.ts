@@ -3,12 +3,12 @@ import JobRequest from "../models/jobRequest.model";
 
 
 export const jobRequest = async (req: Request, res: Response) => {
-    const { employerId, skillId, title, jobDetail, startingPrice } = req.body;
+    const { employerId, title, jobDetail, startingPrice, name } = req.body;
     try {
-        const employrid = await JobRequest.findOne({ employerId: employerId });
+
         const createJobAd = await JobRequest.create({
             employerId: employerId,
-            skillId: skillId,
+            skills:name ,
             title: title,
             jobDetail: jobDetail,
             startingPrice: startingPrice
