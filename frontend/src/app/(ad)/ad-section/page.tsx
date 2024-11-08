@@ -709,7 +709,7 @@ const JobAds = () => {
                       />
                       <h1>
                         <strong className="font-normal">
-                          {ad.employerId.company}
+                          {ad.employerId.fullnameOrCompany}
                         </strong>
                       </h1>
                     </div>
