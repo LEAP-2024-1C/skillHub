@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+// import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
   Dispatch,
@@ -32,8 +32,8 @@ const AuthContext = createContext<IContext>({
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [role, setRole] = useState<string>("freelancer");
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const path = usePathname();
-  const router = useRouter();
+  // const path = usePathname();
+  // const router = useRouter();
 
   useEffect(() => {
     console.log("AUTH-TOKEN");
@@ -52,13 +52,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("token");
   };
 
-  useEffect(() => {
-    console.log("PATH++>", path);
-    if (isAuthenticated) {
-      console.log("REF-LOGIN", path);
-      router.push(path);
-    }
-  }, [path, isAuthenticated]);
+  // useEffect(() => {
+  //   console.log("PATH++>", path);
+  //   if (isAuthenticated) {
+  //     console.log("REF-LOGIN", path);
+  //     router.push(path);
+  //   }
+  // }, [path, isAuthenticated]);
 
   return (
     <AuthContext.Provider
