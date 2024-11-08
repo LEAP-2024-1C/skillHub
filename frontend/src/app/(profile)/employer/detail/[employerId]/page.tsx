@@ -35,6 +35,7 @@ const FreelancerProfile = () => {
   const [choosenEmployer, setChoosenEmployer] = useState<IEmployer | null>(
     null
   );
+ 
 
   if (!isAuthenticated) {
     router.push("/login");
