@@ -159,7 +159,7 @@ const AdDetail = () => {
             <strong>Ажлын зарууд</strong>
           </h1>
           <div className="pr-5 flex flex-col gap-3">
-            {jobAds.map((jobAd) => {
+            {jobAds.slice(0.3).map((jobAd) => {
               return (
                 <Link key={jobAd._id} href={`/ad-section/detail/${jobAd._id}`}>
                   <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-3 px-5 bg-white group text-xs">

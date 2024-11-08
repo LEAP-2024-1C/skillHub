@@ -423,7 +423,6 @@ const JobAds = () => {
                   alt="profile"
                   className="w-[40px] h-[40px] rounded-full object-cover"
                 />
-
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button
