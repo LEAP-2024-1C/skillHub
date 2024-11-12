@@ -23,7 +23,7 @@ const FreelancerProfile = () => {
 
   const [activeTab, setActiveTab] = useState<number>(1);
   return (
-    <div className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#f9f9f9]text-sm  my-10 px-[100px]">
+    <div className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#f9f9f9]text-sm my-10 px-[100px]">
       <div className="flex gap-10 items-center bg-[#f9f9f9] p-10 rounded-t-2xl">
         <div className="w-[200px]">
           <img

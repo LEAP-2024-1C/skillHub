@@ -133,8 +133,8 @@ export default function Home() {
     fetchStatiticsData();
   }, []);
   return (
-    <section className="  max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-[#181818] text-sm mt-10">
-      <div className="flex gap-5">
+    <section className="  max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-[#181818] text-sm mt-10 ">
+      <div className="flex gap-5 max-sm:hidden">
         {category?.slice(0, 5).map((cat) => {
           return (
             <a key={cat._id} href="/ad-section">
@@ -148,7 +148,7 @@ export default function Home() {
         </div>
       </div>
       {/* homework ehlel */}
-      <div className="flex mx-auto auto justify-between items-center border-b-[1px] border-[#118a00] py-32">
+      <div className="flex mx-auto auto justify-between items-center border-b-[1px] border-[#118a00] py-32 max-sm:justify-center max-sm:py-10">
         <div className="w-1/2 flex flex-col justify-center items-center text-center gap-5">
           <div className="font-black text-3xl ">
             ХЭРХЭН АЖИЛЛАХ
@@ -160,40 +160,24 @@ export default function Home() {
             шилдгүүдтэй хамтран ажилла. Яг одоо. Яг энд.
           </div>
           <Link href={"/login"}>
-            <button className="btn  w-36 h-12 bg-[#118a00] text-white">
+            <button className="btn w-36 h-12 bg-[#118a00] text-white">
               Эхлэх
             </button>
           </Link>
         </div>
         <img
-          className="h-96"
+          className="h-96 max-sm:hidden"
           src="https://i.ibb.co/Tqnbd2V/17575182-66e0-4fd7-bf9d-0fd44b6edaeb-transformed.jpg"
           alt="photo"
         />
       </div>
       {/* home tugsgul */}
-      {/* <div>
-        Итгэмжлэгдсэн
-        <div className="flex gap-10">
-          <img
-            src="https://res.cloudinary.com/upwork-cloud-acquisition-prod/image/upload/c_fit/general/logobar/colored/microsoft.svg"
-            alt=""
-          />
-          <img
-            src="https://res.cloudinary.com/upwork-cloud-acquisition-prod/image/upload/c_fit/general/logobar/colored/airbnb.svg"
-            alt=""
-          />
-          <img
-            src="https://res.cloudinary.com/upwork-cloud-acquisition-prod/image/upload/c_fit/general/logobar/colored/bissell.svg"
-            alt=""
-          />
-        </div>
-      </div> */}
+    
       <div className="border-b-[1px] border-[#118a00] py-32">
         <h3 className="font-black text-3xl text-center">
           Манай сайтад одоогоор ...
         </h3>
-        <div className="flex justify-evenly mt-10">
+        <div className="flex justify-evenly mt-10  max-sm:flex max-sm:flex-col">
           <div className="flex flex-col items-center gap-5 bg-[#f9f9f9] px-16 py-5 rounded-2xl">
             <p className="text-3xl font-semibold">{category.length}</p>
             <p className="text-[#118a00]">Категори</p>
@@ -220,9 +204,9 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex justify-between  items-center border-b-[1px] border-[#118a00] py-32">
+      <div className="flex justify-between items-center border-b-[1px] border-[#118a00] py-32 max-sm:justify-center">
         <img
-          className="h-[320px] rounded-3xl ml-10"
+          className="h-[320px] rounded-3xl ml-10 max-sm:hidden "
           src="https://i.ibb.co/XLZ71wc/example-2.png"
           alt=""
         />
@@ -270,7 +254,7 @@ export default function Home() {
         </div>
       </div>
       {/* browse ehlel */}
-      <div className="py-32 border-b-[1px] border-[#118a00]">
+      <div className="py-32 border-b-[1px] border-[#118a00] max-sm:hidden">
         <div className="font-black text-3xl text-[#118a00]">
           Шилдэг ур чадварын ангилалууд
         </div>
@@ -300,10 +284,10 @@ export default function Home() {
         {/* recently post start */}
       </div>
       <div className="py-32 border-b-[1px] border-[#118a00]">
-        <div className="font-black text-3xl text-[#118a00] text-right">
+        <div className="font-black text-3xl text-[#118a00] text-right max-sm:text-2xl max-sm:text-center">
           Сүүлд нэмэгдсэн ажлын зарууд
         </div>
-        <div className="flex gap-4 mt-1 flex-row-reverse text-sm">
+        <div className="flex gap-4 mt-1 flex-row-reverse text-sm max-sm:hidden">
           {category.slice(0, 5).map((cat) => {
             return (
               <button
@@ -316,13 +300,13 @@ export default function Home() {
           })}
         </div>
         {/* recent job box start */}
-        <div className="flex flex-wrap mt-10 text-sm justify-between">
+        <div className="flex flex-wrap mt-10 text-sm justify-between max-sm:flex-col">
           {jobAds.slice(0, 6).map((jobAd) => {
             return (
               <Link
                 href={`/ad-section/detail/${jobAd._id}`}
                 key={jobAd._id}
-                className="w-[49%]"
+                className="w-[49%] max-sm:w-full"
               >
                 <div className="flex  my-3 rounded-xl bg-[#f9f9f9] px-10 py-5 justify-between gap-5 hover:border hover:border-[#118a00]">
                   <div className="flex flex-col gap-3 w-full ">

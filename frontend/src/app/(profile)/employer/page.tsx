@@ -28,11 +28,11 @@ const FreelancerProfile = () => {
           <img
             src={`${employer?.image}`}
             alt="profile"
-            className="h-[150px] w-[150px] rounded-full border-4 border-[#118a00] object-cover"
-          />
+            className="h-[150px] w-[150px] rounded-full border-4 border-[#118a00] object-cover max-sm:w-[50px]"
+          /> 
           {/* <p className="text-[#118a00]">({employer?.membership})</p> */}
         </div>
-        <div className="w-full mr-10 ml-5">
+        <div className="w-full mr-10 ml-5 max-sm:w-screen">
           <div className="flex justify-between w-full items-center">
             <div className="flex gap-3 items-center">
               <p className="text-2xl text-[#118a00]">{employer?.type}:</p>

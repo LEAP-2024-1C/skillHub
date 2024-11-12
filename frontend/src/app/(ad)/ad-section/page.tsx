@@ -33,6 +33,8 @@ import { toast } from "react-toastify";
 import { format } from "date-fns";
 import { useAuth } from "@/context/AuthProvider";
 import location from "@/components/location";
+import { IoMdArrowDropdown } from "react-icons/io";
+
 
 interface IJobRequest {
   _id: string;
@@ -121,7 +123,7 @@ const JobAds = () => {
     location: "",
   });
   const [jobAds, setJobAds] = useState<IJobRequest[]>([]);
-  // const [nameInput, setNameInput] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const [filteredJobAds, setFilteredJobAds] = useState<IJobRequest[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const { isAuthenticated } = useAuth();
@@ -286,6 +288,10 @@ const JobAds = () => {
     setSelectedCategory(e.target.value);
   };
 
+  const dropdownCat = () => {
+    setIsOpen(!isOpen);
+  }
+
   useEffect(() => {
     showJobAds();
   }, [jobData]);
@@ -306,16 +312,9 @@ const JobAds = () => {
   useEffect(() => {
     getAllFreelancers();
   }, []);
-
-  console.log("Selected category", selectedCategories);
-  console.log("Selected skill", selectedSkills);
-  console.log("Selected location", selectedLocations);
-  console.log("skill", skill);
-  console.log("filteredskill", filteredSkills);
-  console.log("jobs", jobAds);
   return (
-    <div className="flex  w-[1280px] m-auto min-h-[calc(100vh-326px)]  my-20 text-sm ">
-      <div className=" flex flex-col gap-3 w-[200px]">
+    <div className="flex  w-screen px-10 min-h-[calc(100vh-326px)] my-20 text-sm max-sm:flex-col max-sm:my-5">
+      <div className=" md:flex md:flex-col gap-10 w-[200px] max-sm:flex max-sm:items-center">
         {/* <div className="flex flex-col  w-[200px] gap-1">
           <h1 className="font-bold">Нэр</h1>
           <Input
@@ -324,10 +323,39 @@ const JobAds = () => {
             onChange={(e) => setNameInput(e.target.value)}
           />
         </div> */}
-        <div className="flex flex-col  w-[200px] gap-1">
+        <div className="flex flex-col w-[200px] gap-1">
+          <div className="flex items-center gap-2">
           <h1 className="font-bold">Категори</h1>
+            <Button className="bg-transparent w-[25px] "
+            onClick={dropdownCat}><IoMdArrowDropdown size={25} className="icon" /></Button>
+          </div>
+          {isOpen && (
+            <div
+              className="absolute z-10 w-full top-20 h-fit bg-red-500 ">
+              {category
+                .filter((cat) =>
+                  cat.name.toLowerCase().includes(categoryInput.toLowerCase())
+                )
+                .map((cat) => {
+                  return (
+                    <div
+                      key={cat._id}
+                      className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00] max-sm:hidden"
+                    >
+                      <input
+                        type="checkbox"
+                        className="checkbox-xs rounded-full mt-[2px] border-[#118a00]"
+                        checked={selectedCategories.includes(cat._id)}
+                        onChange={(e) => handleCategoryChange(e, cat._id)}
+                      />
+                      <p>{cat.name}</p>
+                    </div>
+                  );
+                })}
+              </div>
+          )}
           <Input
-            className="h-[28px] my-2"
+            className="h-[28px] my-2 max-sm:hidden"
             value={categoryInput}
             onChange={(e) => setCategoryInput(e.target.value)}
           />
@@ -339,7 +367,7 @@ const JobAds = () => {
               return (
                 <div
                   key={cat._id}
-                  className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00]"
+                  className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00] max-sm:hidden"
                 >
                   <input
                     type="checkbox"
@@ -352,10 +380,15 @@ const JobAds = () => {
               );
             })}
         </div>
-        <div className="flex flex-col gap-1  w-[200px] mt-10">
-          <h1 className="font-bold">Ур чадвар</h1>
+        <div className="md:flex md:flex-col gap-1 w-[200px]">
+          
+          <div className="flex items-center gap-2">
+            <h1 className="font-bold">Ур чадвар</h1>
+            <Button className="bg-transparent w-[25px] md:hidden"
+            onClick={dropdownCat}><IoMdArrowDropdown size={25} className="icon" /></Button>
+          </div>
           <Input
-            className="h-[28px] my-2"
+            className="h-[28px] my-2 max-sm:hidden"
             value={skillInput}
             onChange={(e) => setSkillInput(e.target.value)}
           />
@@ -367,7 +400,8 @@ const JobAds = () => {
               return (
                 <div
                   key={skill._id}
-                  className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00]"
+                  className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00]
+                  max-sm:hidden"
                 >
                   <input
                     type="checkbox"
@@ -380,11 +414,17 @@ const JobAds = () => {
               );
             })}
         </div>
-        <div className=" flex flex-col gap-3 w-[200px] mt-10">
+        <div className=" md:flex md:flex-col gap-3 w-[200px] max-sm:flex ">
           <div className="flex flex-col gap-1">
-            <h1 className="font-bold">Байршил</h1>
+            <div className="flex items-center gap-2">
+            <h1 className="font-bold ">Байршил</h1>
+              <Button className="bg-transparent w-[25px] md:hidden"
+                onClick={dropdownCat}
+              ><IoMdArrowDropdown size={25} className="icon" /></Button>
+            </div>
+            
             <Input
-              className="h-[28px] my-2"
+              className="h-[28px] my-2 max-sm:hidden"
               value={locationInput}
               onChange={(e) => setLocationInput(e.target.value)}
             />
@@ -396,7 +436,7 @@ const JobAds = () => {
                 return (
                   <div
                     key={loc}
-                    className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00]"
+                    className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00] max-sm:hidden"
                   >
                     <input
                       type="checkbox"
