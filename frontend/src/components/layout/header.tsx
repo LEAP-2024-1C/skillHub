@@ -36,7 +36,8 @@ export const Header = () => {
   }
 
   return (
-    <header className="flex justify-between px-10 h-16 items-center bg-[#181818] text-sm text-[#181818 ] max-sm:px-5">
+    <header className="flex justify-between md:px-10 h-16 items-center bg-[#181818] text-sm text-[#181818]
+    max-sm:w-screen">
       <div className="flex gap-4 items-center ">
 
         <LuAlignLeft className="iconn md:hidden" size={30} onClick={dropdownMenu} />

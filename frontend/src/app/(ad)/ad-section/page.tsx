@@ -323,15 +323,16 @@ const JobAds = () => {
             onChange={(e) => setNameInput(e.target.value)}
           />
         </div> */}
-        <div className="flex flex-col w-[200px] gap-1">
+        <div className="flex flex-col w-[200px] gap-1 
+        max-sm:ml-10">
           <div className="flex items-center gap-2">
           <h1 className="font-bold">Категори</h1>
-            <Button className="bg-transparent w-[25px] "
+            <Button className="bg-transparent w-[25px] md:hidden"
             onClick={dropdownCat}><IoMdArrowDropdown size={25} className="icon" /></Button>
           </div>
           {isOpen && (
             <div
-              className="absolute z-10 w-full top-20 h-fit bg-red-500 ">
+              className="absolute z-10 w-full top-20 h-fit">
               {category
                 .filter((cat) =>
                   cat.name.toLowerCase().includes(categoryInput.toLowerCase())
@@ -340,7 +341,7 @@ const JobAds = () => {
                   return (
                     <div
                       key={cat._id}
-                      className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00] max-sm:hidden"
+                      className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00]"
                     >
                       <input
                         type="checkbox"
@@ -383,7 +384,7 @@ const JobAds = () => {
         <div className="md:flex md:flex-col gap-1 w-[200px]">
           
           <div className="flex items-center gap-2">
-            <h1 className="font-bold">Ур чадвар</h1>
+            <h1 className="font-bold ">Ур чадвар</h1>
             <Button className="bg-transparent w-[25px] md:hidden"
             onClick={dropdownCat}><IoMdArrowDropdown size={25} className="icon" /></Button>
           </div>
@@ -414,7 +415,7 @@ const JobAds = () => {
               );
             })}
         </div>
-        <div className=" md:flex md:flex-col gap-3 w-[200px] max-sm:flex ">
+        <div className=" md:flex md:flex-col gap-3 w-[200px] max-sm:hidden">
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
             <h1 className="font-bold ">Байршил</h1>
@@ -453,7 +454,7 @@ const JobAds = () => {
       </div>
 
       {/* mid */}
-      <div className="flex items-start gap-10 flex-col w-full mx-20">
+      <div className="flex items-start gap-10 flex-col w-full md:mx-20">
         {employer && (
           <div className="w-full">
             <div className="max-lg:w-full md:w-full rounded-2xl bg-[#f9f9f9] m-auto py-5 px-10">
@@ -732,13 +733,13 @@ const JobAds = () => {
 
         <div className="w-full">
           {" "}
-          <h1 className="m-auto">
-            <strong className="text-[#118a00] text-xl">Ажлын зарууд</strong>
+          <h1 className="m-auto mt-5">
+            <strong className="text-[#118a00] text-xl ">Ажлын зарууд</strong>
           </h1>
-          <div className="flex flex-col my-10 gap-10 w-full bg-[#f9f9f9] p-10 rounded-2xl">
+          <div className="flex flex-col md:my-10 gap-10 max-sm:my-5 w-full bg-[#f9f9f9] p-10 rounded-2xl ">
             {filteredJobAds?.map((ad) => (
               <Link href={`/ad-section/detail/${ad._id}`} key={ad._id}>
-                <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-5 px-10 bg-white group">
+                <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-5 px-10 bg-white group ">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-5">
                       <img
@@ -763,7 +764,7 @@ const JobAds = () => {
                   <h1 className="text-xl mt-2">
                     <strong className="font-normal">{ad.title}</strong>
                   </h1>
-                  <div className="flex gap-2 flex-wrap mt-2 px-10">
+                  <div className="flex gap-2 flex-wrap mt-2 px-10 max-sm:hidden">
                     <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
                       {ad.skill.name}
                     </p>
@@ -793,7 +794,7 @@ const JobAds = () => {
           </div>
         </div>
       </div>
-      <div className="w-[400px] ">
+      <div className="md:w-[400px] ">
         <h1 className="font-bold mb-5">Шилдгүүд</h1>
         <div className="flex flex-col gap-5">
           {allFreelancers.slice(0, 5).map((freelancer) => {

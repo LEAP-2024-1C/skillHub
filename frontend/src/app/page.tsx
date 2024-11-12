@@ -133,7 +133,7 @@ export default function Home() {
     fetchStatiticsData();
   }, []);
   return (
-    <section className="  max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-[#181818] text-sm mt-10 ">
+    <section className="md:w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-[#181818] text-sm md:mt-10 ">
       <div className="flex gap-5 max-sm:hidden">
         {category?.slice(0, 5).map((cat) => {
           return (

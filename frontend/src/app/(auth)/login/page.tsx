@@ -90,7 +90,7 @@ const Login = () => {
   }, [role]);
 
   return (
-    <section className=" flex items-center max-w-[1280px] m-auto min-h-[calc(100vh-250px)] bg-[#ffffff] text-sm ">
+    <section className=" flex items-center md:w-[1280px] m-auto min-h-[calc(100vh-250px)] bg-[#ffffff] text-sm max-sm:w-screen">
       <div className="flex items-center justify-center m-auto">
         {" "}
         <div className="flex flex-col items-center justify-center gap-6 w-[334px]">
