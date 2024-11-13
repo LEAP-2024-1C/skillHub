@@ -209,9 +209,9 @@ const SkillList = () => {
   // console.log("SelectedLocation", selectedLocations);
 
   return (
-    <div className="w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] flex gap-20 my-10 text-sm max-sm:flex-col max-sm:my-5 max-sm:w-screen">
+    <div className="w-full px-5 min-h-[calc(100vh-326px)] bg-[#ffffff] flex gap-10 my-10 text-sm max-sm:flex-col max-sm:my-5 max-sm:w-screen">
       <div className=" flex flex-col gap-3 w-[200px] max-sm:mx-auto">
-        <div className="flex flex-col w-[200px] gap-1">
+        <div className="flex flex-col w-full gap-1">
           <h1 className="font-bold">Нэр</h1>
           <Input
             className="h-[28px] my-2 md:hidden"
@@ -393,13 +393,13 @@ const SkillList = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-between gap-12 w-full max-sm:flex-col">
+      <div className="flex flex-wrap justify-between gap-10 w-full max-sm:flex-col max-sm:items-center">
         {/* Card-1 */}
         {filteredFreelancers?.map((freelancer) => {
           return (
             <div
               key={freelancer?._id}
-              className="hover:border hover:border-[#118a00] w-[30%] h-[450px] rounded-2xl flex flex-col items-center p-6 justify-between bg-[#f9f9f9]
+              className="hover:border hover:border-[#118a00] w-[28%] h-[450px] rounded-2xl flex flex-col items-center p-6 justify-between bg-[#f9f9f9]
               max-sm:w-4/5 max-sm:mx-5"
             >
               <div className="flex flex-col items-center">

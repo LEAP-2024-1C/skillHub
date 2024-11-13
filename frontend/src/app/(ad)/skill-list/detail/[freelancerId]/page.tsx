@@ -49,16 +49,69 @@ const DetailPage = () => {
   }, []);
 
   return (
-    <div className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#f9f9f9]text-sm  my-10 px-[100px]">
-      <div className="flex gap-10 items-center bg-[#f9f9f9] p-10 rounded-t-2xl">
-        <div className="w-[200px]">
+    <div className="w-full min-h-[calc(100vh-326px)] bg-[#f9f9f9] text-sm  my-10 lg:px-[100px] max-sm:flex max-sm:flex-col max-sm:items-center max-sm:gap-5
+    max-sm:w-screen">
+      <div className="flex gap-10 items-center bg-[#f9f9f9] lg:p-10 rounded-t-2xl max-sm:items-center max-sm:flex-col">
+        <div className="max-sm:flex max-sm:flex-col"> <div className="w-[200px] max-sm:flex max-sm:gap-5">
           <img
             src={`${choosenFreelancer?.image}`}
             alt="profile"
-            className="h-[150px] w-[150px] rounded-full border-4 border-[#118a00] object-cover"
+            className="lg:h-[150px] lg:w-[150px] rounded-full border-4 border-[#118a00] object-cover
+            max-sm:w-[40px] max-sm:h-[40px]"
           />
+           <div className="flex justify-between w-full items-center md:hidden text-sm gap-3">
+            <div className="flex gap-3 items-center">
+              <p className="">{choosenFreelancer?.firstname}</p>
+              <p className="font-bold">
+                {choosenFreelancer?.lastname}
+              </p>
+            </div>
+            <div className="flex items-center gap-5">
+              <p className="text-[#118a00] text-sm border-[1px] border-[#118a00] px-2 py-[1px] rounded-full">
+                {choosenFreelancer?.type}
+              </p>
+              {freelancerId === freelancer?._id ? (
+                <Link href="/signup-skills">
+                  <Edit color="#118a00" size={22} />
+                </Link>
+              ) : null}
+            </div>
+          </div>
         </div>
-        <div className="w-full mr-10 ml-5">
+        <div className="flex flex-col md:hidden">
+        <p className="mt-5 indent-10 text-justify w-[200px]">
+            {choosenFreelancer?.description}
+          </p>
+          <div className="mt-5 flex flex-col text-[#118a00] font-light pr-10 flex-wrap gap-2">
+            <p>
+              Имэйл:
+              <span className="text-[#191919] ml-2">
+                {choosenFreelancer?.email}
+              </span>
+            </p>
+            <p>
+              Утасны дугаар:
+              <span className="text-[#191919] ml-2">
+                {choosenFreelancer?.number}
+              </span>
+            </p>
+            <p>
+              Компани:
+              <span className="text-[#191919] ml-2">
+                {choosenFreelancer?.company}
+              </span>
+            </p>
+            <p>
+              Албан тушаал:
+              <span className="text-[#191919] ml-2">
+                {choosenFreelancer?.position}
+              </span>
+            </p>
+        </div>
+      </div></div>
+       
+        
+        <div className="w-full mr-10 ml-5 max-sm:hidden">
           <div className="flex justify-between w-full items-center">
             <div className="flex gap-3 items-center">
               <p className="text-2xl">{choosenFreelancer?.firstname}</p>
@@ -109,14 +162,14 @@ const DetailPage = () => {
         </div>
       </div>
 
-      <div className="tabs tabs-lifted">
+      <div className="tabs tabs-lifted max-sm:text-sm">
         <a
-          className={`tab tab-lifted  ${
+          className={`tab tab-lifted  max-sm:w-[110px] ${
             activeTab === 1 ? "tab-active" : "bg-[#f9f9f9]"
           }`}
           onClick={() => setActiveTab(1)}
         >
-          Ур чадварууд
+          Ур чадвар
         </a>
         <a
           className={`tab tab-lifted ${
@@ -124,7 +177,7 @@ const DetailPage = () => {
           }`}
           onClick={() => setActiveTab(2)}
         >
-          Хийсэн ажлууд
+          Хийсэн ажил
         </a>
       </div>
 
@@ -134,20 +187,20 @@ const DetailPage = () => {
           activeTab === 1 ? "" : "hidden"
         }`}
       >
-        <div className="flex flex-col gap-5 mt-5">
+        <div className="flex flex-col gap-5 mt-5 max-sm:w-[180px]">
           {choosenFreelancer?.skills?.map((skill, index) => {
             return (
               <div
                 key={index}
-                className="flex justify-between px-10 py-5 rounded-2xl border-l-[1px] border-[#118a00]"
+                className="flex justify-between px-10 py-5 rounded-2xl border-l-[1px] border-[#118a00] max-sm:flex-col"
               >
                 <div className="w-[30%]">{skill.name}</div>
                 <div className="flex items-center gap-2 w-[20%]">
                   <p>4.7/5</p>
                   <FaStar size={14} color="#118a00" />
                 </div>
-                <div className="w-[20%]">{skill.experience} жил</div>
-                <div className="w-[20%] text-right">
+                <div className="lg:w-[20%]">{skill.experience} жил</div>
+                <div className="lg:w-[20%] lg:text-right">
                   {skill.startingSalary.toLocaleString()}₮ /{skill.salaryType}/
                 </div>
               </div>
@@ -160,47 +213,33 @@ const DetailPage = () => {
           activeTab === 2 ? "" : "hidden"
         }`}
       >
-        <div className="flex flex-col gap-10 mt-5">
+        <div className="flex flex-col gap-10 mt-5 max-sm:w-[180px]">
           {" "}
           <Link href={"/ad-detail"}>
-            <div className="w-full rounded-2xl flex flex-col gap-2 py-5 px-10 bg-white group border-l-[1px] border-[#118a00]">
+            <div className="w-full rounded-2xl flex flex-col gap-2 py-5 lg:px-10 bg-white group border-l-[1px] border-[#118a00] max-sm:items-center">
               <div className="flex justify-between items-center">
-                <div className="flex items-center gap-5">
+                <div className="flex items-center lg:gap-5 max-sm:text-sm max-sm:gap-3 max-sm:w-full">
                   <img
                     src="https://images.unsplash.com/photo-1729273792109-b6665f9151a8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
                     alt=""
-                    className="w-[40px] h-[40px] rounded-full"
+                    className="w-[40px] h-[40px] rounded-full max-sm:w-[30px] max-sm:h-[30px]"
                   />
                   <h1>
                     <strong className="font-normal">Green LLC</strong>
                   </h1>
                 </div>
-                <p className="text-slate-400">3 өдрийн өмнө</p>
+                <p className="text-slate-400 max-sm:hidden">3 өдрийн өмнө</p>
               </div>
 
-              <h1 className="text-xl mt-2">
+              <h1 className="text-xl mt-2 max-sm:text-sm">
                 <strong className="font-normal"> Хийморийн сан</strong>
               </h1>
               <div className="flex gap-2 flex-wrap mt-2 px-10">
-                <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
+                <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00] md:hidden">
                   Лам
                 </p>
-                <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                  Хурдан уншлага эдр
-                </p>
               </div>
-
-              {/* <div className="mt-3 flex justify-between items-center">
-                <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
-
-                <button className="w-10">
-                  <FaArrowCircleRight
-                    size={25}
-                    className="arrow hidden group-hover:block"
-                  />
-                </button>
-              </div> */}
-              <div className="mt-5">
+              <div className="mt-5 max-sm:flex max-sm:flex-col max-sm:items-center">
                 <div className="flex">
                   <FaStar size={16} color="#118a00" />
                   <FaStar size={16} color="#118a00" />
@@ -208,59 +247,13 @@ const DetailPage = () => {
                   <FaStar size={16} color="#118a00" />
                   <FaStar size={16} color="#118a00" />
                 </div>
-                <p className="mt-2">
+                <p className="mt-2 max-sm:pl-4">
                   Хүссэн үр дүнг цаг хугацаанд нь гаргаж чадсан. Баярлалаа!
                 </p>
               </div>
             </div>
           </Link>
           {/* map */}
-          <Link href={"/ad-detail"}>
-            <div className="w-full rounded-2xl flex flex-col gap-2 py-5 px-10 bg-white group border-l-[1px] border-[#118a00]">
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-5">
-                  <img
-                    src="https://images.unsplash.com/photo-1729273792109-b6665f9151a8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
-                    alt=""
-                    className="w-[40px] h-[40px] rounded-full"
-                  />
-                  <h1>
-                    <strong className="font-normal">Green LLC</strong>
-                  </h1>
-                </div>
-                <p className="text-slate-400">3 өдрийн өмнө</p>
-              </div>
-
-              <h1 className="text-xl mt-2">
-                <strong className="font-normal"> Үл хөдлөхийн зөвлөх</strong>
-              </h1>
-              <div className="flex gap-2 flex-wrap mt-2 px-10">
-                <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                  Үл хөдлөхийн зөвлөх
-                </p>
-                <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                  Frontend
-                </p>
-              </div>
-
-              {/* <div className="mt-3 flex justify-between items-center">
-                <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
-
-                <button className="w-10">
-                  <FaArrowCircleRight
-                    size={25}
-                    className="arrow hidden group-hover:block"
-                  />
-                </button>
-              </div> */}
-              <div className="mt-5">
-                <div className="flex">
-                  <FaStar size={16} color="#118a00" />
-                </div>
-                <p className="mt-2">Мөнгөө авчаад нэг ч ирж уулзаагүй.</p>
-              </div>
-            </div>
-          </Link>
         </div>
       </div>
     </div>

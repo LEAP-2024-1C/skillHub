@@ -77,10 +77,6 @@ interface IFreelancer {
 }
 
 const AdDetail = () => {
-  // const [rating, setRating] = useState(0);
-  // const [hover, setHover] = useState(0);
-  // const [subRating, setSubRating] = useState(0);
-  // const [subHover, setSubHover] = useState(0);
   const { jobAdId } = useParams();
   const [choosenJobAd, setChoosenJobAd] = useState<IJobRequest | null>(null);
   const { isAuthenticated } = useAuth();
@@ -152,9 +148,9 @@ const AdDetail = () => {
   }, []);
 
   return (
-    <div className="flex gap-10 w-[1280px] m-auto min-h-[calc(100vh-326px)]  my-20 text-sm justify-between">
+    <div className="flex gap-10 lg:w-[1280px] m-auto min-h-[calc(100vh-326px)]  my-20 text-sm justify-between">
       <div className="flex w-full">
-        <div className="flex flex-col gap-5 w-[540px] ">
+        <div className="flex flex-col gap-5 w-[540px] max-sm:hidden">
           <h1 className="">
             <strong>Ажлын зарууд</strong>
           </h1>
@@ -213,16 +209,16 @@ const AdDetail = () => {
           </div>
         </div>
         {/* mid */}
-        <div className="flex flex-col mr-10 ml-5 gap-5 p-10 bg-[#f9f9f9] rounded-2xl w-full h-full">
+        <div className="flex flex-col lg:mr-10 lg:ml-5 gap-5 lg:p-10 bg-[#f9f9f9] rounded-2xl lg:w-full h-full max-sm:w-screen max-sm:text-sm max-sm:px-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img
                 src={`${choosenJobAd?.employerId.image}`}
                 alt=""
-                className="w-[80px] h-[80px] rounded-full object-cover border-2 border-[#118a00]"
+                className="lg:w-[80px] lg:h-[80px] rounded-full object-cover border-2 border-[#118a00] max-sm:w-[40px] max-sm:h-[40px]"
               />
               <div className="flex flex-col gap-1 mx-3">
-                <h1 className="text-[20px]">
+                <h1 className="lg:text-[20px] ">
                   <strong>{choosenJobAd?.employerId.fullnameOrCompany}</strong>
                 </h1>
                 <p className="text-slate-400 text-sm">
@@ -274,7 +270,7 @@ const AdDetail = () => {
             </Link>
           </div>
         </div>
-        <div className="w-[400px]">
+        <div className="w-[400px] max-sm:hidden">
           <h1 className="font-bold mb-5">Шилдгүүд</h1>
           <div className="flex flex-col gap-5">
             {allFreelancers.slice(0, 5).map((freelancer) => {

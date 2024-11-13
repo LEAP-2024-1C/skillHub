@@ -484,7 +484,7 @@ const JobAds = () => {
       </div>
 
       {/* mid */}
-      <div className="flex items-start gap-10 flex-col md:w-full max-sm:w-screen  md:mx-20">
+      <div className="flex items-start gap-10 flex-col md:w-full max-sm:w-screen  md:mx-20 max-sm:mt-5">
         {employer && (
           <div className="md:w-full max-sm:w-screen">
             <div className="max-lg:w-full md:w-full rounded-2xl bg-[#f9f9f9] m-auto py-5 px-10 ">

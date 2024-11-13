@@ -1,58 +1,165 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import { motion } from "framer-motion";
 // import { FaStar } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { FaArrowCircleRight } from "react-icons/fa";
+import axios from "axios";
+import { apiUrl } from "@/app/utils/util";
+import { format } from "date-fns";
+
+interface IJobRequest {
+  _id: string;
+  employerId: {
+    _id: string;
+    fullnameOrCompany: string;
+    type: string;
+    email: string;
+    password: string;
+    number: string;
+    image: string;
+    description: string;
+    company: string;
+    membership: string;
+    otp: string;
+    passwordResetToken: string;
+    passwordResetTokenExpire: Date;
+    created_at: Date;
+    updated_at: Date;
+  };
+  skill: {
+    _id: string;
+    name: string;
+    category: string;
+  };
+  title: string;
+  jobDetail: string;
+  salaryType: string;
+  startingPrice: string;
+  createdAt: string;
+  location: string;
+}
 
 const AdDetail = () => {
   // const [rating, setRating] = useState(0);
   // const [hover, setHover] = useState(0);
   // const [subRating, setSubRating] = useState(0);
   // const [subHover, setSubHover] = useState(0);
+  const [filteredJobAds, setFilteredJobAds] = useState<IJobRequest[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+  const [jobAds, setJobAds] = useState<IJobRequest[]>([]);
+
+  const showJobAds = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/api/v1/jobreq/get-ads`);
+      setJobAds(res.data.allAds);
+      console.log("job-ads", res.data.allAds);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const filterJobAd = () => {
+    if (
+      selectedCategories.length === 0 &&
+      selectedSkills.length === 0 &&
+      selectedLocations.length === 0
+    ) {
+      setFilteredJobAds(jobAds);
+      return;
+    }
+
+    const filtered = jobAds.filter((jobAd) => {
+      const hasSelectedSkills =
+        selectedSkills.length === 0 || selectedSkills.includes(jobAd.skill._id);
+
+      const isInSelectedLocation =
+        selectedLocations.length === 0 ||
+        selectedLocations.includes(jobAd.location);
+
+      const isInSelectedCategory =
+        selectedCategories.length === 0 ||
+        selectedCategories.includes(jobAd.skill.category);
+
+      return (
+        hasSelectedSkills && isInSelectedLocation && isInSelectedCategory
+      );
+    });
+
+    setFilteredJobAds(filtered);
+  };
+
+  useEffect(() => {
+    showJobAds();
+  }, []);
+
+  useEffect(() => {
+    if (jobAds.length > 0) {
+      filterJobAd();
+    }
+  }, [
+    selectedCategories,
+    selectedSkills,
+    selectedLocations,
+    jobAds,
+  ]);
+
+  console.log("jobs", filteredJobAds);
   return (
     <div className="flex gap-10 w-[1280px] m-auto min-h-[calc(100vh-326px)]  my-20 text-sm justify-between">
       <div className="flex w-full">
-        <div className="flex flex-col gap-5 w-[360px] ">
+        <div className="flex flex-col gap-5 w-[360px]">
           <h1 className="">
             <strong>Ажлын зарууд</strong>
           </h1>
           <div className="pr-5 flex flex-col gap-3">
-            <Link href={"/ad-detail"}>
+            {filteredJobAds?.map((ad)=>( <Link href={`/ad-section/detail/${ad._id}`} key={ad._id}>
               <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-3 px-5 bg-white group text-xs">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-5">
                     <img
-                      src="https://images.unsplash.com/photo-1729273792109-b6665f9151a8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
+                      src={`${ad.employerId.image}`}
                       alt=""
                       className="w-[32px] h-[32px] rounded-full"
                     />
                     <h1>
-                      <strong className="font-normal">Green LLC</strong>
+                      <strong className="font-normal">{ ad.employerId.fullnameOrCompany}</strong>
                     </h1>
                   </div>
-                  <p className="text-slate-400">3 өдрийн өмнө</p>
+                  <p className="text-slate-400">  {ad.createdAt
+                        ? format(new Date(ad.createdAt), "yyyy-MM-dd")
+                        : ""}</p>
                 </div>
 
                 <h1 className="text-lg">
                   <strong className="font-normal ">
                     {" "}
-                    Тооцооны нягтлан бодогч
+                    {ad.title}
                   </strong>
                 </h1>
                 <div className="flex gap-2 flex- px-10">
                   <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
+                   {ad.skill.name}
                   </p>
                   <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
+                    {ad.skill.name}
                   </p>
                 </div>
 
                 <div className="mt-1 flex justify-between items-center">
-                  <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
+                  <p className="">  {ad.salaryType === "time" ? (
+                      <p className="">
+                        Эхлэх цалин: {ad.startingPrice}₮ /удаагаар/
+                      </p>
+                    ) : (
+                      <p className="">
+                        Эхлэх цалин: {ad.startingPrice}₮ /цагаар/
+                      </p>
+                    )}</p>
 
                   <button className="w-10">
                     <FaArrowCircleRight
@@ -62,93 +169,7 @@ const AdDetail = () => {
                   </button>
                 </div>
               </div>
-            </Link>
-            <Link href={"/ad-detail"}>
-              <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-3 px-5 bg-white group text-xs">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-5">
-                    <img
-                      src="https://images.unsplash.com/photo-1729273792109-b6665f9151a8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
-                      alt=""
-                      className="w-[32px] h-[32px] rounded-full"
-                    />
-                    <h1>
-                      <strong className="font-normal">Green LLC</strong>
-                    </h1>
-                  </div>
-                  <p className="text-slate-400">3 өдрийн өмнө</p>
-                </div>
-
-                <h1 className="text-lg">
-                  <strong className="font-normal ">
-                    {" "}
-                    Тооцооны нягтлан бодогч
-                  </strong>
-                </h1>
-                <div className="flex gap-2 flex- px-10">
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                </div>
-
-                <div className="mt-1 flex justify-between items-center">
-                  <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
-
-                  <button className="w-10">
-                    <FaArrowCircleRight
-                      size={25}
-                      className="arrow hidden group-hover:block"
-                    />
-                  </button>
-                </div>
-              </div>
-            </Link>
-            <Link href={"/ad-detail"}>
-              <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-3 px-5 bg-white group text-xs">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-5">
-                    <img
-                      src="https://images.unsplash.com/photo-1729273792109-b6665f9151a8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
-                      alt=""
-                      className="w-[32px] h-[32px] rounded-full"
-                    />
-                    <h1>
-                      <strong className="font-normal">Green LLC</strong>
-                    </h1>
-                  </div>
-                  <p className="text-slate-400">3 өдрийн өмнө</p>
-                </div>
-
-                <h1 className="text-lg">
-                  <strong className="font-normal">
-                    {" "}
-                    Тооцооны нягтлан бодогч
-                  </strong>
-                </h1>
-                <div className="flex gap-2 flex- px-10">
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                  <p className="bg-white rounded-full px-2 py-1 text-[#108a00] border-[1px] border-[#108a00]">
-                    Frontend
-                  </p>
-                </div>
-
-                <div className="mt-1 flex justify-between items-center">
-                  <p className="">Эхлэх цалин: 70,000₮ /цаг/</p>
-
-                  <button className="w-10">
-                    <FaArrowCircleRight
-                      size={25}
-                      className="arrow hidden group-hover:block"
-                    />
-                  </button>
-                </div>
-              </div>
-            </Link>
+            </Link>))}
           </div>
         </div>
         <div className="flex flex-col mr-10 ml-5 gap-5 p-10 bg-[#f9f9f9] rounded-2xl w-full h-full">
