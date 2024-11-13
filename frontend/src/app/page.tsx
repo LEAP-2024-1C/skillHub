@@ -133,7 +133,8 @@ export default function Home() {
     fetchStatiticsData();
   }, []);
   return (
-    <section className="md:w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-[#181818] text-sm md:mt-10 ">
+    <section className="lg:w-[1280px] lg:m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-[#181818] text-sm 
+    max-sm:w-screen">
       <div className="flex gap-5 max-sm:hidden">
         {category?.slice(0, 5).map((cat) => {
           return (
@@ -148,8 +149,8 @@ export default function Home() {
         </div>
       </div>
       {/* homework ehlel */}
-      <div className="flex mx-auto auto justify-between items-center border-b-[1px] border-[#118a00] py-32 max-sm:justify-center max-sm:py-10">
-        <div className="w-1/2 flex flex-col justify-center items-center text-center gap-5">
+      <div className="flex lg:mx-auto justify-between items-center border-b-[1px] border-[#118a00] py-32 max-sm:justify-center max-sm:py-10 max-sm:w-screen">
+        <div className="lg:w-1/2 flex flex-col justify-center items-center text-center gap-5">
           <div className="font-black text-3xl ">
             ХЭРХЭН АЖИЛЛАХ
             <br />

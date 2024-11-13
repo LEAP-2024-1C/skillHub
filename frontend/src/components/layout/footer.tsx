@@ -31,14 +31,14 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="flex w-screen justify-between pt-8 border-t-[1px] border-[#118a00] items-center max-sm:justify-center">
+      <div className="flex md:w-screen justify-between pt-8 border-t-[1px] border-[#118a00] items-center max-sm:justify-center">
         <div className="flex items-center gap-5">
           <img
             src="https://i.ibb.co/S6MwM9z/Logo-white-nobg.png"
             alt="logo"
             className="h-6"
           />
-          <p className="">© 2024 - 2024 SkillHub®</p>
+          <p className="max-sm:hidden">© 2024 - 2024 SkillHub®</p>
         </div>
         <p className="italic mr-[400px] max-sm:hidden">Ур чадварыг уургалъя эдр хаха...</p>
       </div>

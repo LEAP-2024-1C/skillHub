@@ -127,6 +127,7 @@ const JobAds = () => {
   const [filteredJobAds, setFilteredJobAds] = useState<IJobRequest[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const { isAuthenticated } = useAuth();
+  const [open, setOpen] = useState(false);
 
   if (!isAuthenticated) {
     router.push("/login");
@@ -292,6 +293,10 @@ const JobAds = () => {
     setIsOpen(!isOpen);
   }
 
+  const dropdownSkill = () => {
+    setOpen(!open);
+  };
+
   useEffect(() => {
     showJobAds();
   }, [jobData]);
@@ -313,8 +318,8 @@ const JobAds = () => {
     getAllFreelancers();
   }, []);
   return (
-    <div className="flex  w-screen px-10 min-h-[calc(100vh-326px)] my-20 text-sm max-sm:flex-col max-sm:my-5">
-      <div className=" md:flex md:flex-col gap-10 w-[200px] max-sm:flex max-sm:items-center">
+    <div className="flex md:w-screen md:px-10 min-h-[calc(100vh-326px)] my-20 text-sm max-sm:flex-col max-sm:my-5 max-sm:max-w-screen-sm max-sm:items-center" >
+      <div className=" md:flex md:flex-col gap-10 w-[200px] max-sm:flex max-sm:justify-center">
         {/* <div className="flex flex-col  w-[200px] gap-1">
           <h1 className="font-bold">Нэр</h1>
           <Input
@@ -327,12 +332,12 @@ const JobAds = () => {
         max-sm:ml-10">
           <div className="flex items-center gap-2">
           <h1 className="font-bold">Категори</h1>
-            <Button className="bg-transparent w-[25px] md:hidden"
+            <Button className="bg-transparent w-[25px] md:hidden hover:bg-white"
             onClick={dropdownCat}><IoMdArrowDropdown size={25} className="icon" /></Button>
           </div>
           {isOpen && (
             <div
-              className="absolute z-10 w-full top-20 h-fit">
+              className="absolute z-10 w-full top-32 h-fit left-5 right-5 bg-white">
               {category
                 .filter((cat) =>
                   cat.name.toLowerCase().includes(categoryInput.toLowerCase())
@@ -385,9 +390,34 @@ const JobAds = () => {
           
           <div className="flex items-center gap-2">
             <h1 className="font-bold ">Ур чадвар</h1>
-            <Button className="bg-transparent w-[25px] md:hidden"
-            onClick={dropdownCat}><IoMdArrowDropdown size={25} className="icon" /></Button>
+            <Button className="bg-transparent w-[25px] md:hidden hover:bg-white"
+            onClick={dropdownSkill}><IoMdArrowDropdown size={25} className="icon" /></Button>
           </div>
+          {open && (
+            <div  className="absolute z-10 w-full top-32 h-fit left-5 right-5 bg-white">
+            {filteredSkills
+        .filter((sk) =>
+          sk.name.toLowerCase().includes(skillInput.toLowerCase())
+        )
+        .map((skill) => {
+          return (
+            <div
+              onClick={dropdownSkill}
+              key={skill._id}
+              className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00]"
+            >
+              <input
+                type="checkbox"
+                className="checkbox-xs rounded-full mt-[2px] border-[#118a00]"
+                checked={selectedSkills.includes(skill._id)}
+                onChange={(e) => handleSkillChange(e, skill._id)}
+              />
+              <p>{skill.name}</p>
+            </div>
+          );
+        })}
+        </div>
+          )}
           <Input
             className="h-[28px] my-2 max-sm:hidden"
             value={skillInput}
@@ -454,10 +484,10 @@ const JobAds = () => {
       </div>
 
       {/* mid */}
-      <div className="flex items-start gap-10 flex-col w-full md:mx-20">
+      <div className="flex items-start gap-10 flex-col md:w-full max-sm:w-screen  md:mx-20">
         {employer && (
-          <div className="w-full">
-            <div className="max-lg:w-full md:w-full rounded-2xl bg-[#f9f9f9] m-auto py-5 px-10">
+          <div className="md:w-full max-sm:w-screen">
+            <div className="max-lg:w-full md:w-full rounded-2xl bg-[#f9f9f9] m-auto py-5 px-10 ">
               <div className="flex gap-5">
                 <img
                   src={`${employer.image}`}
@@ -731,12 +761,12 @@ const JobAds = () => {
           </div>
         )}
 
-        <div className="w-full">
+        <div className="md:w-full max-sm:px-1 max-sm:w-screen">
           {" "}
-          <h1 className="m-auto mt-5">
+          <h1 className="mt-5 text-center">
             <strong className="text-[#118a00] text-xl ">Ажлын зарууд</strong>
           </h1>
-          <div className="flex flex-col md:my-10 gap-10 max-sm:my-5 w-full bg-[#f9f9f9] p-10 rounded-2xl ">
+          <div className="flex flex-col md:my-10 gap-10 max-sm:my-5 md:w-full max-sm:w-full bg-[#f9f9f9] md:p-10 rounded-2xl ">
             {filteredJobAds?.map((ad) => (
               <Link href={`/ad-section/detail/${ad._id}`} key={ad._id}>
                 <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-5 px-10 bg-white group ">
@@ -794,7 +824,7 @@ const JobAds = () => {
           </div>
         </div>
       </div>
-      <div className="md:w-[400px] ">
+      <div className="md:w-[400px] max-sm:px-10 max-sm:w-full">
         <h1 className="font-bold mb-5">Шилдгүүд</h1>
         <div className="flex flex-col gap-5">
           {allFreelancers.slice(0, 5).map((freelancer) => {

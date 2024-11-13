@@ -31,6 +31,7 @@ const SkillList = () => {
   const [locationInput, setLocationInput] = useState("");
   const { isAuthenticated } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const router = useRouter();
 
   if (!isAuthenticated) {
@@ -181,6 +182,11 @@ const SkillList = () => {
     setIsOpen(!isOpen);
   };
 
+  const dropdownSkill = () => {
+    setOpen(!open);
+    console.log("open");
+  };
+
   useEffect(() => {
     getAllFreelancers();
   }, []);
@@ -216,12 +222,12 @@ const SkillList = () => {
         <div className="md:flex md:flex-col w-[200px] gap-1 mt-5 max-sm:flex max-sm:items-center">
         <div className="flex items-center gap-2">
           <h1 className="font-bold">Категори</h1>
-          <Button className="bg-transparent w-[25px] md:hidden"
+          <Button className="bg-transparent w-[25px] md:hidden hover:bg-white"
               onClick={dropdownCat}><IoMdArrowDropdown size={25} className="icon" /></Button>
           </div>
           {isOpen && (
             <div
-              className="absolute z-10 w-full top-20 h-fit">
+              className="absolute z-10 w-full top-56 h-fit left-5 right-5 bg-white">
               {category
                 .filter((cat) =>
                   cat.name.toLowerCase().includes(categoryInput.toLowerCase())
@@ -274,21 +280,20 @@ const SkillList = () => {
         <div className="flex flex-col gap-1  w-[200px] mt-10">
           <div className="flex items-center gap-2">
             <h1 className="font-bold">Ур чадвар</h1>
-            <Button className="bg-transparent w-[25px] md:hidden"
-            onClick={dropdownCat}><IoMdArrowDropdown size={25} className="icon" /></Button>
+            <Button className="bg-transparent w-[25px] md:hidden hover:bg-white"
+            onClick={dropdownSkill}><IoMdArrowDropdown size={25} className="icon" /></Button>
           </div>
-          {isOpen && (
-            <div  className="absolute z-10 w-full top-20 h-fit">
-                {filteredSkills
-            .filter((sk) =>
+          {open && (
+            <div className="absolute z-10 w-full top-80 h-fit left-5 right-5 bg-white">
+                {filteredSkills.filter((sk) =>
               sk.name.toLowerCase().includes(skillInput.toLowerCase())
             )
             .map((skill) => {
               return (
                 <div
                   key={skill._id}
-                  className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00]
-                  max-sm:hidden"
+                  className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00]"
+                  onClick={dropdownSkill}
                 >
                   <input
                     type="checkbox"
@@ -328,7 +333,7 @@ const SkillList = () => {
               );
             })}
         </div>
-        <div className=" flex flex-col gap-3 w-[200px] mt-10">
+        <div className=" flex flex-col gap-3 w-[200px] mt-10 max-sm:hidden">
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
               <h1 className="font-bold">Байршил</h1>
