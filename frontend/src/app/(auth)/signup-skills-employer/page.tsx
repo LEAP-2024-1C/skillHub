@@ -276,9 +276,6 @@ const SignUpSkillsEmployer = () => {
                   });
                 }}
               >
-                {/* <option disabled selected className="text-black text-slate-400">
-                  Сонгох
-                </option> */}
                 <option className="text-black" value="Person">
                   Хувь хүн
                 </option>
@@ -349,17 +346,6 @@ const SignUpSkillsEmployer = () => {
             </div>
             <div className="flex flex-col gap-2 w-[48%]">
               <label className="text-slate-400">Гишүүнчлэл</label>
-              {/* <input
-                type="text"
-                className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
-                value={updatedEmployer?.membership}
-                onChange={(e) => {
-                  setUpdateEmployer({
-                    ...updatedEmployer,
-                    membership: e.target.value,
-                  });
-                }}
-              /> */}
               <div className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff] flex items-center">
                 <p>{updatedEmployer?.membership}</p>
               </div>
