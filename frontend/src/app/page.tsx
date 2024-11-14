@@ -135,7 +135,7 @@ export default function Home() {
   return (
     <section className="lg:w-[1280px] lg:m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] text-[#181818] text-sm 
     max-sm:w-screen">
-      <div className="flex gap-5 max-sm:hidden">
+      <div className="flex gap-5 max-sm:hidden mt-5">
         {category?.slice(0, 5).map((cat) => {
           return (
             <a key={cat._id} href="/ad-section">
