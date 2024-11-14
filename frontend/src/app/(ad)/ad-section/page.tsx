@@ -318,7 +318,7 @@ const JobAds = () => {
     getAllFreelancers();
   }, []);
   return (
-    <div className="flex lg:w-[1280px] md:px-10 min-h-[calc(100vh-326px)] my-20 text-sm max-sm:flex-col max-sm:my-5 max-sm:max-w-screen-sm max-sm:items-center" >
+    <div className="flex lg:w-[1280px] lg:px-10 min-h-[calc(100vh-326px)] my-20 text-sm max-sm:flex-col max-sm:my-5 max-sm:max-w-screen-sm max-sm:items-center" >
       <div className=" md:flex md:flex-col gap-10 w-[200px] max-sm:flex max-sm:justify-center">
         {/* <div className="flex flex-col  w-[200px] gap-1">
           <h1 className="font-bold">Нэр</h1>
