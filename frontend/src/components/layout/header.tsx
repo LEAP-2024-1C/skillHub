@@ -6,16 +6,18 @@ import { useEmployer } from "@/context/EmployerProvider";
 import { useFreelancer } from "@/context/FreelancerProvider";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
+import { LuAlignLeft } from "react-icons/lu";
+import { LiaTimesSolid } from "react-icons/lia";
 
 export const Header = () => {
-  // const { setRole } = useAuth();
   const router = useRouter();
   const { employer, fetchEmployerData } = useEmployer();
   const { freelancer, fetchFreelancerData } = useFreelancer();
   const { isAuthenticated, logout, setRole } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleLogin = (role: string) => {
     setRole(role);
@@ -23,16 +25,42 @@ export const Header = () => {
   };
 
   useEffect(() => {
-    // Fetch data immediately upon login
     if (isAuthenticated) {
       fetchFreelancerData();
       fetchEmployerData();
     }
   }, [isAuthenticated]);
 
+  const dropdownMenu = () => {
+    setIsOpen(!isOpen);
+  }
+
   return (
-    <header className="flex justify-between px-10 h-16 items-center bg-[#181818] text-sm text-[#181818 ]">
-      <div className="flex gap-4 items-center">
+    <header className="flex justify-between px-10 h-16 items-center bg-[#181818] text-sm text-[#181818]
+    max-sm:w-full">
+      <div className="flex gap-4 items-center ">
+
+        <LuAlignLeft className="iconn md:hidden" size={30} onClick={dropdownMenu} />
+        {isOpen && (
+          <div className="absolute top-0 left-0 z-10 flex flex-col w-3/5 h-screen bg-[#181818] text-white py-5 px-3 gap-5">
+              <div className="flex justify-between items-center">
+              <div className="font-bold text-3xl">
+              <img
+            src="https://i.ibb.co/S6MwM9z/Logo-white-nobg.png"
+            alt="logo"
+            className="h-8 mr-10"
+          />
+               </div>
+                        <button onClick={dropdownMenu} className="iconn"><LiaTimesSolid size={24} /></button>
+            </div>
+            <div className="flex flex-col gap-5">
+              <Link href={"/ad-section"} onClick={dropdownMenu}>Ажлын зар</Link>
+              <Link href={"/skill-list"} onClick={dropdownMenu}>Ажилтан хайх</Link>
+            </div>
+           
+          </div>
+        )}
+       
         <Link href={"/"}>
           <img
             src="https://i.ibb.co/S6MwM9z/Logo-white-nobg.png"
@@ -40,6 +68,7 @@ export const Header = () => {
             className="h-8 mr-10"
           />
         </Link>
+        <div className="flex gap-3 max-sm:hidden">
         <Link href={"/ad-section"}>
           <h1 className="flex items-center gap-2 text-white hover:text-[#118a00]">
             <p className="font-normal">Ажлууд</p>
@@ -56,9 +85,11 @@ export const Header = () => {
             <IoIosArrowDown size={12} className="icon" color="white" />
           </h1>
         </Link>
+        </div>
+        
       </div>
       {/*  */}
-      <div className="flex gap-2 items-center w-96">
+      <div className="flex gap-2 items-center w-96 max-sm:hidden">
         <div className="form-control h-8 w-80 font-normal">
           <input
             type="text"

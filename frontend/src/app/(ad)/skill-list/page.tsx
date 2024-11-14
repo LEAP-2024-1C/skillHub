@@ -12,6 +12,8 @@ import location from "@/components/location";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthProvider";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 const SkillList = () => {
   const { category } = useCategory();
@@ -28,6 +30,8 @@ const SkillList = () => {
   const [skillInput, setSkillInput] = useState("");
   const [locationInput, setLocationInput] = useState("");
   const { isAuthenticated } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const router = useRouter();
 
   if (!isAuthenticated) {
@@ -174,6 +178,15 @@ const SkillList = () => {
     setFilteredFreelancers(filtered);
   };
 
+  const dropdownCat = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const dropdownSkill = () => {
+    setOpen(!open);
+    console.log("open");
+  };
+
   useEffect(() => {
     getAllFreelancers();
   }, []);
@@ -196,20 +209,50 @@ const SkillList = () => {
   // console.log("SelectedLocation", selectedLocations);
 
   return (
-    <div className="w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] flex gap-20 my-10 text-sm">
-      <div className=" flex flex-col gap-3 w-[200px]">
-        <div className="flex flex-col  w-[200px] gap-1">
+    <div className="w-full px-5 min-h-[calc(100vh-326px)] bg-[#ffffff] flex gap-10 my-10 text-sm max-sm:flex-col max-sm:my-5 max-sm:w-screen">
+      <div className=" flex flex-col gap-3 w-[200px] max-sm:mx-auto">
+        <div className="flex flex-col w-full gap-1">
           <h1 className="font-bold">Нэр</h1>
           <Input
-            className="h-[28px] my-2"
+            className="h-[28px] my-2 md:hidden"
             value={nameInput}
             onChange={(e) => setNameInput(e.target.value)}
           />
         </div>
-        <div className="flex flex-col  w-[200px] gap-1 mt-5">
+        <div className="md:flex md:flex-col w-[200px] gap-1 mt-5 max-sm:flex max-sm:items-center">
+        <div className="flex items-center gap-2">
           <h1 className="font-bold">Категори</h1>
+          <Button className="bg-transparent w-[25px] md:hidden hover:bg-white"
+              onClick={dropdownCat}><IoMdArrowDropdown size={25} className="icon" /></Button>
+          </div>
+          {isOpen && (
+            <div
+              className="absolute z-10 w-full top-56 h-fit left-5 right-5 bg-white">
+              {category
+                .filter((cat) =>
+                  cat.name.toLowerCase().includes(categoryInput.toLowerCase())
+                )
+                .map((cat) => {
+                  return (
+                    <div
+                      onClick={dropdownCat}
+                      key={cat._id}
+                      className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00]"
+                    >
+                      <input
+                        type="checkbox"
+                        className="checkbox-xs rounded-full mt-[2px] border-[#118a00]"
+                        checked={selectedCategories.includes(cat._id)}
+                        onChange={(e) => handleCategoryChange(e, cat._id)}
+                      />
+                      <p>{cat.name}</p>
+                    </div>
+                  );
+                })}
+              </div>
+          )}
           <Input
-            className="h-[28px] my-2"
+            className="h-[28px] my-2 max-sm:hidden"
             value={categoryInput}
             onChange={(e) => setCategoryInput(e.target.value)}
           />
@@ -221,7 +264,7 @@ const SkillList = () => {
               return (
                 <div
                   key={cat._id}
-                  className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00]"
+                  className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00] max-sm:hidden"
                 >
                   <input
                     type="checkbox"
@@ -235,9 +278,37 @@ const SkillList = () => {
             })}
         </div>
         <div className="flex flex-col gap-1  w-[200px] mt-10">
-          <h1 className="font-bold">Ур чадвар</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="font-bold">Ур чадвар</h1>
+            <Button className="bg-transparent w-[25px] md:hidden hover:bg-white"
+            onClick={dropdownSkill}><IoMdArrowDropdown size={25} className="icon" /></Button>
+          </div>
+          {open && (
+            <div className="absolute z-10 w-full top-80 h-fit left-5 right-5 bg-white">
+                {filteredSkills.filter((sk) =>
+              sk.name.toLowerCase().includes(skillInput.toLowerCase())
+            )
+            .map((skill) => {
+              return (
+                <div
+                  key={skill._id}
+                  className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00]"
+                  onClick={dropdownSkill}
+                >
+                  <input
+                    type="checkbox"
+                    className="checkbox-xs rounded-full mt-[2px] border-[#118a00]"
+                    checked={selectedSkills.includes(skill._id)}
+                    onChange={(e) => handleSkillChange(e, skill._id)}
+                  />
+                  <p>{skill.name}</p>
+                </div>
+              );
+            })}
+            </div>
+          )}
           <Input
-            className="h-[28px] my-2"
+            className="h-[28px] my-2 max-sm:hidden"
             value={skillInput}
             onChange={(e) => setSkillInput(e.target.value)}
           />
@@ -249,7 +320,7 @@ const SkillList = () => {
               return (
                 <div
                   key={skill._id}
-                  className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00]"
+                  className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00] max-sm:hidden"
                 >
                   <input
                     type="checkbox"
@@ -262,11 +333,39 @@ const SkillList = () => {
               );
             })}
         </div>
-        <div className=" flex flex-col gap-3 w-[200px] mt-10">
+        <div className=" flex flex-col gap-3 w-[200px] mt-10 max-sm:hidden">
           <div className="flex flex-col gap-1">
-            <h1 className="font-bold">Байршил</h1>
+            <div className="flex items-center gap-2">
+              <h1 className="font-bold">Байршил</h1>
+              <Button className="bg-transparent w-[25px] md:hidden"
+            onClick={dropdownCat}><IoMdArrowDropdown size={25} className="icon" /></Button>
+            </div>
+            {isOpen && (
+              <div className="absolute z-10 w-full top-20 h-fit">
+                {location
+              .filter((loc) =>
+                loc.toLowerCase().includes(locationInput.toLowerCase())
+              )
+              .map((loc) => {
+                return (
+                  <div
+                    key={loc}
+                    className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00] max-sm:hidden"
+                  >
+                    <input
+                      type="checkbox"
+                      className="checkbox-xs rounded-full mt-[2px] border-[#118a00]"
+                      checked={selectedLocations.includes(loc)}
+                      onChange={(e) => handleLocationChange(e, loc)}
+                    />
+                    <p>{loc}</p>
+                  </div>
+                );
+              })}
+              </div>
+            )}
             <Input
-              className="h-[28px] my-2"
+              className="h-[28px] my-2 max-sm:hidden"
               value={locationInput}
               onChange={(e) => setLocationInput(e.target.value)}
             />
@@ -278,7 +377,7 @@ const SkillList = () => {
                 return (
                   <div
                     key={loc}
-                    className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00]"
+                    className="flex gap-2 hover:text-[#118a00] hover:border-b-[1px] py-1 hover:border-[#118a00] max-sm:hidden"
                   >
                     <input
                       type="checkbox"
@@ -294,13 +393,14 @@ const SkillList = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-between gap-12 w-full">
+      <div className="flex flex-wrap justify-between gap-10 w-full max-sm:flex-col max-sm:items-center">
         {/* Card-1 */}
         {filteredFreelancers?.map((freelancer) => {
           return (
             <div
               key={freelancer?._id}
-              className="hover:border hover:border-[#118a00] w-[30%] h-[450px] rounded-2xl flex flex-col items-center p-6 justify-between bg-[#f9f9f9]"
+              className="hover:border hover:border-[#118a00] w-[28%] h-[450px] rounded-2xl flex flex-col items-center p-6 justify-between bg-[#f9f9f9]
+              max-sm:w-4/5 max-sm:mx-5"
             >
               <div className="flex flex-col items-center">
                 <Avatar
