@@ -40,7 +40,6 @@ export const Footer = () => {
           />
           <p className="max-sm:hidden">© 2024 - 2024 SkillHub®</p>
         </div>
-        <p className="italic mr-[400px] max-sm:hidden">Ур чадварыг уургалъя эдр хаха...</p>
       </div>
     </footer>
   );
