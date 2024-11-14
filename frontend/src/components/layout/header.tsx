@@ -57,7 +57,22 @@ export const Header = () => {
               <Link href={"/ad-section"} onClick={dropdownMenu}>Ажлын зар</Link>
               <Link href={"/skill-list"} onClick={dropdownMenu}>Ажилтан хайх</Link>
             </div>
-           
+            <div className="flex flex-col gap-5">
+            <Link
+                href={"/login"}
+                onClick={() => handleLogin("employer")}
+              className="text-[#118a00] hover:text-white shadow-xl"
+            >
+              Ажил хайгч нэвтрэх
+            </Link>
+            <Link
+                href={"/login"}
+                onClick={() => handleLogin("freelancer")}
+              className="text-[#118a00] hover:text-[#f9f9f9]"
+            >
+              Ажил олгогч нэвтрэх
+            </Link>
+          </div>
           </div>
         )}
        
@@ -90,7 +105,7 @@ export const Header = () => {
       </div>
       {/*  */}
       <div className="flex gap-2 items-center w-96 max-sm:hidden">
-        <div className="form-control h-8 w-80 font-normal">
+        <div className="form-control h-8 w-80 font-normal ">
           <input
             type="text"
             placeholder="Search"
@@ -127,7 +142,7 @@ export const Header = () => {
 
       <div className="flex gap-2">
         {!isAuthenticated ? (
-          <>
+          <div className="max-sm:hidden">
             <Button
               onClick={() => handleLogin("employer")}
               className="bg-white text-[#118a00] rounded-2xl w-[120px] hover:bg-[#118a00] hover:text-white shadow-xl border-none"
@@ -140,7 +155,7 @@ export const Header = () => {
             >
               Ажил хайх
             </Button>
-          </>
+          </div>
         ) : (
           <div className="flex gap-3">
             {freelancer && (

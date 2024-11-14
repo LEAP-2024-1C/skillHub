@@ -22,8 +22,8 @@ const FreelancerProfile = () => {
   }, [employer]);
 
   return (
-    <div className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#f9f9f9]text-sm  my-10 lg:px-[100px]">
-      <div className="flex lg:gap-10 lg:items-center bg-[#f9f9f9] lg:p-10 rounded-t-2xl max-sm:px-5 sm:gap-3">
+    <div className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#f9f9f9] first-line:text-sm  my-10 lg:px-[100px]  max-sm:px-5 max-sm:w-[480px] rounded-2xl">
+      <div className="flex lg:gap-10 lg:items-center bg-[#f9f9f9] lg:p-10 rounded-t-2xl max-sm:px-5 sm:gap-3 pt-5 ">
         <div className="">
           <img
             src={`${employer?.image}`}
@@ -50,7 +50,7 @@ const FreelancerProfile = () => {
             </div>
           </div>
           <p className="mt-5 indent-10 text-justify">{employer?.description}</p>
-          <div className="mt-5 flex justify-between text-[#118a00] font-light pr-10 flex-wrap gap-2">
+          <div className="mt-5 flex justify-between text-[#118a00] font-light pr-10 flex-wrap gap-2 max-sm:flex max-sm:flex-col">
             <p>
               Имэйл:
               <span className="text-[#191919] ml-2">{employer?.email}</span>
