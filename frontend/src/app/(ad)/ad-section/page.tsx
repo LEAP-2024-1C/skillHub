@@ -318,16 +318,8 @@ const JobAds = () => {
     getAllFreelancers();
   }, []);
   return (
-    <div className="flex lg:w-[1280px] lg:px-10 min-h-[calc(100vh-326px)] my-20 text-sm max-sm:flex-col max-sm:my-5 max-sm:max-w-screen-sm max-sm:items-center" >
-      <div className=" md:flex md:flex-col gap-10 w-[200px] max-sm:flex max-sm:justify-center">
-        {/* <div className="flex flex-col  w-[200px] gap-1">
-          <h1 className="font-bold">Нэр</h1>
-          <Input
-            className="h-[28px] my-2"
-            value={nameInput}
-            onChange={(e) => setNameInput(e.target.value)}
-          />
-        </div> */}
+    <div className="flex lg:w-[1280px] lg:px-20 min-h-[calc(100vh-326px)] my-20 text-sm max-sm:flex-col max-sm:my-5 max-sm:max-w-screen-sm max-sm:items-center gap-10" >
+      <div className=" lg:flex lg:flex-col gap-10 w-[200px] max-sm:flex max-sm:justify-center">
         <div className="flex flex-col w-[200px] gap-1 
         max-sm:ml-10">
           <div className="flex items-center gap-2">
@@ -484,10 +476,10 @@ const JobAds = () => {
       </div>
 
       {/* mid */}
-      <div className="flex items-start gap-10 flex-col md:w-full max-sm:w-screen  md:mx-20 max-sm:mt-5">
+      <div className="flex items-start gap-10 flex-col lg:w-full max-sm:w-screen lg:mx-10 max-sm:mt-5">
         {employer && (
-          <div className="md:w-full max-sm:w-screen">
-            <div className="max-lg:w-full md:w-full rounded-2xl bg-[#f9f9f9] m-auto py-5 px-10 ">
+          <div className="lg:w-full max-sm:w-screen">
+            <div className="max-lg:w-full lg:w-full rounded-2xl bg-[#f9f9f9] m-auto py-5 px-10 ">
               <div className="flex gap-5">
                 <img
                   src={`${employer.image}`}
@@ -582,24 +574,6 @@ const JobAds = () => {
                         <p className="w-full">
                           <strong className="font-normal">Категори</strong>
                         </p>
-                        {/* <Select>
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Сонгох" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectLabel>Категори</SelectLabel>
-                              {category?.map((cat, idx) => (
-                                <SelectItem
-                                  key={`first ${idx}`}
-                                  value={cat._id}
-                                >
-                                  {cat.name}
-                                </SelectItem>
-                              ))}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select> */}
                         <select
                           className="select select-bordered join-item w-full border-[1px] border-[#ebeaea]"
                           value={selectedCategory}
@@ -761,7 +735,7 @@ const JobAds = () => {
           </div>
         )}
 
-        <div className="md:w-[400px] max-sm:px-1 max-sm:w-screen">
+        <div className="md:w-[400px] max-sm:px-1 max-sm:w-screen m-auto">
           {" "}
           <h1 className="mt-5 text-center">
             <strong className="text-[#118a00] text-xl ">Ажлын зарууд</strong>
@@ -824,7 +798,7 @@ const JobAds = () => {
           </div>
         </div>
       </div>
-      <div className="md:w-[400px] max-sm:px-10 max-sm:w-full">
+      <div className="lg:w-[400px] max-sm:px-10 max-sm:w-full">
         <h1 className="font-bold mb-5">Шилдгүүд</h1>
         <div className="flex flex-col gap-5">
           {allFreelancers.slice(0, 5).map((freelancer) => {
@@ -833,7 +807,7 @@ const JobAds = () => {
                 key={freelancer._id}
                 href={`/skill-list/detail/${freelancer._id}`}
               >
-                <div className="rounded-2xl p-2 flex flex-col gap-2 border-[1px] w-full  hover:border hover:border-[#118a00]">
+                <div className="rounded-2xl p-2 flex flex-col gap-2 border-[1px] w-full hover:border hover:border-[#118a00]">
                   <div className="flex items-center gap-3">
                     <img
                       src={`${freelancer.image}`}
