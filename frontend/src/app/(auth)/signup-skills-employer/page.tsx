@@ -10,9 +10,9 @@ import location from "@/components/location";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthProvider";
 import { apiUrl } from "@/app/utils/util";
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Sheet,
   SheetClose,
@@ -110,7 +110,9 @@ const SignUpSkillsEmployer = () => {
 
   return (
     <div className="lg:w-[1280px] lg:m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] lg:mt-20 max-sm:my-10 max-sm:px-5 mb-20 text-sm justify-center items-center max-sm:text-center">
-      <h2 className="text-[#118a00] text-2xl max-sm:text-md">Дэлгэрэнгүй бүртгэл</h2>
+      <h2 className="text-[#118a00] text-2xl max-sm:text-md">
+        Дэлгэрэнгүй бүртгэл
+      </h2>
       <div className="flex justify-between mt-10">
         <div className="flex lg:flex-col lg:gap-10 items-center lg:w-[23%] lg:p-10 lg:ml-[10%] max-sm:gap-5 ml-8">
           <Avatar className="lg:w-36 lg:h-36 bg-[#f9f9f9] max-sm:w-[40px] max-sm:h-[40px]">
@@ -146,110 +148,123 @@ const SignUpSkillsEmployer = () => {
             </CldUploadWidget>
           </div>
           <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline" className="bg-[#f9f9f9]">Edit profile</Button>
-      </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
-        </SheetHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label className="text-left">
-              Нэр
-            </Label>
-                  <Input value={updatedEmployer?.fullnameOrCompany}
+            <SheetTrigger asChild>
+              <Button variant="outline" className="bg-[#f9f9f9] lg:hidden">
+                Edit profile
+              </Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Edit profile</SheetTitle>
+              </SheetHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label className="text-left">Нэр</Label>
+                  <Input
+                    value={updatedEmployer?.fullnameOrCompany}
                     className="col-span-3"
-                     onChange={(e) => {
+                    onChange={(e) => {
                       setUpdateEmployer({
                         ...updatedEmployer,
                         fullnameOrCompany: e.target.value,
                       });
                     }}
                   />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="type" className="text-left">
-              Төрөл
-            </Label>
-            <select
-                className="hover:border w-[300px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
-                value={updatedEmployer?.type}
-                onChange={(e) => {
-                  setUpdateEmployer({
-                    ...updatedEmployer,
-                    type: e.target.value,
-                  });
-                }}
-              >
-                <option className="text-black text-sm" value="Person">
-                  Хувь хүн
-                </option>
-                <option className="text-black text-sm" value="Company">
-                  Компани
-                </option>
-              </select>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="description" className="text-left">
-              Нэмэлт мэдээлэл
-            </Label>
-            <Textarea 
-             placeholder="Description" 
-             className="col-span-3 w-[220px]"
-             value={updatedEmployer?.description}
-              onChange={(e) => {
-                setUpdateEmployer({
-                  ...updatedEmployer,
-                  description: e.target.value,
-                });
-              }}/>
-                </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="email" className="text-left">
-             Имэйл
-            </Label>
-            <Input id="email"  value={updatedEmployer?.email}
-                onChange={(e) => {
-                  setUpdateEmployer({
-                    ...updatedEmployer,
-                    email: e.target.value,
-                  });
-                }} className="col-span-3" />
+                  <Label htmlFor="type" className="text-left">
+                    Төрөл
+                  </Label>
+                  <select
+                    className="hover:border w-[300px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
+                    value={updatedEmployer?.type}
+                    onChange={(e) => {
+                      setUpdateEmployer({
+                        ...updatedEmployer,
+                        type: e.target.value,
+                      });
+                    }}
+                  >
+                    <option className="text-black text-sm" value="Person">
+                      Хувь хүн
+                    </option>
+                    <option className="text-black text-sm" value="Company">
+                      Компани
+                    </option>
+                  </select>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="phone" className="text-right">
-             Утасны дугаар
-            </Label>
-                  <Input id="phone"
+                  <Label htmlFor="description" className="text-left">
+                    Нэмэлт мэдээлэл
+                  </Label>
+                  <Textarea
+                    placeholder="Description"
+                    className="col-span-3 w-[220px]"
+                    value={updatedEmployer?.description}
+                    onChange={(e) => {
+                      setUpdateEmployer({
+                        ...updatedEmployer,
+                        description: e.target.value,
+                      });
+                    }}
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="email" className="text-left">
+                    Имэйл
+                  </Label>
+                  <Input
+                    id="email"
+                    value={updatedEmployer?.email}
+                    onChange={(e) => {
+                      setUpdateEmployer({
+                        ...updatedEmployer,
+                        email: e.target.value,
+                      });
+                    }}
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="phone" className="text-right">
+                    Утасны дугаар
+                  </Label>
+                  <Input
+                    id="phone"
                     value={updatedEmployer?.number}
-                onChange={(e) => {
-                  setUpdateEmployer({
-                    ...updatedEmployer,
-                    number: e.target.value,
-                  });
-                }} className="col-span-3" />
+                    onChange={(e) => {
+                      setUpdateEmployer({
+                        ...updatedEmployer,
+                        number: e.target.value,
+                      });
+                    }}
+                    className="col-span-3"
+                  />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="work" className="text-right">
-             Ажлын газар
-            </Label>
-            <Input id="work"  value={updatedEmployer?.location}
-                onChange={(e) => {
-                  setUpdateEmployer({
-                    ...updatedEmployer,
-                    number: e.target.value,
-                  });
-                }} className="col-span-3" />
-          </div>
-        </div>
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button type="submit">Хадгалах</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+                  <Label htmlFor="work" className="text-right">
+                    Ажлын газар
+                  </Label>
+                  <Input
+                    id="work"
+                    value={updatedEmployer?.location}
+                    onChange={(e) => {
+                      setUpdateEmployer({
+                        ...updatedEmployer,
+                        number: e.target.value,
+                      });
+                    }}
+                    className="col-span-3"
+                  />
+                </div>
+              </div>
+              <SheetFooter>
+                <SheetClose asChild>
+                  <Button type="submit">Хадгалах</Button>
+                </SheetClose>
+              </SheetFooter>
+            </SheetContent>
+          </Sheet>
         </div>
         <div className="border-[1px] rounded-2xl p-10 bg-[#f9f9f9] w-[46%] h-[700px] max-sm:hidden">
           <div className="flex gap-5">
@@ -288,17 +303,19 @@ const SignUpSkillsEmployer = () => {
               </select>
             </div>
           </div>
-          <div className="flex flex-col gap-2 w-[100%] mt-5">
+          <div className="flex flex-col gap-2 w-[100%] mt-5 ">
             <label className="text-slate-400">Дэлгэрэнгүй</label>
-            <Textarea 
-             placeholder="Description" 
-             value={updatedEmployer?.description}
+            <Textarea
+              placeholder="Description"
+              value={updatedEmployer?.description}
               onChange={(e) => {
                 setUpdateEmployer({
                   ...updatedEmployer,
                   description: e.target.value,
                 });
-              }}/>
+              }}
+              className="min-h-40 p-5"
+            />
           </div>
           <div className="flex gap-5 mt-5">
             <div className="flex flex-col gap-2 w-[48%]">

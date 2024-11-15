@@ -33,49 +33,60 @@ export const Header = () => {
 
   const dropdownMenu = () => {
     setIsOpen(!isOpen);
-  }
+  };
 
   return (
-    <header className="flex justify-between px-10 h-16 items-center bg-[#181818] text-sm text-[#181818]
-    max-sm:w-full">
+    <header
+      className="flex justify-between px-10 h-16 items-center bg-[#181818] text-sm text-[#181818]
+    max-sm:w-full"
+    >
       <div className="flex gap-4 items-center ">
-
-        <LuAlignLeft className="iconn md:hidden" size={30} onClick={dropdownMenu} />
+        <LuAlignLeft
+          className="iconn md:hidden"
+          size={30}
+          onClick={dropdownMenu}
+        />
         {isOpen && (
           <div className="absolute top-0 left-0 z-10 flex flex-col w-3/5 h-screen bg-[#181818] text-white py-5 px-3 gap-5">
-              <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center">
               <div className="font-bold text-3xl">
-              <img
-            src="https://i.ibb.co/S6MwM9z/Logo-white-nobg.png"
-            alt="logo"
-            className="h-8 mr-10"
-          />
-               </div>
-                        <button onClick={dropdownMenu} className="iconn"><LiaTimesSolid size={24} /></button>
+                <img
+                  src="https://i.ibb.co/S6MwM9z/Logo-white-nobg.png"
+                  alt="logo"
+                  className="h-8 mr-10"
+                />
+              </div>
+              <button onClick={dropdownMenu} className="iconn">
+                <LiaTimesSolid size={24} />
+              </button>
             </div>
             <div className="flex flex-col gap-5">
-              <Link href={"/ad-section"} onClick={dropdownMenu}>Ажлын зар</Link>
-              <Link href={"/skill-list"} onClick={dropdownMenu}>Ажилтан хайх</Link>
+              <Link href={"/ad-section"} onClick={dropdownMenu}>
+                Ажлын зар
+              </Link>
+              <Link href={"/skill-list"} onClick={dropdownMenu}>
+                Ажилтан хайх
+              </Link>
             </div>
             <div className="flex flex-col gap-5">
-            <Link
+              <Link
                 href={"/login"}
                 onClick={() => handleLogin("employer")}
-              className="text-[#118a00] hover:text-white shadow-xl"
-            >
-              Ажил хайгч нэвтрэх
-            </Link>
-            <Link
+                className="text-[#118a00] hover:text-white shadow-xl"
+              >
+                Ажил хайгч нэвтрэх
+              </Link>
+              <Link
                 href={"/login"}
                 onClick={() => handleLogin("freelancer")}
-              className="text-[#118a00] hover:text-[#f9f9f9]"
-            >
-              Ажил олгогч нэвтрэх
-            </Link>
-          </div>
+                className="text-[#118a00] hover:text-[#f9f9f9]"
+              >
+                Ажил олгогч нэвтрэх
+              </Link>
+            </div>
           </div>
         )}
-       
+
         <Link href={"/"}>
           <img
             src="https://i.ibb.co/S6MwM9z/Logo-white-nobg.png"
@@ -84,24 +95,23 @@ export const Header = () => {
           />
         </Link>
         <div className="flex gap-3 max-sm:hidden">
-        <Link href={"/ad-section"}>
-          <h1 className="flex items-center gap-2 text-white hover:text-[#118a00]">
-            <p className="font-normal">Ажлууд</p>
-            <IoIosArrowDown
-              size={12}
-              className="icon hover:display-hidden "
-              color="white"
-            />
-          </h1>
-        </Link>
-        <Link href={"/skill-list"}>
-          <h1 className="flex items-center gap-2 text-white hover:text-[#118a00]">
-            <p className="font-normal">Ажилтнууд</p>
-            <IoIosArrowDown size={12} className="icon" color="white" />
-          </h1>
-        </Link>
+          <Link href={"/ad-section"}>
+            <h1 className="flex items-center gap-2 text-white hover:text-[#118a00]">
+              <p className="font-normal">Ажлууд</p>
+              <IoIosArrowDown
+                size={12}
+                className="icon hover:display-hidden "
+                color="white"
+              />
+            </h1>
+          </Link>
+          <Link href={"/skill-list"}>
+            <h1 className="flex items-center gap-2 text-white hover:text-[#118a00]">
+              <p className="font-normal">Ажилтнууд</p>
+              <IoIosArrowDown size={12} className="icon" color="white" />
+            </h1>
+          </Link>
         </div>
-        
       </div>
       {/*  */}
       <div className="flex gap-2 items-center w-96 max-sm:hidden">
@@ -142,7 +152,7 @@ export const Header = () => {
 
       <div className="flex gap-2">
         {!isAuthenticated ? (
-          <div className="max-sm:hidden">
+          <div className="max-sm:hidden flex gap-2">
             <Button
               onClick={() => handleLogin("employer")}
               className="bg-white text-[#118a00] rounded-2xl w-[120px] hover:bg-[#118a00] hover:text-white shadow-xl border-none"

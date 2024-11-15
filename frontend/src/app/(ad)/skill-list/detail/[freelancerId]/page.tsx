@@ -49,68 +49,67 @@ const DetailPage = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-[calc(100vh-326px)] bg-[#f9f9f9] text-sm  my-10 lg:px-[100px] max-sm:flex max-sm:flex-col max-sm:items-center max-sm:gap-5
-    max-sm:w-screen">
+    <div className="lg:max-w-[1280px] min-h-[calc(100vh-326px)] bg-[#f9f9f9] text-sm  my-10 lg:mx-auto max-sm:flex max-sm:flex-col max-sm:items-center max-sm:gap-5 max-sm:w-screen">
       <div className="flex gap-10 items-center bg-[#f9f9f9] lg:p-10 rounded-t-2xl max-sm:items-center max-sm:flex-col">
-        <div className="max-sm:flex max-sm:flex-col"> <div className="w-[200px] max-sm:flex max-sm:gap-5">
-          <img
-            src={`${choosenFreelancer?.image}`}
-            alt="profile"
-            className="lg:h-[150px] lg:w-[150px] rounded-full border-4 border-[#118a00] object-cover
+        <div className="max-sm:flex max-sm:flex-col">
+          {" "}
+          <div className="w-[200px] max-sm:flex max-sm:gap-5">
+            <img
+              src={`${choosenFreelancer?.image}`}
+              alt="profile"
+              className="lg:h-[150px] lg:w-[150px] rounded-full border-4 border-[#118a00] object-cover
             max-sm:w-[40px] max-sm:h-[40px]"
-          />
-           <div className="flex justify-between w-full items-center md:hidden text-sm gap-3">
-            <div className="flex gap-3 items-center">
-              <p className="">{choosenFreelancer?.firstname}</p>
-              <p className="font-bold">
-                {choosenFreelancer?.lastname}
-              </p>
+            />
+            <div className="flex justify-between w-full items-center md:hidden text-sm gap-3">
+              <div className="flex gap-3 items-center">
+                <p className="">{choosenFreelancer?.firstname}</p>
+                <p className="font-bold">{choosenFreelancer?.lastname}</p>
+              </div>
+              <div className="flex items-center gap-5">
+                <p className="text-[#118a00] text-sm border-[1px] border-[#118a00] px-2 py-[1px] rounded-full">
+                  {choosenFreelancer?.type}
+                </p>
+                {freelancerId === freelancer?._id ? (
+                  <Link href="/signup-skills">
+                    <Edit color="#118a00" size={22} />
+                  </Link>
+                ) : null}
+              </div>
             </div>
-            <div className="flex items-center gap-5">
-              <p className="text-[#118a00] text-sm border-[1px] border-[#118a00] px-2 py-[1px] rounded-full">
-                {choosenFreelancer?.type}
+          </div>
+          <div className="flex flex-col md:hidden">
+            <p className="mt-5 indent-10 text-justify w-[200px]">
+              {choosenFreelancer?.description}
+            </p>
+            <div className="mt-5 flex flex-col text-[#118a00] font-light pr-10 flex-wrap gap-2">
+              <p>
+                Имэйл:
+                <span className="text-[#191919] ml-2">
+                  {choosenFreelancer?.email}
+                </span>
               </p>
-              {freelancerId === freelancer?._id ? (
-                <Link href="/signup-skills">
-                  <Edit color="#118a00" size={22} />
-                </Link>
-              ) : null}
+              <p>
+                Утасны дугаар:
+                <span className="text-[#191919] ml-2">
+                  {choosenFreelancer?.number}
+                </span>
+              </p>
+              <p>
+                Компани:
+                <span className="text-[#191919] ml-2">
+                  {choosenFreelancer?.company}
+                </span>
+              </p>
+              <p>
+                Албан тушаал:
+                <span className="text-[#191919] ml-2">
+                  {choosenFreelancer?.position}
+                </span>
+              </p>
             </div>
           </div>
         </div>
-        <div className="flex flex-col md:hidden">
-        <p className="mt-5 indent-10 text-justify w-[200px]">
-            {choosenFreelancer?.description}
-          </p>
-          <div className="mt-5 flex flex-col text-[#118a00] font-light pr-10 flex-wrap gap-2">
-            <p>
-              Имэйл:
-              <span className="text-[#191919] ml-2">
-                {choosenFreelancer?.email}
-              </span>
-            </p>
-            <p>
-              Утасны дугаар:
-              <span className="text-[#191919] ml-2">
-                {choosenFreelancer?.number}
-              </span>
-            </p>
-            <p>
-              Компани:
-              <span className="text-[#191919] ml-2">
-                {choosenFreelancer?.company}
-              </span>
-            </p>
-            <p>
-              Албан тушаал:
-              <span className="text-[#191919] ml-2">
-                {choosenFreelancer?.position}
-              </span>
-            </p>
-        </div>
-      </div></div>
-       
-        
+
         <div className="w-full mr-10 ml-5 max-sm:hidden">
           <div className="flex justify-between w-full items-center">
             <div className="flex gap-3 items-center">

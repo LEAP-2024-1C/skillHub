@@ -148,14 +148,14 @@ const AdDetail = () => {
   }, []);
 
   return (
-    <div className="flex gap-10 lg:w-[1280px] m-auto min-h-[calc(100vh-326px)]  my-20 text-sm justify-between">
+    <div className="flex gap-10 lg:max-w-[1280px] mx-auto min-h-[calc(100vh-326px)]  my-20 text-sm justify-between">
       <div className="flex w-full">
         <div className="flex flex-col gap-5 w-[540px] max-sm:hidden">
           <h1 className="">
             <strong>Ажлын зарууд</strong>
           </h1>
           <div className="pr-5 flex flex-col gap-3">
-            {jobAds.slice(0.3).map((jobAd) => {
+            {jobAds.slice(0, 3).map((jobAd) => {
               return (
                 <Link key={jobAd._id} href={`/ad-section/detail/${jobAd._id}`}>
                   <div className="w-full rounded-3xl hover:border hover:border-[#118a00]  flex flex-col gap-2 py-3 px-5 bg-white group text-xs">
