@@ -13,20 +13,20 @@ const Contact = () => {
               <p>90069669</p>
             </div>
             <div className="flex justify-between gap-20 ml-80 hover:text-[#118a00]">
-              <p>Сэлэнгэ</p>
-              <p>90069669</p>
+              <p>Г.Сэлэнгэ</p>
+              <p>99250822</p>
             </div>
             <div className="flex justify-between gap-20 ml-80 hover:text-[#118a00]">
               <p>Б.Тэмүүлэн</p>
-              <p>90069669</p>
+              <p>80007180</p>
             </div>
             <div className="flex justify-between gap-20 ml-80 hover:text-[#118a00]">
-              <p>Эрдэнэжаргал</p>
-              <p>90069669</p>
+              <p>О.Эрдэнэжаргал</p>
+              <p>88176248</p>
             </div>
             <div className="flex justify-between gap-20 ml-80 hover:text-[#118a00]">
-              <p>Эрдэнэхишиг</p>
-              <p>90069669</p>
+              <p>Ц.Эрдэнэхишиг</p>
+              <p>96020548</p>
             </div>
           </div>
         </div>

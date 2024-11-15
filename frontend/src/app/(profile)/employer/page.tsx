@@ -22,17 +22,17 @@ const FreelancerProfile = () => {
   }, [employer]);
 
   return (
-    <div className="max-w-[1280px] m-auto min-h-[calc(100vh-326px)] bg-[#f9f9f9]text-sm  my-10 lg:px-[100px]">
-      <div className="flex lg:gap-10 lg:items-center bg-[#f9f9f9] lg:p-10 rounded-t-2xl max-sm:px-5 sm:gap-3">
+    <div className="max-w-[1280px] lg:m-auto min-h-[calc(100vh-326px)] bg-[#f9f9f9] first-line:text-sm  my-10 lg:px-[100px]  max-sm:px-5 max-sm:w-screen rounded-2xl">
+      <div className="flex lg:gap-10 lg:items-center bg-[#f9f9f9] lg:p-10 rounded-t-2xl max-sm:px-5 sm:gap-3 pt-5 ">
         <div className="">
           <img
             src={`${employer?.image}`}
             alt="profile"
-            className="lg:h-[150px] lg:w-[150px]  border-4 rounded-full border-[#118a00] object-cover sm:w-[30px] sm:h-[30px]"
+            className="lg:h-[150px] lg:w-[150px]  lgb:border-4 max-sm:border-2 rounded-full border-[#118a00] object-cover max-sm:w-[40px] max-sm:h-[40px]"
           /> 
           {/* <p className="text-[#118a00]">({employer?.membership})</p> */}
         </div>
-        <div className="w-full mr-10 ml-5 max-sm:w-screen">
+        <div className="w-full lg:mr-10 lg:ml-5 max-sm:w-screen max-sm:ml-3">
           <div className="flex justify-between w-full items-center">
             <div className="flex gap-3 items-center">
               <p className="text-2xl text-[#118a00] max-sm:text-sm">{employer?.type}:</p>
@@ -50,7 +50,7 @@ const FreelancerProfile = () => {
             </div>
           </div>
           <p className="mt-5 indent-10 text-justify">{employer?.description}</p>
-          <div className="mt-5 flex justify-between text-[#118a00] font-light pr-10 flex-wrap gap-2">
+          <div className="mt-5 flex justify-between text-[#118a00] font-light pr-10 flex-wrap gap-2 max-sm:flex max-sm:flex-col">
             <p>
               Имэйл:
               <span className="text-[#191919] ml-2">{employer?.email}</span>

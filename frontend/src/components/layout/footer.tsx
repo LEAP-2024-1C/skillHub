@@ -23,7 +23,7 @@ export const Footer = () => {
         <div className="flex gap-5 items-center w-fit max-sm:justify-center">
           <div className="flex gap-2">
             <PhoneCall size={14} />
-            <p className="hover:text-[#118a00]">99991111</p>
+            <p className="hover:text-[#118a00]">90069669</p>
           </div>
           <div className="flex gap-2 items-center">
             <MailIcon size={14} />
@@ -31,15 +31,17 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="flex md:w-full justify-between pt-8 border-t-[1px] border-[#118a00] items-center max-sm:justify-center">
-        <div className="flex items-center gap-5">
+      <div className="flex lg:w-full justify-between pt-8 border-t-[1px] border-[#118a00] items-center max-sm:justify-center">
+        <div className="flex items-center gap-5 ">
           <img
             src="https://i.ibb.co/S6MwM9z/Logo-white-nobg.png"
             alt="logo"
             className="h-6"
           />
           <p className="max-sm:hidden">© 2024 - 2024 SkillHub®</p>
+         
         </div>
+        <p>Ур чадварыг уургалъя эдр ккк...</p>
       </div>
     </footer>
   );
