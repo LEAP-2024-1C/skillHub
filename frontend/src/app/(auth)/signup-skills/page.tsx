@@ -13,9 +13,9 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthProvider";
 import { apiUrl } from "@/app/utils/util";
 import location from "@/components/location";
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Sheet,
   SheetClose,
@@ -24,7 +24,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
+import { Textarea } from "@/components/ui/textarea";
 
 const SignUpSkills = () => {
   const { freelancer } = useFreelancer();
@@ -177,7 +178,7 @@ const SignUpSkills = () => {
       <h2 className="text-[#118a00] text-2xl max-sm:text-md max-sm:ml-10">Дэлгэрэнгүй бүртгэл</h2>
       <div className="flex max-sm:flex-col justify-between mt-10">
         <div className="flex lg:flex-col lg:gap-10 items-center lg:w-[23%] p-10 max-sm:gap-5">
-          <Avatar className="lg:w-36 lg:h-36 bg-[#f9f9f9] ax-sm:w-[40px] max-sm:h-[40px]">
+          <Avatar className="lg:w-36 lg:h-36 bg-[#f9f9f9] max-sm:w-[40px] max-sm:h-[40px]">
             <AvatarImage
               src={freelancer?.image}
               className="lg:w-full lg:h-full object-cover max-sm:w-[40px] max-sm:h-[40px]"
@@ -199,12 +200,13 @@ const SignUpSkills = () => {
             >
               {({ open }) => {
                 return (
-                  <button
+                  <Button
                     className="px-3 py-1 bg-[#f9f9f9] lg:rounded-2xl "
                     onClick={() => open()}
+                    variant="outline"
                   >
                     Upload an Image
-                  </button>
+                  </Button>
                 );
               }}
             </CldUploadWidget>
@@ -219,8 +221,8 @@ const SignUpSkills = () => {
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label className="text-right">
-              Lastname
+            <Label className="text-left">
+          Овог
             </Label>
                   <Input
                     className="col-span-3"
@@ -234,8 +236,8 @@ const SignUpSkills = () => {
                   />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="type" className="text-right">
-              Firstname
+            <Label htmlFor="type" className="text-left">
+              Нэр
             </Label>
                   <Input id="type" className="col-span-3"
                     value={updatedFreelancer?.firstname}
@@ -245,25 +247,21 @@ const SignUpSkills = () => {
                         firstname: e.target.value,
                       });
                     }} />
-                   <option className="text-black" value="Person">
-                  Хувь хүн
-                </option>
-                <option className="text-black" value="Company">
-                  Компани
-                </option>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="description" className="text-right">
-              Дэлгэрэнгүй
+            Нэмэлт мэдээлэл
             </Label>
-                  <Input id="description"
-                    value={updatedFreelancer?.description}
+            <Textarea 
+             placeholder="Description " 
+             className="col-span-3 w-[210px] text-sm"
+             value={updatedFreelancer?.description}
               onChange={(e) => {
                 setUpdateFreelancer({
                   ...updatedFreelancer,
                   description: e.target.value,
                 });
-              }} className="col-span-3" />
+              }}/>
                 </div>
             <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="email" className="text-right">
@@ -277,7 +275,7 @@ const SignUpSkills = () => {
                          email: e.target.value,
                        });
                      }}
-                    className="col-span-3" />
+                    className="col-span-3 w-[210px]" />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="phone" className="text-right">
@@ -290,21 +288,24 @@ const SignUpSkills = () => {
                         ...updatedFreelancer,
                         number: e.target.value,
                       });
-                    }}className="col-span-3" />
+                    }}className="col-span-3 w-[210px]" />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="work" className="text-right">
              Ажлын газар
             </Label>
-                  <Input id="work"
-                    value={updatedFreelancer?.location}
+            <select
+              className="select select-bordered join-item w-[210px] mt-2 p-2 rounded-lg text-black border border-gray-300 hover:border-[#118a00] bg-white transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[#118a00]"
+              aria-label="Choose an option"
+              value={updatedFreelancer?.location}
               onChange={(e) => {
                 setUpdateFreelancer({
                   ...updatedFreelancer,
                   location: e.target.value,
                 });
-                    }} className="col-span-3" />
-                   <option disabled selected className="text-black">
+              }}
+            >
+              <option disabled selected className="text-black">
                 Сонгох
               </option>
               {location?.map((loc) => {
@@ -314,11 +315,12 @@ const SignUpSkills = () => {
                   </option>
                 );
               })}
+            </select>
           </div>
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit">Хадгалах</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

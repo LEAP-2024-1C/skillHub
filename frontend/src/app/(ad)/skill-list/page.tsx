@@ -209,7 +209,7 @@ const SkillList = () => {
   // console.log("SelectedLocation", selectedLocations);
 
   return (
-    <div className="w-full px-5 min-h-[calc(100vh-326px)] bg-[#ffffff] flex gap-10 my-10 text-sm max-sm:flex-col max-sm:my-5 max-sm:w-screen">
+    <div className="lg:w-[1280px] lg:mx-auto min-h-[calc(100vh-326px)] bg-[#ffffff] flex lg:justify-evenly gap-10 my-10 text-sm max-sm:flex-col max-sm:my-5 max-sm:w-screen">
       <div className=" flex flex-col gap-3 w-[200px] max-sm:mx-auto">
         <div className="flex flex-col w-full gap-1">
           <h1 className="font-bold">Нэр</h1>
@@ -219,7 +219,7 @@ const SkillList = () => {
             onChange={(e) => setNameInput(e.target.value)}
           />
         </div>
-        <div className="md:flex md:flex-col w-[200px] gap-1 mt-5 max-sm:flex max-sm:items-center">
+        <div className="lg:flex lg:flex-col w-[200px] gap-1 mt-5 max-sm:flex max-sm:items-center">
         <div className="flex items-center gap-2">
           <h1 className="font-bold">Категори</h1>
           <Button className="bg-transparent w-[25px] md:hidden hover:bg-white"

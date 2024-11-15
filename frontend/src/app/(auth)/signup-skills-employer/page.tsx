@@ -21,7 +21,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
+import { Textarea } from "@/components/ui/textarea";
 
 const SignUpSkillsEmployer = () => {
   const { employer } = useEmployer();
@@ -111,7 +112,7 @@ const SignUpSkillsEmployer = () => {
     <div className="lg:w-[1280px] lg:m-auto min-h-[calc(100vh-326px)] bg-[#ffffff] lg:mt-20 max-sm:my-10 max-sm:px-5 mb-20 text-sm justify-center items-center max-sm:text-center">
       <h2 className="text-[#118a00] text-2xl max-sm:text-md">Дэлгэрэнгүй бүртгэл</h2>
       <div className="flex justify-between mt-10">
-        <div className="flex lg:flex-col lg:gap-10 items-center lg:w-[23%] p-10 ml-[10%] max-sm:gap-5">
+        <div className="flex lg:flex-col lg:gap-10 items-center lg:w-[23%] lg:p-10 lg:ml-[10%] max-sm:gap-5 ml-8">
           <Avatar className="lg:w-36 lg:h-36 bg-[#f9f9f9] max-sm:w-[40px] max-sm:h-[40px]">
             <AvatarImage
               src={employer?.image}
@@ -154,8 +155,8 @@ const SignUpSkillsEmployer = () => {
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label className="text-right">
-              Name
+            <Label className="text-left">
+              Нэр
             </Label>
                   <Input value={updatedEmployer?.fullnameOrCompany}
                     className="col-span-3"
@@ -168,38 +169,44 @@ const SignUpSkillsEmployer = () => {
                   />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="type" className="text-right">
+            <Label htmlFor="type" className="text-left">
               Төрөл
             </Label>
-                  <Input id="type" className="col-span-3"
-                   value={updatedEmployer?.type}
-                   onChange={(e) => {
-                     setUpdateEmployer({
-                       ...updatedEmployer,
-                       type: e.target.value,
-                     });
-                    }} />
-                   <option className="text-black" value="Person">
+            <select
+                className="hover:border w-[300px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff]"
+                value={updatedEmployer?.type}
+                onChange={(e) => {
+                  setUpdateEmployer({
+                    ...updatedEmployer,
+                    type: e.target.value,
+                  });
+                }}
+              >
+                <option className="text-black text-sm" value="Person">
                   Хувь хүн
                 </option>
-                <option className="text-black" value="Company">
+                <option className="text-black text-sm" value="Company">
                   Компани
                 </option>
+              </select>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="description" className="text-right">
-              Дэлгэрэнгүй
+            <Label htmlFor="description" className="text-left">
+              Нэмэлт мэдээлэл
             </Label>
-            <Input id="description" value={updatedEmployer?.description}
+            <Textarea 
+             placeholder="Description" 
+             className="col-span-3 w-[220px]"
+             value={updatedEmployer?.description}
               onChange={(e) => {
                 setUpdateEmployer({
                   ...updatedEmployer,
                   description: e.target.value,
                 });
-              }} className="col-span-3" />
+              }}/>
                 </div>
             <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="email" className="text-right">
+            <Label htmlFor="email" className="text-left">
              Имэйл
             </Label>
             <Input id="email"  value={updatedEmployer?.email}
@@ -238,7 +245,7 @@ const SignUpSkillsEmployer = () => {
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit">Хадгалах</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>
@@ -283,17 +290,15 @@ const SignUpSkillsEmployer = () => {
           </div>
           <div className="flex flex-col gap-2 w-[100%] mt-5">
             <label className="text-slate-400">Дэлгэрэнгүй</label>
-            <input
-              type="text"
-              className="hover:border h-[36px] hover:border-[#118a00] px-2 py-1 rounded-lg bg-[#ffffff] min-h-40"
-              value={updatedEmployer?.description}
+            <Textarea 
+             placeholder="Description" 
+             value={updatedEmployer?.description}
               onChange={(e) => {
                 setUpdateEmployer({
                   ...updatedEmployer,
                   description: e.target.value,
                 });
-              }}
-            />
+              }}/>
           </div>
           <div className="flex gap-5 mt-5">
             <div className="flex flex-col gap-2 w-[48%]">
